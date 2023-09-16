@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 目标对象
+    const Obj = {
+        name: 'YLM',
+        agr: 20,
+        wife: {
+            name: 'ylm',
+            agr: 20,
+            cars: ['efwfe', 'wef', 'wef']
+
+        }
+    }
+    /**
+     * Proxy
+     *          参数:参数一:需要代理的目标对象
+     *               参数二:需要处理监视对象,用来监视数据,及数据操作 ,是一个配置对象
+     *          特点 : 一但代理成功目标对象里面所有属性都都是可以代理到并且响应
+     * 
+     * 
+    */
+
+
+
+    const ProxyObj = new Proxy(Obj, {
+        // get() 方法用于拦截对象的读取属性操作(一般是读取操作,需要返回任意值)
+        // 具体   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/get
+        get(target, prop, receiver) {
+            // 具体   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/get
+            return Reflect.get(target, prop)
+        },
+        // 和get方法很相似   主要是修改对象属性值和添加属性
+        // 具体   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/set
+        set(target, propertyKey, value) {
+            // 具体  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/set
+            return Reflect.set(target, propertyKey, value)
+        },
+        // 和get方法很相似   主要用于对象属性的删除
+        // 具体   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/deleteProperty
+        deleteProperty(target, property) {
+            // 具体  https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/deleteProperty
+            return Reflect.deleteProperty(target, property)
+        }
+
+    })
+    console.log(ProxyObj.name)   // get() 不返回Reflect.get,获取到的值是undefined
+    ProxyObj.name = 'sdhfbsd'
+    ProxyObj.namesdf = 'sdhfbsd'
+    delete ProxyObj.namesdf
+
+    console.log(ProxyObj)   // 
+</script>
+
+</html>
