@@ -72,7 +72,7 @@ li label li input {
 li button {
   float: right;
   /* display: none; */
-  margin-top: 3px;
+  margin-top: 7px;
 }
 
 li:before {

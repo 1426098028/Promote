@@ -24,6 +24,8 @@ export default defineComponent({
     Footer,
   },
   setup() {
+
+
     // 定义一个数组数据
     // const state = reactive<{ todos: Todo[] }>({
     //   todos: [
