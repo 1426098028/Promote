@@ -4,10 +4,8 @@ import { getToken } from '@/utils/auth'
 import { MessageBox, Message } from 'element-ui'
 
 // 创建axios实例
-// https://heimahr.itheima.net/api/sys/login?mobile=13800000002&password=hm%23qd@23%21&isAgree=true
 const service = axios.create({
-  // baseURL: 'https://heimahr.itheima.net/app',
-  baseURL: '/api',
+  baseURL: process.env.VUE_APP_BASE_API,
   timeout: 100000
 })
 
