@@ -1,34 +1,32 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 const reader = new FileReader();
-export default function (Drag) {
+export default function () {
     const FileName = ref<String>('')
     const FileType = ref<String>('')
-    const readAsText = ref<String>('')
+    const ReadText = ref<ArrayBuffer | String>('')
+    window.addEventListener('dragover', (e) => { e.preventDefault() });
+    window.addEventListener('drop', (e) => { e.preventDefault() });
 
-
-
-    window.addEventListener('dragover', (e) => {
-        e.preventDefault();
-    });
-    window.addEventListener('drop', (e) => {
-        e.preventDefault();
-    });
     onMounted(() => {
-        if (!Drag) return
-        Drag.addEventListener('drop', onDrop)
+        const Drag = document.querySelector('#view')
+        Drag?.addEventListener('drop', onDrop)
     })
     onUnmounted(() => {
-        if (!Drag) return
-        Drag.removeEventListener('drop', onDrop)
+        const Drag = document.querySelector('#view')
+        Drag?.removeEventListener('drop', onDrop)
     })
-    const onDrop = ({ dataTransfer: { files: [File] } }) => {
+    const onDrop = (e: any) => {
+        const { dataTransfer: { files: [File] } } = e
         reader.readAsText(File);
         const { name, type } = File
         reader.onload = function (e) {
+            const { target } = e
+            console.log(target)
             FileName.value = name
             FileType.value = type
-            readAsText.value = e?.target?.result || ''
+            ReadText.value = target?.result || ''
+            console.log({ FileName, FileType, ReadText })
         }
     }
-    return { FileName, FileType, readAsText }
+    return { FileName, FileType, ReadText }
 }

@@ -1,63 +1,45 @@
 <template>
-  <div>App 自定义Hooks函数</div>
-  <div>坐标:{{ X }}--{{ Y }}</div>
-  <div id="view" style="width: 300px;height: 300px;background-color: aquamarine;"></div>
-
-  <div>{{ FileName }}--{{ FileType }}</div>
-  <div>{{ ReadText }}</div>
+  <div>
+    <button v-for="(item, key) in tabs" :key="key" @click="onTab(key as string)">{{ key }}</button>
+    <div>
+      普通动态组件
+    </div>
+    <component :is="tabs[TKey]"></component>
+    <div>
+      有缓存动态组件
+      KeepAlive组件
+      强制被切换掉的组件仍然保持“存活”的状态
+    </div>
+    <KeepAlive>
+      <component :is="tabs[TKey]"></component>
+    </KeepAlive>
+  </div>
 </template>
-<script lang="ts">
-import { defineComponent, onMounted } from 'vue'
-import GetCoordinates from "./hooks/GetCoordinates";
-import useRequset from "./hooks/useRequset";
-import useDropLoading from "./hooks/useDropLoading";
+<script lang="ts" setup>
+import Archive from './components/Archive.vue'
+import CompilerMacro from './components/CompilerMacro.vue'
+import { ref, Ref } from 'vue'
+interface Tabs {
+  [key: string]: any;
+}
 
-
-export default defineComponent({
-  name: 'AppName',
-  setup() {
-    interface Address {
-      id: number;
-      address: string;
-      distance: string;
-    }
-    interface Products {
-      id: number;
-      title: string;
-      price: string;
-    }
-    // 需求1:用户在页面中点击页面,把点击坐标显示出来
-    const { X, Y } = GetCoordinates()
-
-
-
-
-    const { FileName, FileType, ReadText } = useDropLoading(document?.querySelector('#view'))
-
-
-
-
-
-
-
-    onMounted(() => {
-      console.log('useDropLoading', FileName);
-      console.log('useDropLoading', FileType);
-      console.log('useDropLoading', ReadText);
-    });
-
-
-
-
-
-    // 需求2:封装ajax请求的hooks函数
-    const ObjData = useRequset<Address>('/data/address.json')
-    const ArrData = useRequset<Products[]>('/data/products.json')
-    console.log(ObjData, ArrData)
-
-
-
-    return { X, Y, FileName, FileType, ReadText }
-  },
-})
+const tabs: Tabs = { 'Archive': Archive, 'CompilerMacro': CompilerMacro }
+const TKey: Ref<string> = ref('Archive')
+const onTab = (tab: string) => {
+  console.log(tab)
+  TKey.value = tab
+}
 </script>
+<style scoped></style>
+
+
+
+
+
+
+
+
+
+
+
+
