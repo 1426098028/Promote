@@ -1,59 +1,63 @@
 <template>
-  <div class="todo-container">
-    <div class="todo-wrap">
-      <Header />
-      <List />
-      <Footer />
-    </div>
-  </div>
+  <div>App 自定义Hooks函数</div>
+  <div>坐标:{{ X }}--{{ Y }}</div>
+  <div id="view" style="width: 300px;height: 300px;background-color: aquamarine;"></div>
+
+  <div>{{ FileName }}--{{ FileType }}</div>
+  <div>{{ ReadText }}</div>
 </template>
 <script lang="ts">
-import { defineComponent, } from 'vue'
-// 引入直接的子级组件
-import Header from './components/Header.vue'
-import List from './components/List.vue'
-import Footer from './components/Footer.vue'
-// 引入接口
+import { defineComponent, onMounted } from 'vue'
+import GetCoordinates from "./hooks/GetCoordinates";
+import useRequset from "./hooks/useRequset";
+import useDropLoading from "./hooks/useDropLoading";
+
 
 export default defineComponent({
   name: 'AppName',
-  // 注册组件
-  components: {
-    Header,
-    List,
-    Footer,
-  },
   setup() {
-
-
-    // 定义一个数组数据
-    // const state = reactive<{ todos: Todo[] }>({
-    //   todos: [
-    //     { id: 1, title: '奔驰', isCompleted: false },
-    //     { id: 2, title: '宝马', isCompleted: true },
-    //     { id: 3, title: '奥迪', isCompleted: false },
-    //   ],
-    // })
-
-
-
-
-    return {
-
+    interface Address {
+      id: number;
+      address: string;
+      distance: string;
     }
+    interface Products {
+      id: number;
+      title: string;
+      price: string;
+    }
+    // 需求1:用户在页面中点击页面,把点击坐标显示出来
+    const { X, Y } = GetCoordinates()
+
+
+
+
+    const { FileName, FileType, ReadText } = useDropLoading(document?.querySelector('#view'))
+
+
+
+
+
+
+
+    onMounted(() => {
+      console.log('useDropLoading', FileName);
+      console.log('useDropLoading', FileType);
+      console.log('useDropLoading', ReadText);
+    });
+
+
+
+
+
+    // 需求2:封装ajax请求的hooks函数
+    const ObjData = useRequset<Address>('/data/address.json')
+    const ArrData = useRequset<Products[]>('/data/products.json')
+    console.log(ObjData, ArrData)
+
+
+
+    return { X, Y, FileName, FileType, ReadText }
   },
 })
 </script>
-<style scoped>
-/*app*/
-.todo-container {
-  width: 600px;
-  margin: 0 auto;
-}
-
-.todo-container .todo-wrap {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-</style>

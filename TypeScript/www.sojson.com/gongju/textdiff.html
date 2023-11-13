@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>文件对比，在线文件对比,CSS对比，JS对比，代码对比,Text Diff</title>
+        <meta name="description" content="在线对比文本文件，找出文件不同的地方，合并文件对比后结果，支持CSS文件对比，Javascript文件对比，代码对比。在线Text Diff。">
+        <meta content="文件对比,文本对比,CSS对比,代码对比" name="Keywords"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="//cdn.sojson.com/sojson/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="//cdn.sojson.com/sojson/favicon.ico"/>
+        <link href="//cdn.sojson.com/js/common/sojson.b.t/css/b.css" rel="stylesheet"/>
+        <script src="//cdn.sojson.com/js/common/sojson.core.min.js?202211140930"></script>
+        <script src="//cdn.sojson.com/js/common/sojson.b.t/js/b.js"></script>
+        <script src="//cdn.sojson.com/js/layer/layer.js"></script>
+        <script src="//cdn.sojson.com/js/common/sojson.js?202211140930"></script>
+        <script type="text/javascript" src="//cdn.sojson.com/js/www/gongju/diff/diff.a.js"></script>
+        <script type="text/javascript" src="//cdn.sojson.com/js/www/gongju/diff/diff.b.js"></script>
+        <link type="text/css" rel="stylesheet" href="//cdn.sojson.com/css/www/gongju/diff.min.css"/>
+        <link href="//cdn.sojson.com/css/common/base.css?202211140930" rel="stylesheet"/>
+    </head>
+    <body>
+        <style>
+            .ToolHead {
+                padding: 0;
+            }
+
+            .ToolHead .ToolLogo {
+                height: 80px;
+                width: 270px;
+                margin-top: 0px;
+                margin-bottom: 0px;
+                border-bottom: 0 none;
+            }
+
+            .ToolHead img {
+                vertical-align: middle;
+                border: 0 none
+            }
+
+            @media screen and (max-width: 850px) {
+                div.ToolHead.container {
+                    display:none !important;
+                }
+            }
+        </style>
+        <div class="ToolHead container">
+            <div class="wrapper clearfix ">
+                <h1 class="ToolLogo fl">
+                    <a title="JSON在线解析" href="https://www.sojson.com/">
+                        <img src="//cdn.sojson.com/images/logo/index-logo.png" alt="JSON在线解析"/>
+                    </a>
+                </h1>
+                <style>
+                    .b2022111409302,.b2022111409301 {
+                        display: inline-block;
+                        float: right !important;
+                    }
+
+                    .b2022111409301 {
+                        margin-right: 20px;
+                    }
+
+                    .b2022111409301 {
+                        margin-left: 15px;
+                    }
+
+                    @media screen and (max-width: 450px) {
+                        .b2022111409301 {
+                            margin-left:0px;
+                        }
+                    }
+                </style>
+                <div class="pl0 pr0 b2022111409302" b2></div>
+                <div class="pl0 pr0 b2022111409301" b1></div>
+            </div>
+        </div>
+        <style>
+            .layui-nav-child {
+                display: none;
+                position: absolute;
+                left: 0;
+                top: 65px;
+                min-width: 100%;
+                line-height: 36px;
+                padding: 5px 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,.12);
+                border: 1px solid #d2d2d2;
+                background-color: #fff;
+                z-index: 100;
+                border-radius: 2px;
+                white-space: nowrap;
+            }
+
+            ul.m-two {
+                width: 360px;
+            }
+
+            ul.m-two>li {
+                display: inline-block;
+                min-width: 45%;
+            }
+
+            ul.m-three {
+                width: 540px;
+            }
+
+            ul.m-three>li {
+                display: inline-block;
+                min-width: 32%;
+            }
+
+            ul.m-three hr,ul.m-two hr {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            ul.m-three a,ul.m-two a {
+                padding: 3px 10px;
+            }
+
+            p.grid {
+                color: #0081c2;
+                padding-left: 20px;
+            }
+
+            .yellow {
+                color: #FF5722 !important;
+            }
+        </style>
+        <div menu='' class="navbar navbar-inverse  animated fadeInDown" style="z-index: 101;height: 41px;border-radius: 0;background-image: none;">
+            <div class="container" style="padding-left: 0px; padding-right: 0px;">
+                <div class="navbar-header">
+                    <button data-target=".navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle collapsed">
+                        <span class="sr-only">导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h1 class="min-logo">SOJSON在线工具</h1>
+                </div>
+                <div role="navigation" class="navbar-collapse collapse pl0">
+                    <ul class="nav navbar-nav" id="topMenu">
+                        <li class="dropdown active">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="https://www.sojson.com/json/">
+                                JSON 相关<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu m-two">
+                                <li>
+                                    <a href="https://www.sojson.com/">JSON在线解析</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/simple_json.html" style="color:#c7254e">JSON 在线解析(新)</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/json/json_index.html" style="color:#c7254e">JSON 教程</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/yasuo.html">JSON压缩/转义</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/editor.html">JSON在线示图</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/jsonfmt.html">JSON着色工具</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/json2xml/">JSON | XML互转</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/jsondiff.html" target="_blank">JSON 比对工具</a>
+                                </li>
+                                <li>
+                                    <a style="color:#c7254e" href="https://www.sojson.com/json2entity.html">JSON生成实体</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/yasuoyihang.html">JSON压缩一行</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/json2csharp.html">JSON转C#实体类</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/json/json_online.html" target="_blank">JSON在线视图查看器</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/json/json2go.html">JSON转GO</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/enjson.html" target="_blank">Validate JSON</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="https://www.sojson.com/encrypt.html">
+                                解码 / 加密<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu m-three">
+                                <hr>
+                                <p class="grid">对称加密 / MD5 / Base64 / 编码转换</p>
+                                <hr>
+                                <li>
+                                    <a href="https://www.sojson.com/encrypt.html">加密 / 解密</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/hash.html">散列 / 哈希</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/base64.html">Base64加密 / 解密</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/image2base64.html">图片转BASE64</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/hexconvert.html">进制转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/hexadecimal.html">16进制 & 文本互转</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/encodeurl.html">URL转码</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/ascii.html">ASCII转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/utf8.html">UTF-8编码转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/htpasswd.html">htpasswd生成器</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/encrypt_md5.html">MD5加密/解密</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/thunder/">迅雷URL 加密 / 解密</a>
+                                </li>
+                                <hr>
+                                <p class="grid">JavaScript 加密 / 解密 / 压缩 / 混淆 / 去注释 / 混合加密 / HTML&JS转换</p>
+                                <hr>
+                                <li>
+                                    <a href="https://www.sojson.com/js.html">JS加密/压缩/解密</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/jscodeconfusion.html">JS 代码混淆</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/aaencode.html">JS 不可逆加密</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/javascriptobfuscator.html">JS加密(16进制)</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/jsobfuscator.html">JS加密(最牛逼的加密)</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.jsjiami.com/jsdecode.html">JS 人工解密</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/jsjiemi.html">JS在线解密</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/charEncode.html">JS/HTML/CSS混合加密</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/jsAndhtml.html">JS / HTML互转</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/jsfuck.html">JS Fuck加密</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/aaencode.html">JS AAEncode加密</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/jjencode.html">JS JJEncode加密</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">
+                                压缩 / 格式化<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="https://www.sojson.com/format/jshtml.html">JS/HTML格式化、压缩</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/format/css.html">CSS格式化、压缩</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/format/xml.html">XML格式化、压缩</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/format/sql.html">SQL格式化、压缩</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/jscodeconfusion.html">JS代码混淆、加密</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/js.html">JS混淆加密、压缩</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="https://www.sojson.com/httpcontent.html">
+                                文档<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu  m-two">
+                                <li>
+                                    <a href="https://www.sojson.com/httpcontent.html">HTTP Mime-type</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/doc/htmlmark.html">HTML转义字符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/doc/rgb.html">RGB颜色参考</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/asciitable.html">ASCII对照表</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/http.html">HTTP状态码详解</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/port.html">TCP/UDP端口参考</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/font.html">网页字体参考</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/compare.html">数据对比</a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a href="https://www.sojson.com/operation/java.html">Java运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/operation/javascript.html">Javascript运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/operation/c.html">C运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/operation/cxx.html">C++运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/operation/php.html">PHP运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/doc/python.html">Python运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/doc/oc.html">OC运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/operation/vb.html">VB运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/doc/go.html">Go运算符</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/doc/css.html">CSS优先级</a>
+                                </li>
+                                <hr>
+                                <p class="grid">软件快捷键</p>
+                                <hr>
+                                <li>
+                                    <a href="https://www.sojson.com/photoshop.html">Photoshop快捷键</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown  ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">
+                                前端<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu  m-two">
+                                <li>
+                                    <a href="https://www.sojson.com/web/online.html">在线调色板</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/panel.html">在线调色板(新版)</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/use.html">网页常用色彩</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/cj.html">中日传统色彩</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/img.html">传图识色</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/web.html">WEB安全色</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/page.html">网页颜色选择器</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/select.html">RGB颜色值查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/web/yasuo.html">图片大小修改</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/batch_yaosuo.html">图片批量压缩</a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/image/change.html">图片尺寸修改</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/image/format.html">图片格式转换</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/image/compress.html">图片批量压缩</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/image/info.html">图片信息查看</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/image/exif.html">图片EXIF信息</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown  ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">
+                                转换<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu m-three">
+                                <li>
+                                    <a href="https://www.sojson.com/convert/word2spell.html">汉字转拼音</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/cn2simple.html">简繁体|火星文转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/pingindic.html">拼音字典</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/low2up.html">大小写转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/fullhalf.html">全角半角转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/unixtime.html">Unix时间戳转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/change/rehtml.html">HTML在线转义</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/change/analyzer.html">IK在线分词</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/change/rmb.html">人民币金额大小写转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/hexconvert.html">进制转换</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/convert/zishutongji.html">字数统计</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/jsAndhtml.html">JS/HTML互转</a>
+                                </li>
+                                <hr>
+                                <p class="grid">单位换算</p>
+                                <hr>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/angle.html">角度换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/time.html">时间换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/heat.html">热量换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/length.html">长度换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/area.html">面积换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/speed.html">速度换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/datastore.html">数据存储</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/subnetmask.html">子网掩码</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/power.html">功率换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/pressure.html">压力换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/temperature.html">温度换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/densites.html">密度换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/force.html">力换算</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/convert/volume.html">体积换算</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown  ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="https://www.sojson.com/qr/">
+                                二维码相关<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="https://www.sojson.com/qr/generate.html">二维码生成器</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/qr/meihua.html">二维码美化</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/qr/deqr.html">二维码解码</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/qr/zxing.html">二维码解码(Zxing)</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/qr/extract.html">二维码提取</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/qr/qrtest.html">二维码接口</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/qr/image2qr.html">图片转二维码</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/qr/qa.html" class="yellow">二维码知识</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown  ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="https://www.sojson.com/zz/">
+                                站长工具<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu m-three">
+                                <li>
+                                    <a href="https://www.sojson.com/beian/">备案查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/ga/">公安网备查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/ip/">IP地址查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/whois/">WHOIS查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/seocheck/">SEO优化工具</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/robots/">robots文件生成</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/nslookup/">nslookup查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/portscan.html">端口扫描</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/dwz.html">短网址生成&解析</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/portscan.html">端口扫描</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/webtdk.html">网站TDK查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/domainindex.html" class="yellow">域名收录查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/checkwx.html" class="yellow">微信拦截检测</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/checkqq.html" class="yellow">QQ拦截检测</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/checkdomain.html" class="yellow">域名全面检测</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/zz/checkdns.html">DNS检测</a>
+                                </li>
+                                <hr>
+                                <p class="grid">HTTP相关</p>
+                                <li>
+                                    <a href="https://www.sojson.com/httpRequest/">HTTP模拟请求</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/http/test.html" style="color: red;">HTTP模拟请求(新版)</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/http/status.html">HTTP状态查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/myip/">我的IP地址</a>
+                                </li>
+                                <hr>
+                            </ul>
+                        </li>
+                        <li class="dropdown  ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle">
+                                房贷工具<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="https://www.sojson.com/fang_fangdai.html">房贷计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_gongjijin.html">公积金贷款计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_zuhedai.html">组合贷款计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_ershoufang.html">二手房贷款计算器 </a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_yinggaizeng.html">营改增税费计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_ershoufangjiaoyishui.html">二手房交易税费计算器</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_fangchanshui.html">房产税计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_shanghai.html">上海房产税计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_chongqing.html">重庆房产税计算器 </a>
+                                </li>
+                                <hr>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_dengebenjin.html">等额本金还款计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_dengebenxi.html">等额本息还款计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_huankuanbijiao.html">还款方式比较器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_tiqianhuankuan.html">提前还款计算器 </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/fang_huankuanzhuangkuang.html">剩余还款计算器 </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown  ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="https://www.sojson.com/time/jsq.html" onclick="location.href='https://www.sojson.com/time/jsq.html'">
+                                生活工具<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu m-two">
+                                <li>
+                                    <a href="https://www.sojson.com/time/jsq.html">日期计算器</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/nongli.html">农历/阳历转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/gongli.html">农历/公历转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/miaobiao.html">在线秒表</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/holiday.html">节日大全</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/cn-festival.html">中国传统节日</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/calendar.html">万年历</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/24jieqi.html">24节气查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/2023-fangjia.html">2023年放假</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/bjtime.html">北京时间</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/jintianjihao.html">今天农历几月几日</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/huangli.html">老黄历</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/time/jishijiri.html">吉时吉日查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/youbian/">邮编查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/quhao/">区号查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/gongju/weizhang.html">违章查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/life/oil.html">油价查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/life/rate.html">汇率查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/trash/">垃圾分类查询</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/algebra/">代数工具</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/picture/">图像工具</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/office/">office工具</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/document/">文本工具</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/gongju/wangsu.html">网速测试</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/gongju/textdiff.html">文本/代码对比</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown  ">
+                            <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="https://www.sojson.com/qr.html">
+                                其他工具<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/tel/">手机号吉凶检测</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/car/">车牌号吉凶检测</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/qq/">QQ号吉凶检测</a>
+                                </li>
+                                <li>
+                                    <a class="yellow" href="https://www.sojson.com/gongju/qushuiyin.html">短视频去水印</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/life/calculator.html">计算器</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/life/rmbup.html">人民币大小写转换</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/gongju/wangsu.html">网速测试</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/gongju/textdiff.html">文件对比</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/regex/check.html">正则测试</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/regex/generate.html">正则生成代码</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.sojson.com/myeclipse8.5/">Myeclipse8.5注册码生成</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid m0 bod top70" id="zt">
+            <h3 class="wbbt">
+                <i class="glyphicon glyphicon-zoom-in" aria-hidden="true"></i>
+                在线文本比较工具
+            </h3>
+            <table style="width: 98%;display:none">
+                <tr>
+                    <td style="width: 50%;">
+                        <div id="drop_zone" class="drop_zone">Drop files here</div>
+                    </td>
+                    <td style="width: 50%;">
+                        <input type="checkbox" id="ignorews">ignore witespaces
+                    </td>
+                </tr>
+            </table>
+            <table align="center" style="width: 98%;">
+                <tr style="border-left: 1px solid #1D1D1D; border-top:1px solid #1D1D1D;">
+                    <td style="width: 50%;background-color: #1a1a1a;color: #bd6969;">
+                        <tt id="path-lhs"></tt>
+                        &nbsp;
+                        <a id="save-lhs" class="save-link" href="javascript:void(0);">
+                            <i class="glyphicon glyphicon-save" aria-hidden="true"></i>
+                            save
+                        </a>
+                        <span class="dmsm">(在下面输入您的代码或文本，或直接把文件拖入到框中，内容会自动获取)</span>
+                    </td>
+                    <td style="width: 50%;background-color: #1a1a1a;color: #8bcaf3">
+                        <tt id="path-rhs"></tt>
+                        &nbsp;
+                        <a id="save-rhs" class="save-link" href="javascript:void(0);">
+                            <i class="glyphicon glyphicon-save" aria-hidden="true"></i>
+                            save
+                        </a>
+                        <span class="dmsm">(在下面输入您的代码或文本，或直接把文件拖入到框中)</span>
+                    </td>
+                </tr>
+            </table>
+            <div id="mergely-resizer" style="height:800px;">
+                <div id="compare"></div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function() {
+                so('img').addClass('gray').mousemove(function() {
+                    $(this).removeClass('gray');
+                }).mouseout(function() {
+                    $(this).addClass('gray');
+                });
+                $('#compare').mergely({
+                    width: 'auto',
+                    height: 'auto',
+                    cmsettings: {
+                        readOnly: false
+                    },
+                });
+                var lhs_url = '/images/common/a.txt';
+                var rhs_url = '/images/common/b.txt'
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    dataType: 'text',
+                    url: lhs_url,
+                    success: function(response) {
+                        $('#path-lhs').text("A");
+                        $('#compare').mergely('lhs', response);
+                    }
+                });
+                $.ajax({
+                    type: 'GET',
+                    async: true,
+                    dataType: 'text',
+                    url: rhs_url,
+                    success: function(response) {
+                        $('#path-rhs').text("B");
+                        $('#compare').mergely('rhs', response);
+                    }
+                });
+                function checkFileList(files) {
+                            console.log(files)
+                            debugger;
+                    if (typeof window.FileReader !== 'function')
+                        error_msg("The file API isn't supported on this browser yet.");
+                    if (files.length > 0)
+                        readFile(files[0], "lhs");
+                    if (files.length > 1)
+                        readFile(files[1], "rhs");
+                }
+                function readFile(file, side) {
+                            console.log(file, side)
+
+                            debugger;
+                    var reader = new FileReader();
+                 
+                    reader.readAsBinaryString(file);
+                }
+                function handleDragOver(evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    evt.dataTransfer.dropEffect = 'copy';
+                }
+                function handleFileSelect(evt) {
+                    document.getElementById('drop_zone').visibility = "collapse";
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    var files = evt.dataTransfer.files;
+                    checkFileList(files);
+                }
+                var dropZone = document.getElementById('drop_zone');
+                document.body.addEventListener('dragover', handleDragOver, false);
+                document.body.addEventListener('drop', handleFileSelect, false);
+                function download_content(a, side) {
+                    var txt = $('#compare').mergely('get', side);
+                    var datauri = "data:plain/text;charset=UTF-8," + encodeURIComponent(txt);
+                    a.setAttribute('download', side + ".txt");
+                    a.setAttribute('href', datauri);
+                }
+                document.getElementById('save-lhs').addEventListener('mouseover', function() {
+                    download_content(this, "lhs");
+                }, false);
+                document.getElementById('save-rhs').addEventListener('mouseover', function() {
+                    download_content(this, "lhs");
+                }, false);
+                document.getElementById('ignorews').addEventListener('change', function() {
+                    $('#compare').mergely('options', {
+                        ignorews: this.checked
+                    });
+                }, false);
+                        
+            });
+        </script>
+        <style>
+            img.gray {
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                -ms-filter: grayscale(100%);
+                -o-filter: grayscale(100%);
+                filter: grayscale(100%);
+                filter: gray;
+            }
+
+            #head_top>li>a,#_login_>li>a {
+                color: #fff;
+            }
+
+            .navbar-inverse .navbar-nav>.active>a,.navbar-inverse .navbar-nav>.active>a:focus,.navbar-inverse .navbar-nav>.active>a:hover {
+                color: #1A1A1A;
+                background-color: #fff;
+            }
+
+            .navbar-inverse,.top_menu {
+                border: 1px solid #e8e8e8;
+            }
+
+            .navbar-inverse,body,.top_menu {
+                background-color: #1A1A1A;
+                color: #fff
+            }
+
+            .drop_zone {
+                border: 2px dashed #BBBBBB;
+                border-radius: 5px 5px 5px 5px;
+                color: #BBBBBB;
+                padding: 10px 25px;
+                text-align: center;
+                align: center;
+                width: 80%;
+            }
+
+            #path-lhs,#path-rhs {
+                font-size: 40px;
+                font-family: Arial;
+                color: #C9C9C9
+            }
+
+            #path-rhs {
+                padding-left: 20px
+            }
+
+            #compare-editor-lhs {
+                background-color: #212121;
+            }
+
+            #compare-editor-rhs {
+                background-color: #002035
+            }
+
+            #compare-lhs-margin,#compare-rhs-margin {
+                display: none
+            }
+
+            .CodeMirror - scroll {
+                background - color: #1d1f20;
+            }
+
+            #merge-lhs-4 {
+                font-family: "宋体";
+            }
+
+            .save-link {
+                color: #F8F8F8;
+            }
+
+            .dmsm {
+                font-family: "微软雅黑";
+                font-size: 12px;
+                padding-left: 20px;
+            }
+
+            #compare .CodeMirror-lines pre {
+                transition: all 1s ease 0s;
+            }
+
+            #compare .CodeMirror-lines pre:hover {
+                background-color: #FDFFC6;
+                color: #000000
+            }
+
+            td,th {
+                border: 0px;
+            }
+
+            .wbbt {
+                text-align: center;
+                border-bottom: 1px solid #333333;
+                line-height: 40px
+            }
+        </style>
+        <p style="display: none; width: 0px; height: 0px;">
+            <script>
+                (function() {
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if (curProtocol === 'https') {
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    } else {
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                }
+                )();
+                (function() {
+                    var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?6278c0e34b904f2288bf4bbe0c2555b9" : "https://jspassport.ssl.qhimg.com/11.0.1.js?6278c0e34b904f2288bf4bbe0c2555b9";
+                    var bp = document.createElement('script');
+                    bp.src = src;
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                }
+                )();
+                var _hmt = _hmt || [];
+                (function() {
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?32112e646a39d13cf33eed316bcb6707";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                }
+                )();
+            </script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114686494-1"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag('js', new Date());
+                gtag('config', 'UA-114686494-1');
+            </script>
+        </p>
+        <style>
+            div,span,li,a,pre {
+                border-radius: 0 !important;
+            }
+
+            .banner2 img.a-d-img,.banner1 img.a-d-img {
+                width: 415px;
+                height: 80px;
+            }
+        </style>
+        <div class="top_menu">
+            <div class="container" id="_logo" _off="open">
+                <div class='row'>
+                    <div class="col-lg-12" style="padding-left: 0px;">
+                        <ul class="nav navbar-nav" id="head_top" amtop>
+                            <li>
+                                <a href="https://www.sojson.com/">在线工具</a>
+                            </li>
+                            <li>
+                                <a href="https://www.sojson.com/layui/" _target="_blank">Layui文档</a>
+                            </li>
+                            <li>
+                                <a href="https://www.sojson.com/blog/">技术博客</a>
+                            </li>
+                            <li>
+                                <a href="https://www.xbeian.com" target="_blank">备案查询</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" for="https://www.sojson.com/api/" _target="_blank">免费 JSON API</a>
+                            </li>
+                            <li>
+                                <a href="http://fm.sojson.com" _target="_blank">听音乐</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

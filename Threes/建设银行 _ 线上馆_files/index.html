@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&o=0 -->
+<html style="overflow: hidden; cursor: default;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>建行线上展厅V1</title>
+    <style>
+        video#panoVideo {
+            /* display: none; */
+            mix-blend-mode: screen;
+            position: absolute;
+            object-fit: fill;
+            top: 0;
+        }
+        
+         .m-openmenu.Local {display: none!important;}
+        #loadingProgress{background-color: rgb(0, 6, 8)!important;}
+        #progressNum{    color: #000000!important;}
+        .titlecontent{display: none!important;}
+        #openmenu{display: none!important;}
+        #m-openmenu{display: none!important;}
+
+
+        #pano-x-handle,
+        #pano-y-handle,
+        #pano-z-handle,
+        #pano-scale-handle {
+            width: 30px;
+            text-align: center;
+            overflow: hidden;
+            padding: 0 3px;
+        }
+    </style>
+    <script class="build keep">
+        // Safari and Android does not support performance.timing.navigationStart:
+        if (window.performance) {
+            window.navigationStart = window.performance.timing.navigationStart;
+        } else {
+            window.navigationStart = Date.now() + 300;
+        }
+    </script>
+    <script>
+        function iFrameHeight() {
+            var ifm = document.getElementById("iframepage");
+            // var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
+            var ifmBox = document.getElementById("iframeBox");
+            var scroll;
+            // iframeBox
+            if (ifm != null && ifmBox != null) {
+                // ifm.height = subWeb.body.scrollHeight;
+                // ifm.width = subWeb.body.scrollWidth;
+                ifm.heihgt = ifmBox.height;
+                // ifm.width = ifmBox.width; //ie打不开做兼容
+                var browser = {
+                    versions: function () {
+                        var u = navigator.userAgent, app = navigator.appVersion;
+                        return {
+                            trident: u.indexOf('Trident') > -1, //IE内核
+                        };
+                    }(),
+                    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+                }
+                if(!browser.versions.trident){
+                    ifm.width = ifmBox.width;
+                }
+            }
+
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                // wrapper.addClass('ios');
+                scrolling = 'no';
+            } else {
+                scrolling = 'auto';
+            }
+            ifm.scrolling = scrolling;
+        }
+        window.iFrameHeight = iFrameHeight; 
+    </script>
+    <!--deploy start-->
+    <link rel="stylesheet" href="./main.css">
+    <!-- <link rel="stylesheet" href="css/barrager.css?v=0.1"> -->
+    <!--deploy end-->
+    <!-- debug start -->
+    <!--<link rel="stylesheet/less" type="text/css" href="less/main.less"/>-->
+    <!--<script src="./less.min.js"></script>-->
+    <!--debug end-->
+    <!-- jweixin by ncz-->
+    <script type="text/javascript" src="./jweixin-1.3.2.js.下载"></script>
+    <!-- zhuge 诸葛统计 by ncz -->
+    <!-- <script src="./static/zhuge.js"></script> -->
+    <script>
+        console.info('isWeixin', /MicroMessenger/i.test(navigator.userAgent));
+        // console.info('zhuge', zhuge);
+    </script>
+<style type="text/css">.dg {
+  /** Clear list styles */
+  /* Auto-place container */
+  /* Auto-placed GUI's */
+  /* Line items that don't contain folders. */
+  /** Folder names */
+  /** Hides closed items */
+  /** Controller row */
+  /** Name-half (left) */
+  /** Controller-half (right) */
+  /** Controller placement */
+  /** Shorter number boxes when slider is present. */
+  /** Ensure the entire boolean and function row shows a hand */ }
+  .dg ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    clear: both; }
+  .dg.ac {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    z-index: 0; }
+  .dg:not(.ac) .main {
+    /** Exclude mains in ac so that we don't hide close button */
+    overflow: hidden; }
+  .dg.main {
+    -webkit-transition: opacity 0.1s linear;
+    -o-transition: opacity 0.1s linear;
+    -moz-transition: opacity 0.1s linear;
+    transition: opacity 0.1s linear; }
+    .dg.main.taller-than-window {
+      overflow-y: auto; }
+      .dg.main.taller-than-window .close-button {
+        opacity: 1;
+        /* TODO, these are style notes */
+        margin-top: -1px;
+        border-top: 1px solid #2c2c2c; }
+    .dg.main ul.closed .close-button {
+      opacity: 1 !important; }
+    .dg.main:hover .close-button,
+    .dg.main .close-button.drag {
+      opacity: 1; }
+    .dg.main .close-button {
+      /*opacity: 0;*/
+      -webkit-transition: opacity 0.1s linear;
+      -o-transition: opacity 0.1s linear;
+      -moz-transition: opacity 0.1s linear;
+      transition: opacity 0.1s linear;
+      border: 0;
+      position: absolute;
+      line-height: 19px;
+      height: 20px;
+      /* TODO, these are style notes */
+      cursor: pointer;
+      text-align: center;
+      background-color: #000; }
+      .dg.main .close-button:hover {
+        background-color: #111; }
+  .dg.a {
+    float: right;
+    margin-right: 15px;
+    overflow-x: hidden; }
+    .dg.a.has-save > ul {
+      margin-top: 27px; }
+      .dg.a.has-save > ul.closed {
+        margin-top: 0; }
+    .dg.a .save-row {
+      position: fixed;
+      top: 0;
+      z-index: 1002; }
+  .dg li {
+    -webkit-transition: height 0.1s ease-out;
+    -o-transition: height 0.1s ease-out;
+    -moz-transition: height 0.1s ease-out;
+    transition: height 0.1s ease-out; }
+  .dg li:not(.folder) {
+    cursor: auto;
+    height: 27px;
+    line-height: 27px;
+    overflow: hidden;
+    padding: 0 4px 0 5px; }
+  .dg li.folder {
+    padding: 0;
+    border-left: 4px solid rgba(0, 0, 0, 0); }
+  .dg li.title {
+    cursor: pointer;
+    margin-left: -4px; }
+  .dg .closed li:not(.title),
+  .dg .closed ul li,
+  .dg .closed ul li > * {
+    height: 0;
+    overflow: hidden;
+    border: 0; }
+  .dg .cr {
+    clear: both;
+    padding-left: 3px;
+    height: 27px; }
+  .dg .property-name {
+    cursor: default;
+    float: left;
+    clear: left;
+    width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .dg .c {
+    float: left;
+    width: 60%; }
+  .dg .c input[type=text] {
+    border: 0;
+    margin-top: 4px;
+    padding: 3px;
+    width: 100%;
+    float: right; }
+  .dg .has-slider input[type=text] {
+    width: 30%;
+    /*display: none;*/
+    margin-left: 0; }
+  .dg .slider {
+    float: left;
+    width: 66%;
+    margin-left: -5px;
+    margin-right: 0;
+    height: 19px;
+    margin-top: 4px; }
+  .dg .slider-fg {
+    height: 100%; }
+  .dg .c input[type=checkbox] {
+    margin-top: 9px; }
+  .dg .c select {
+    margin-top: 5px; }
+  .dg .cr.function,
+  .dg .cr.function .property-name,
+  .dg .cr.function *,
+  .dg .cr.boolean,
+  .dg .cr.boolean * {
+    cursor: pointer; }
+  .dg .selector {
+    display: none;
+    position: absolute;
+    margin-left: -9px;
+    margin-top: 23px;
+    z-index: 10; }
+  .dg .c:hover .selector,
+  .dg .selector.drag {
+    display: block; }
+  .dg li.save-row {
+    padding: 0; }
+    .dg li.save-row .button {
+      display: inline-block;
+      padding: 0px 6px; }
+  .dg.dialogue {
+    background-color: #222;
+    width: 460px;
+    padding: 15px;
+    font-size: 13px;
+    line-height: 15px; }
+
+/* TODO Separate style and structure */
+#dg-new-constructor {
+  padding: 10px;
+  color: #222;
+  font-family: Monaco, monospace;
+  font-size: 10px;
+  border: 0;
+  resize: none;
+  box-shadow: inset 1px 1px 1px #888;
+  word-wrap: break-word;
+  margin: 12px 0;
+  display: block;
+  width: 440px;
+  overflow-y: scroll;
+  height: 100px;
+  position: relative; }
+
+#dg-local-explain {
+  display: none;
+  font-size: 11px;
+  line-height: 17px;
+  border-radius: 3px;
+  background-color: #333;
+  padding: 8px;
+  margin-top: 10px; }
+  #dg-local-explain code {
+    font-size: 10px; }
+
+#dat-gui-save-locally {
+  display: none; }
+
+/** Main type */
+.dg {
+  color: #eee;
+  font: 11px 'Lucida Grande', sans-serif;
+  text-shadow: 0 -1px 0 #111;
+  /** Auto place */
+  /* Controller row, <li> */
+  /** Controllers */ }
+  .dg.main {
+    /** Scrollbar */ }
+    .dg.main::-webkit-scrollbar {
+      width: 5px;
+      background: #1a1a1a; }
+    .dg.main::-webkit-scrollbar-corner {
+      height: 0;
+      display: none; }
+    .dg.main::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: #676767; }
+  .dg li:not(.folder) {
+    background: #1a1a1a;
+    border-bottom: 1px solid #2c2c2c; }
+  .dg li.save-row {
+    line-height: 25px;
+    background: #dad5cb;
+    border: 0; }
+    .dg li.save-row select {
+      margin-left: 5px;
+      width: 108px; }
+    .dg li.save-row .button {
+      margin-left: 5px;
+      margin-top: 1px;
+      border-radius: 2px;
+      font-size: 9px;
+      line-height: 7px;
+      padding: 4px 4px 5px 4px;
+      background: #c5bdad;
+      color: #fff;
+      text-shadow: 0 1px 0 #b0a58f;
+      box-shadow: 0 -1px 0 #b0a58f;
+      cursor: pointer; }
+      .dg li.save-row .button.gears {
+        background: #c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;
+        height: 7px;
+        width: 8px; }
+      .dg li.save-row .button:hover {
+        background-color: #bab19e;
+        box-shadow: 0 -1px 0 #b0a58f; }
+  .dg li.folder {
+    border-bottom: 0; }
+  .dg li.title {
+    padding-left: 16px;
+    background: black url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+  .dg .closed li.title {
+    background-image: url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==); }
+  .dg .cr.boolean {
+    border-left: 3px solid #806787; }
+  .dg .cr.function {
+    border-left: 3px solid #e61d5f; }
+  .dg .cr.number {
+    border-left: 3px solid #2fa1d6; }
+    .dg .cr.number input[type=text] {
+      color: #2fa1d6; }
+  .dg .cr.string {
+    border-left: 3px solid #1ed36f; }
+    .dg .cr.string input[type=text] {
+      color: #1ed36f; }
+  .dg .cr.function:hover, .dg .cr.boolean:hover {
+    background: #111; }
+  .dg .c input[type=text] {
+    background: #303030;
+    outline: none; }
+    .dg .c input[type=text]:hover {
+      background: #3c3c3c; }
+    .dg .c input[type=text]:focus {
+      background: #494949;
+      color: #fff; }
+  .dg .c .slider {
+    background: #303030;
+    cursor: ew-resize; }
+  .dg .c .slider-fg {
+    background: #2fa1d6; }
+  .dg .c .slider:hover {
+    background: #3c3c3c; }
+    .dg .c .slider:hover .slider-fg {
+      background: #44abda; }
+</style></head>
+
+<body style="overflow: hidden; touch-action: none;">
+    <!--<div class="third-model-dialog" style="display: none;">-->
+    <!--<iframe width="100%" height="100%" src="" id="third-model-iframe">-->
+    <!--</iframe>-->
+    <!--</div>-->
+    <div></div>
+    <!-- 全景视频 -->
+    <div id="panoVideoDIV" style="position: absolute;z-index: -1000;"></div>
+    <div id="panoVideoFormDIVBG" style="width:100%;height:100%; display: none;position: absolute;z-index: 1000;"></div>
+    <div id="clickpanovideobg" style="display: none;">
+        <div id="clickpanovideo"></div>
+    </div>
+    <div id="panoVideoFormDIV" style="border-radius: 10px;padding: 6px 35px;background: rgba(0, 0, 0, 0.6);display: none;position: absolute;width:460px;height:200px;z-index: 1010;">
+        <div style="width: 100%;display: flex; justify-content: space-between; height: 40px;align-items: center;">
+            <div style="width: 20%; color: red">X:</div>
+            <div style="width: 80%; ">
+                <div id="x-pano-slider">
+                    <div id="pano-x-handle" class="ui-slider-handle"></div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;display: flex; justify-content: space-between; height: 40px;align-items: center;">
+            <div style="width: 20%; color: green; ">Y:</div>
+            <div style="width: 80%; ">
+                <div id="y-pano-slider">
+                    <div id="pano-y-handle" class="ui-slider-handle"></div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;display: flex; justify-content: space-between; height: 40px;align-items: center;">
+            <div style="width: 20%; color: blue">Z:</div>
+            <div style="width: 80%; ">
+                <div id="z-pano-slider">
+                    <div id="pano-z-handle" class="ui-slider-handle"></div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;display: flex; justify-content: space-between; height: 40px;align-items: center;">
+            <div style="width: 20%;">scale:</div>
+            <div style="width: 80%; ">
+                <div id="scale-pano-slider">
+                    <div id="pano-scale-handle" class="ui-slider-handle"></div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;display: flex; justify-content: space-between; height: 40px;align-items: center;">
+            <div style="width: 50%; text-align: center;" id="closePanoVideoTag">Close</div>
+            <div style="width: 50%; text-align: center;" id="savePanoVideoTag">Save</div>
+        </div>
+    </div>
+
+    <div id="firstLoading" style="display: none;">
+        <div style="height: 170px;margin-bottom: 3rem;">
+            <img id="first-loading-splash" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" style="height: 80px; width: auto">
+        </div>
+    </div>
+    <div id="gui-loading" style="background-color: rgba(255, 255, 255, 0); display: none;" class="message-outer">
+        <!--<h2 class="model-title"></h2>-->
+        <div class="message-inner">
+            <img id="gui-loading-splash" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" style="height: 80px; width: auto; display: none;">
+            <div id="circleLoader" style="opacity: 1;">
+                <div class="progress-bar g stripes">
+                    <span id="loadingProgress" style="width: 100%; background-color: rgb(75, 205, 252);"></span>
+                </div>
+                <div>
+                    <h2 id="progressNum" style="color: #dfe0e1;">100%</h2>
+                </div>
+            </div>
+            <div id="loaderCoBrand" style="display: none;">
+                <div class="vert-align">
+                    <h2 id="loaderCoBrandName"></h2>
+                </div>
+            </div>
+            <div class="specialPower" style="display: none"><span class="powered-by">powered by</span>&nbsp;
+            </div>
+            <div class="message-technology"></div>
+            <div class="loadingLogo pc" style="display: none;">
+                <img src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+            </div>
+            <div id="intoModel" style="display: none"></div>
+        </div>
+    </div>
+    <div class="vr-guide-dialog" style="display: none;">
+        <div class="vr-close">
+            <div class="close ui-icon-3dnest">
+                <!--<a><i class="icon icon-close"></i>-->
+                <!--</a>-->
+                <span class="button_nobg vrclose Local"></span>
+            </div>
+            <div class="title"></div>
+        </div>
+        <img class="top-img" style="display: block" src="./vr-guide_290x300.png">
+
+        <div id="descrVr">请将手机解锁自动旋转后放入VR眼镜中</div>
+        <div id="beginVr" class="description">将视野中白色圆点瞄准蓝色方块后即可前进</div>
+        <div id="goto-vr">请使用手机进入VR模式</div>
+    </div>
+    <div id="tag-detail-container">
+        <div id="tag-detail" class="fullWidth darkGlass">
+            <div id="tag-detail-ins">
+                <div id="tag-img-container">
+                    <img id="tag-img">
+                </div>
+            </div>
+            <div id="tag-text-container">
+                <p id="tag-title-info"></p>
+
+                <p id="tag-detail-info"></p>
+            </div>
+            <div id="tag-buy-img">
+                <div class="godetail"></div>
+                <div id="details" style="float: right;">查看详情</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="object360Tag" class="object360Tag" style="display:none;">
+        <div class="tag360Close"></div>
+        <div class="object360TagMain">
+            <div id="tag360picLoading" style="display:none;"></div>
+            <div class="tag360header">
+                <div class="tag360pic" id="tag360pic" style="margin: 3px auto;"></div>
+            </div>
+            <div class="tag360content">
+                <div class="tag360Title" id="tag360Title"></div>
+                <div class="tag360price_saving">
+                    <div id="tag360price" class="tag360price"></div>
+                    <div id="tag360save" class="tag360save"></div>
+                </div>
+                <div class="tag360weight" id="tag360weight"></div>
+                <div id="tag360contentDetail"></div>
+            </div>
+            <div class="object360TagMore" id="object360TagMore"><span>More</span></div>
+        </div>
+    </div>
+
+    <div id="commodityTag" class="commodityTag" style="display: none;">
+        <div class="closeCommodityTag"></div>
+        <div id="commodityTagMain">
+            <div id="commodityTagContent">
+                <div class="commodity_video_images">
+                    <!-- 音频内容 -->
+                    <div class="commodity_audio_list" id="commodity_audio_list" style="display: none">
+                        <audio id="commodity_audio" loop="loop">
+                            <source src="" id="commodity_audio_source" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <!-- 视频播放内容 -->
+                    <div class="commodity_video_list" id="commodity_video_list" style="display: none">
+                        <video id="commodity_video" height="100%" width="100%" style="background: #000000" x5-video-player-fullscreen="true">
+                            <source id="commodity_video_source" src="" type="video/mp4">
+                            your browser does not support the video tag
+                        </video>
+                        <!-- <video id="commodity_video" height="100%" width="99%" style="object-fit:fill"
+                            webkit-playsinline="true" playsinline="true"
+                            x5-video-player-type="h5" x5-video-orientation="h5" x5-video-player-fullscreen="true">
+                            <source id="commodity_video_source" src='' type="video/mp4">
+                            your browser does not support the video tag
+                        </video> -->
+                        <div class="commodity_video_cover" id="commodity_video_cover">
+                            <!-- <img id="commodity_video_img" src='' /> -->
+                            <span id="commodity_video_play"></span>
+                        </div>
+                    </div>
+                    <!-- 图片展示内容 -->
+                    <div class="commodity_images_list swiper-container" id="commodity_images_list">
+                        <div class="image_center swiper-wrapper" id="image_center"></div>
+                        <div class="image_left swiper-button-prev" style="display: none;"></div>
+                        <div class="image_right swiper-button-next" style="display: none;"></div>
+                    </div>
+                    <!-- 360图片展示内容 -->
+                    <div class="commodity_three_list" id="commodity_three_list" style="display: none">
+                        <div id="commodity_three_images"></div>
+                    </div>
+                </div>
+                <!-- 按钮控制内容 -->
+                <div class="btns_list" id="btns_list_id">
+                    <span class="commodity_audio_play_btn" id="commodity_audio_btn"></span>
+                    <span class="commodity_btn" id="commodity_video_btn_id"></span>
+                    <span class="commodity_btn commodity_btn_active" id="commodity_img_btn_id"></span>
+                    <span class="commodity_btn" id="commodity_three_btn_id"></span>
+                </div>
+                <!-- 商品标题，商品折扣 -->
+                <div class="commodity_title">
+                    <div class="commodity_title_info"><span id="commodity_title"></span></div>
+                    <!--二期需求暂时隐藏-->
+                    <div class="commodity_title_tips" id="commodity_title_tips" style="display: none"></div>
+                </div>
+                <!-- 商品类型，颜色等信息 -->
+                <div class="commodity_info">
+                    <div class="commodity_typename"><span id="commodity_typename"></span></div>
+                    <div id="commodity_color"></div>
+                </div>
+                <!-- 商品尺寸信息 -->
+                <div class="commodity_volume">
+                    <div class="commodity_size"><span id="commodity_size"></span></div>
+                </div>
+                <!-- 商品价格信息 -->
+                <div class="commodity_price">
+                    <div><span id="commodity_presentrice"></span><span id="commodity_oprice"></span></div>
+                    <div><span id="commodity_url"></span></div>
+                </div>
+            </div>
+            <!-- 窗口关闭 -->
+            <div id="commodityTagClose">
+                <div id="close_btn"><span></span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 二级菜单 -->
+    <div class="wheel-container" style="display: none">
+        <div class="wheelSize">
+            <div class="wheelPic"></div>
+        </div>
+    </div>
+    <div class="three-container" style="display: none">
+        <div class="threeSize">
+            <div class="fake_3d">
+            </div>
+        </div>
+    </div>
+
+    <!-- <div ></div> -->
+
+    <!-- 新功能增加 商品列表-->
+    <div id="drawer-container-2nd" style="display: none;">
+
+        <!-- gui.js/Mattertag.js 控制显隐 -->
+        <!-- 新增的商品列表 -->
+        <!-- open-2nd -->
+        <div id="drawer-2nd" class="fullWidth-2nd">
+            <!-- frameBG  背景色 -->
+
+            <div class="frame-container-2nd frameBG">
+                <div class="commodity_search" style="display: none;">
+                    <input type="search" id="commodity_search" style="display: none;" placeholder="商品检索...." value="">
+                    <button type="button" class="search_button">搜索</button>
+                </div>
+                <div class="changePage" style="display: none;">
+                    <div class="prevPage"></div>
+                    <div class="nextPage"></div>
+                </div>
+                <!-- frame-2nd -->
+                <div id="shopSwiper" class="olDiv swiper-container swiper-container-horizontal swiper-container-free-mode">
+                    <p class="search_title search_open"></p>
+                    <ol id="thumb-list" class="swiper-wrapper tabC headMenu" style="transform: translate3d(0px, 0px, 0px);">
+                    </ol>
+                </div>
+                <div id="scrollFrame-2nd" class="frame-2nd" style="overflow: hidden;">
+                    <ul id="thumb-container-2nd" class="slidee slidee-2nd" style="transform: translateZ(0px); width: 0px;">
+                    </ul>
+                </div>
+                <div class="scrollbar hidden" id="scroller-2nd" style="">
+                    <div class="handle" style="transform: translateZ(0px);"></div>
+                </div>
+            </div>
+        </div>
+        <div id="playHead" style="display:none;" class="">
+            <div id="status-2nd"><span class="curIdx">1</span>/<span class="totalSteps"></span></div>
+            <div id="progressBar-2nd"></div>
+        </div>
+    </div>
+    <!-- 新增商品列表end -->
+
+
+
+    <div class="pctagcontainer" style="display:none;">
+        <div class="whiteboard">
+            <!--<div  class="prism-player" id="video-tag"></div>-->
+            <!--<video controls id="video-tag" style="display: none;"></video>-->
+            <video controls="" id="video-tag" webkit-playsinline="true" playsinline="true" raw-controls="true" x-webkit-airplay="true" x5-video-player-type="h5" x5-video-orientation="portraint" poster="" style="max-width:-webkit-fill-available;max-height:-webkit-fill-available;object-fit:fill;margin: 0 auto;"></video>
+            <!--<video controls preload="auto" id="video-tag" style="display: none;"></video>-->
+            <div class="topimg">
+                <img class="imageCon" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+            </div>
+            <div class="swiper-container" id="slidePictures" style="display: none;">
+                <div class="swiper-wrapper" id="wrapperPic"></div>
+                <div class="swiper-button-prev btn-prev3 swiper-button-white" style="display: none"></div>
+                <div class="swiper-button-next btn-next3 swiper-button-white" style="display: none"></div>
+                <div class="swiper-pagination" id="pagination3"></div>
+            </div>
+            <div class="middletext">
+                <b>
+                    <div class="middletitle"></div>
+                </b>
+                <div class="middlecontent"></div>
+            </div>
+            <div class="bottomlink">
+                <div class="godetail"></div>
+                <div class="bl-text">查看详情</div>
+            </div>
+        </div>
+        <div class="closeTagContainer"></div>
+    </div>
+    <!--<div id="full-right-container">-->
+    <!--<div id="full-right-detail" class="fullWidth darkGlass">-->
+    <!--<div id="full-right-img-container">-->
+    <!--<img id="full-right-img">-->
+    <!--</div>-->
+    <!--<div id="full-right-text-container">-->
+    <!--<p id="tag-right-title-info"></p>-->
+    <!--<p id="tag-right-detail-info"></p>-->
+    <!--</div>-->
+    <!--<div id="full-right-buy-container">-->
+    <!--<div id="full-right-buy-img" style="cursor: pointer">了解详情</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div id="containerScroll" class="originpic-container" android:clickable="true" style="display:none;">
+        <div id="picsizeScroll" class="picsize">
+            <div id="originpicScroll" class="originpic" style="cursor: move;"></div>
+        </div>
+    </div>
+    <div id="vr-mode-container" style="display: none">
+        <!--<div id="gui-vr-off"><a><i rel="tooltip" title="全景模式"-->
+        <!--class="icon icon-vr-off"></i></a></div>-->
+        <div id="gui-vr-off" class="vr-off"></div>
+    </div>
+    <div class="toast-wrap me toastAnimate">
+        <span class="toast-msg me">点击屏幕两点或两点以上</span>
+    </div>
+    <div id="gui-thumb" style="background-image: url(&quot;play/data/148b10fa_XAZ0_94ad/resources/20200602041649_bg_img_pc.jpg&quot;); transform: scale(1.1); display: none;"></div>
+
+    <div id="image-floor-container" style="display: none;">
+        <img id="floor-image" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0">
+    </div>
+    <div id="log"></div>
+    <div id="player" style="" tabindex="-1"><canvas width="1517" height="685" style="width: 1517px; height: 685px;"></canvas></div>
+    <div id="gui-parent">
+        <div id="barrageCon" style="display: none;"></div>
+        <div>
+            <div id="virgule" style="display: none; top: -16px; opacity: 0.3;"></div>
+            <div id="barrageShow" style="display: none; top: 9px; opacity: 0.8;">
+                <div class="barrageSwitch" style="display: none; left: 70px; width: 40px;">
+                    <p>开关</p>
+                    <div class="barrage-switch Local"></div>
+                </div>
+                <div class="barrageControl" style="opacity: 0.8;">
+                    <div class="barrage-con Local"></div>
+                </div>
+                <div class="sendBarrage" style="display: none; left: 70px; width: 40px;">
+                    <p>发弹幕</p>
+                    <div class="barrage-send Local"></div>
+                </div>
+                <div class="comment" style="display: none">
+                    <p class="commentDanmu">发弹幕</p>
+                    <input class="commentDet" type="text" placeholder="   不要超过30个字哦!">
+                    <button class="commentBtn" type="button">发送</button>
+                    <button class="commentClose" type="button">关闭</button>
+                </div>
+            </div>
+        </div>
+        <div id="gui" style="display: block;">
+            <audio id="audio-bar" autoplay="" loop="" src="play/data/148b10fa_XAZ0_94ad/resources/cyzy.mp3"></audio>
+            <audio id="audio-tag" autoplay="autoplay"></audio>
+            <audio id="audio-summary" autoplay="autoplay"></audio>
+
+            <!--<div class="pwVideo">-->
+            <!--<div class="video-zz">-->
+            <!--<video controls id="iframe-video">-->
+            <!--&lt;!&ndash;<source class="video-source" src="http://beyond.3dnest.cn/panorama/ascott/video/1234.mp4" type="video/mp4">&ndash;&gt;-->
+            <!--</video>-->
+            <!--</div>-->
+            <!--<div class="video-text">-->
+            <!--<h3 class="video-caption"></h3>-->
+            <!--<p class="video-desc"></p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<img class="video-play" src="images/icon_video_play.png" alt="">&ndash;&gt;-->
+            <!--</div>-->
+
+            <div id="pinTopLeft" class="pinTop left" style="display: none; pointer-events: all; opacity: 1;">
+                <div id="model-title">
+                    <div class="title-row">
+                        <div id="title-toggle" class="hasHover"><a class="hasHover"><i class="icon icon-dpad-left"></i></a></div>
+                        <div class="title-container meta-toggle hasHover">
+                            <a id="more-hint" class="hasHover">打开 <i class="icon icon-dpad-down"></i></a>
+                            <a id="less-hint" style="display:none" class="hasHover">关闭 <i class="icon icon-dpad-up"></i></a>
+                            <!--<a id="phone-topbar" style="display: none;" href="tel:10086"> <i class="icon icon-phone"></i></a>-->
+                            <div id="gui-name" class="gui-text titleText noCoBrand" rel="tooltip" data-placement="bottom" data-html="true" data-original-title="" title="">建行线上展厅V1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="meta-info-spacing-fix">
+                    <!--<div id="meta-info">-->
+                    <!--<div id="meta-description"></div>-->
+                    <!--<div id="presented-by"></div>-->
+                    <!--<div class="contact-info">-->
+                    <!--<div id="contact-data" style="display: none"></div>-->
+                    <!--</div>-->
+                    <!--<div class="support">-->
+                    <!--<span id="supportTxt" style="float: left; display: none"></span>-->
+                    <!--<img class="qrimg" style="display: block" src="">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="pinBottom-container" style="display: block;">
+                <div class="pinBottom center highlightExists open" style="pointer-events: all; opacity: 1;">
+                    <!--<div id="view-controllers">-->
+                    <!--<div id="gui-modes-dollhouse" class="darkGlass"><span class="mode">3D</span></div>-->
+                    <!--<div id="gui-modes-floorplan" class="darkGlass"><span class="mode">平面</span></div>-->
+                    <!--</div>-->
+                    <div id="view-controllers" style="display: none;">
+                        <div class="switch">
+                            <input type="radio" class="switch-input" name="view" value="week" id="week" checked="">
+                            <label id="gui-modes-dollhouse" for="week" class="switch-label switch-label-off">3D</label>
+                            <input type="radio" class="switch-input" name="view" value="month" id="month">
+                            <label id="gui-modes-floorplan" for="month" class="switch-label switch-label-on">平面</label>
+                            <span class="switch-selection"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="pinBottom vr">-->
+                <!--<div id="gui-vr-on" class="ui-icon-3dnest" style="display: none;"><a><i rel="tooltip" title="VR模式"-->
+                <!--class="icon icon-vr-on"></i></a></div>-->
+                <!--</div>-->
+            </div>
+            <div class="pinBottom highlightExists open" id="pinBtmLoad" style="display: flex; justify-content: center; align-items: center; width: 100%; pointer-events: all; opacity: 1;">
+                <!--<div class="viewContainer">-->
+                <div id="moreHouse" class="button_left moreHouse pc Local" style="left: -8px;display: none"></div>
+                <div id="pullTab" class="button_left pc Local down opened" style="display: block;"></div>
+                <div class="buttonsbar" style="margin-left: 0px">
+                    <div id="play" class="button_left pc Local play" style="display: block; margin: 0px;"></div>
+                    <div id="multiplier-speed" class="button_left multiplierSpeed" style="display: none;">
+                        <span></span>
+                        <p class="playSpeed">2.0×</p>
+                        <ul style="display: block; opacity: 0;">
+                            <li class="mulSpeed">0.3×<span></span></li>
+                            <li class="mulSpeed">0.5×<span></span></li>
+                            <li class="mulSpeed">1.0×<span></span></li>
+                            <li class="mulSpeed">1.5×<span></span></li>
+                            <li class="mulSpeed">2.0×</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--shopList 新增商城功能按钮-->
+                <div id="shopTab" class="button_left pull-n" style="display: none;"></div>
+                <!--新增商城功能end -->
+
+                <div class="buttonsbar">
+                    <div class="titlecontent" style="float:left">建行线上展厅V1</div>
+                    <div id="openmenu" class="button_left" style="margin-right: -22px;">
+                        <div class="openmenu Local"></div>
+                    </div>
+                    <div id="m-openmenu" class="button_left m-openmenu Local" style="display: none"></div>
+                    <!--<div id="gui-modes-inside" class="button_left inside"></div>-->
+                    <div id="gui-modes-outside" class="button_left pc Local outside">
+                        <div id="cube-container" style="display: block;">
+                            <div class="cube">
+                                <back></back>
+                                <bottom></bottom>
+                                <front></front>
+                                <left></left>
+                                <right></right>
+                                <top></top>
+                            </div>
+                            <div class="cube-center">
+                                <back-center></back-center>
+                                <bottom-center></bottom-center>
+                                <front-center></front-center>
+                                <left-center></left-center>
+                                <right-center></right-center>
+                                <top-center></top-center>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="gui-vr-on" class="button_left pc" style="display: none;">
+                        <div class="vrbargroup">
+                            <div class="vritem openor Local"></div>
+                            <div class="vritem openvr Local"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="m-opencatalog" class="button_left Local" style="display: none"></div>
+            </div>
+
+            <div class="pinBottom bottom_presented_container highlightExists open" style="display: none; pointer-events: all; opacity: 1;">
+                <span id="bottom_presented_by" style="display: none;"></span>
+            </div>
+            <div class="pinBottom right hideTarget highlightExists open" style="display: block; pointer-events: all; opacity: 1;">
+                <div class="rightViewContainer">
+                    <div class="gui-floor hasHover" style="display: none">
+                        <div class="gui-floor-title">一楼</div>
+                        <span class="gui-floor-number">1 层</span>
+                        <!--<i class="icon icon-dpad-up"></i>-->
+                        <div class="floorup Local"></div>
+                        <div class="container"></div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="pinBottom zoomPanel">-->
+            <!--<div id="gui-zoomin" class="buttonZoom buttonZoomIn buttonZoomEnabled" data-placement="top" style="display: none">-->
+            <!--<div class="buttonZoomContent"><a><i rel="tooltip" title="Zoom in" class="icon icon-plus"></i></a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div id="gui-zoomout" class="buttonZoom buttonZoomOut buttonZoomEnabled" data-placement="top" style="display: none">-->
+            <!--<div class="buttonZoomContent"><a><i rel="tooltip" title="Zoom out" class="icon icon-minus"></i></a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div id="drawer-container" style="display: block;">
+            <div id="drawer" class="fullWidth open" style="pointer-events: all; opacity: 1;">
+                <div class="frame-container frameBG" style="width: 80%;">
+                    <div id="scrollFrame" class="frame" style="overflow: hidden;">
+                        <ul id="thumb-container" class="slidee" style="transform: translateZ(0px) translateX(0px); width: 1177px;"><li class="thumbImg hasHover" data-index="0"><div class="overlay">入口</div><img src="./location_32_4.jpg"></li><li class="thumbImg hasHover" data-index="1"><div class="overlay">智慧银行</div><img src="./location_03_4.jpg"></li><li class="thumbImg hasHover" data-index="2"><div class="overlay">使命</div><img src="./location_39_3.jpg"></li><li class="thumbImg hasHover" data-index="3"><div class="overlay">广交会</div><img src="./location_41_1.jpg"></li><li class="thumbImg hasHover" data-index="4"><div class="overlay">结算通</div><img src="./location_34_3.jpg"></li><li class="thumbImg hasHover" data-index="5"><div class="overlay">融资通</div><img src="./location_08_4.jpg"></li><li class="thumbImg hasHover" data-index="6"><div class="overlay">金融印象</div><img src="./location_11_4.jpg"></li><li class="thumbImg hasHover" data-index="7"><div class="overlay">全球服务</div><img src="./location_14_4.jpg"></li><li class="thumbImg hasHover" data-index="8"><div class="overlay">金融直播</div><img src="./location_18_3.jpg"></li><li class="thumbImg hasHover" data-index="9"><div class="overlay">建行愿景</div><img src="./location_29_3.jpg"></li><li class="thumbImg hasHover" data-index="10"><div class="overlay">数字展馆</div><img src="./location_42_1.jpg"></li></ul>
+                    </div>
+                    <div class="scrollbar" id="scroller" style="">
+                        <div class="handle" style="transform: translateZ(0px) translateX(0px); width: 1204px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="playHead" style="display:none;">
+                <div id="status"><span class="curIdx">1</span>/<span class="totalSteps">11</span></div>
+                <div id="progressBar"><div class="step" data-idx="0" style="width:9.090909090909092%"></div><div class="step" data-idx="1" style="width:9.090909090909092%"></div><div class="step" data-idx="2" style="width:9.090909090909092%"></div><div class="step" data-idx="3" style="width:9.090909090909092%"></div><div class="step" data-idx="4" style="width:9.090909090909092%"></div><div class="step" data-idx="5" style="width:9.090909090909092%"></div><div class="step" data-idx="6" style="width:9.090909090909092%"></div><div class="step" data-idx="7" style="width:9.090909090909092%"></div><div class="step" data-idx="8" style="width:9.090909090909092%"></div><div class="step" data-idx="9" style="width:9.090909090909092%"></div><div class="step" data-idx="10" style="width:9.090909090909092%"></div></div>
+            </div>
+        </div>
+
+
+
+        <div id="back-url" style="display: none;">
+            <a href="javascript:void(0);" class="backimg Local hasHover"></a>
+        </div>
+        <div id="userlogo" style="display: none;" class="pc">
+            <div class="logoimg"></div>
+        </div>
+        <div id="page-view" style="display: none;" class="pc">
+            <span id="popularity">人气：</span>
+            <span class="page-view"></span>
+        </div>
+        <div id="rightbar" class="rightbar" style="top: auto; bottom: 45px; display: block; pointer-events: all; opacity: 1;">
+            <div class="rightgroup" style="display: block;">
+                <div id="footer-help" class="item help pc Local"></div>
+                <div id="audio-btn-on" class="item pc audiooff Local" style="display: block;"></div>
+                <div id="outermap-on" class="item outermap-on pc Local" style="display: none"></div>
+                <div id="phone-topbar-li" class="item" style="display: none"><a id="phone-topbar" class="phone hasHover Local"></a>
+                </div>
+                <div id="barrage-switch" class="item barrage-on pc Local" style="display: none;"></div>
+                <div id="gui-fullscreen" class="item enterfs Local"></div>
+                <div id="facebook" class="item fbshare" style="display: none"></div>
+                <!--电力sg-->
+                <div id="powerSg" style="display: none">
+                    <a href="https://external.333f.com/online-CCB/jianhang/power.html#indexBack?callback=back" class="hasHover">返 回</a></div>
+            </div>
+        </div>
+        <div class="ck-slide" style="display: none">
+            <h3 class="ck-title">查看更多</h3>
+            <a href="javascript:;" class="ctrl-slide ck-prev hasHover Local"></a>
+            <ul class="ck-slide-wrapper"></ul>
+            <a href="javascript:;" class="ctrl-slide ck-next hasHover Local"></a>
+            <div class="ck-slidebox">
+                <div class="slideWrap">
+                    <ul class="dot-wrap"></ul>
+                </div>
+            </div>
+            <div class="moreclose BigCloseLocal"></div>
+        </div>
+        <div class="pck-slide" style="display: none">
+            <div class="cs-slide-pc">
+                <div class="ctrl-slide ck-prev pc Local"></div>
+                <div class="ck-pc-wrapper">
+                    <h3 class="ck-title">查看更多</h3>
+                    <ul class="ck-slide-wrapper"></ul>
+                </div>
+                <div class="ctrl-slide ck-next pc Local"></div>
+            </div>
+            <div class="moreclose BigCloseLocal"></div>
+        </div>
+        <div id="morebg" style="display: none"></div>
+
+        <div id="toprightbar" class="toprightbar" style="display: none;">
+            <div id="measure-group" class="toprightgroup measure-mobile" style="display: block">
+                <div id="measure-tools" class="item measure-unchecked Local measure-open"></div>
+
+                <div id="length-tool" class="item measure-line measure-unchecked Local" style="display: none"></div>
+                <div id="area-tool" class="item measure-area measure-unchecked Local" style="display: none"></div>
+                <div id="reset-tool" class="item measure-clear measure-unchecked Local" style="display: none;"></div>
+                <div id="help-tool" class="item measure-help measure-unchecked Local" style="display: none"></div>
+
+                <div id="help-tool-m" class="item measure-help measure-unchecked Local" style="display: none"></div>
+                <div id="reset-tool-m" class="item measure-clear measure-unchecked Local" style="display: none"></div>
+                <div id="area-tool-m" class="item measure-area measure-unchecked Local" style="display: none"></div>
+                <div id="length-tool-m" class="item measure-line measure-unchecked Local" style="display: none"></div>
+
+
+            </div>
+            <div id="measure-unit" style="display: none;">
+                <p></p>
+                <div class="switch-unit">
+                    <input type="radio" class="switch-input" name="unit" value="m" checked="">
+                    <label id="unit-m">m</label>
+                    <input type="radio" class="switch-input" name="unit" value="ft">
+                    <label id="unit-ft">ft</label>
+                    <span class="unit-selection"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add_tag" style="z-index: 999;display: none;">
+        <form id="formd" enctype="multipart/form-data">
+            <div>
+                *项目ID: <input id="inp_nest_id" name="nest_id" type="text" value="" readonly="">
+            </div>
+            <div style="display: none;">楼层：<input id="inp_nest_floor" name="nest_floor" type="text" value="" readonly="">
+            </div>
+            <div style="display: none">
+                <input id="inp_base_x" name="base_x" value="1"><input id="inp_base_y" name="base_y" value="2">
+                <input id="inp_base_z" name="base_z">
+                <input id="inp_normal_x" name="normal_x">
+                <input id="inp_normal_y" name="normal_y" value=""><input id="inp_normal_z" name="normal_z">
+                <input id="inp_dx" name="stem_x">
+                <input id="inp_dy" name="stem_y" value=""><input id="inp_dz" name="stem_z">
+                <input id="inp_tag_qw" name="qw" type="hidden" class="form-control">
+                <input id="inp_tag_qx" name="qx" type="hidden" class="form-control">
+                <input id="inp_tag_qy" name="qy" type="hidden" class="form-control">
+                <input id="inp_tag_qz" name="qz" type="hidden" class="form-control">
+
+                <input id="inp_location_id" name="location_id">
+            </div>
+            <div id="action_ip">
+                *标签类型:
+                <label for="option1" class="check_tag"><input id="option1" type="radio" name="type" value="1" checked="">全景</label>
+                <label for="option2" class="check_tag"><input id="option2" type="radio" name="type" value="2">平面</label>
+                <span id="tip" style="color: red;display: none;">(标题在<em>四个</em>汉字以内)</span>
+            </div>
+            <div id="cle_val">
+                *标签展示类型:
+                <label for="viewtype1"><input id="viewtype1" type="radio" name="template_type" value="1" checked="">文本</label>
+                <label for="viewtype2"><input id="viewtype2" type="radio" name="template_type" value="2">图文</label>
+                <label for="viewtype4"><input id="viewtype4" type="radio" name="template_type" value="4">音频</label>
+                <label for="viewtype5"><input id="viewtype5" type="radio" name="template_type" value="5">跳转</label>
+                <label class="display-none" id="tag_360_type" for="viewtype10"><input id="viewtype10" type="radio" name="template_type" value="10">跳转到室外全景</label>
+                <label for="viewtype8"><input id="viewtype8" type="radio" name="template_type" value="8">万能外链(可在界面展示视频、3D模型等)</label>
+                <label id="ew_lable" style="display: none;" for="viewtype101"><input id="viewtype101" type="radio" name="template_type" value="101">EW图文</label>
+                <label id="ikea_lable" style="display: none;" for="viewtype102"><input id="viewtype102" type="radio" name="template_type" value="102">宜家商品</label>
+            </div>
+            <div id="tag_bg_style">
+                <label>选择标签样式</label>
+                <div class="display-flex">
+                    <div style="margin-right: 2px;">
+                        <input type="radio" name="tagnum" value="1" checked="" class="make-switch switch-radio1"><label>默认样式</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="2" class="make-switch switch-radio1"><label>样式1</label>
+                        <img class="img-responsive-half switch-label1" src="./tagtype1_1_60x60.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="3" class="make-switch switch-radio1"><label>样式2</label>
+                        <img class="img-responsive-half switch-label2" src="./tagtype1_2_60x60.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="4" class="make-switch switch-radio1"><label>样式3</label>
+                        <img class="img-responsive-half switch-label3" src="./tagtype1_3_60x60.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="5" class="make-switch switch-radio1"><label>样式4</label>
+                        <img class="img-responsive-half switch-label4" src="./tagtype1_4_60x60.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="6" class="make-switch switch-radio1"><label>样式5(文本)</label><br>
+                        <input class="display-none" type="text" id="tagtitle" name="tagtitle" placeholder="输入文字或文本,不超过五个字">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="7" class="make-switch switch-radio1"><label>样式6(自定义标签图片)</label><br>
+                        <input class="display-none" type="file" id="tagpic" name="tagpic">
+                    </div>
+                </div>
+                <div id="gif_tag_style" class="form-group display-flex">
+                    <div style="margin-right: 2px;">
+                        <input type="radio" name="tagnum" value="8" class="make-switch switch-radio1"><label>样式7</label>
+                        <img class="img-responsive-half switch-label5" src="./gif8_80x80.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="9" class="make-switch switch-radio1"><label>样式8</label>
+                        <img class="img-responsive-half switch-label6" src="./gif9_80x80.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="10" class="make-switch switch-radio1"><label>样式9</label>
+                        <img class="img-responsive-half switch-label7" src="./gif10_80x80.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="11" class="make-switch switch-radio1"><label>样式10</label>
+                        <img class="img-responsive-half switch-label8" src="./gif11_80x80.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="12" class="make-switch switch-radio1"><label>样式11</label>
+                        <img class="img-responsive-half switch-label9" src="./gif12_80x80.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="13" class="make-switch switch-radio1"><label>样式12</label><br>
+                        <img class="img-responsive-half switch-label10" src="./gif13_80x80.png" alt="">
+                    </div>
+                    <div>
+                        <input type="radio" name="tagnum" value="14" class="make-switch switch-radio1"><label>样式13</label><br>
+                        <img class="img-responsive-half switch-label11" src="./gif14_80x80.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div id="sub_value">
+                标签名称: <input id="inp_title" name="title" type="text" maxlength="40" placeholder="输入标签名称,长度不超过40位">
+            </div>
+            <div id="custom_id" style="display: none;">
+                *客户系统id: <input id="inp_custom_id" name="custom_id" type="text" maxlength="64" placeholder="请输入客户系统对接id">
+            </div>
+            <div id="tag_to_360" class="form-group display-none">
+            </div>
+            <div id="tag_url" class="display-none">
+                链接url: <input id="inp_url" name="url" type="text" placeholder="https://">&nbsp;
+            </div>
+            <div id="tag_image" class="display-none">
+                上传图片(900x700): <input id="upimg" name="upimg" type="file"><input id="upimg2" name="upimg2" type="file">
+                <input id="upimg3" name="upimg3" type="file" style="margin-left: 9.2em;">
+            </div>
+
+            <div id="tag_music" class="display-none">
+                上传音频(小于1M): <input id="upmic" name="upmic" type="file">
+            </div>
+            <div id="tag_detail">
+                <label for="tex_des">标签内容: </label><textarea name="description" id="tex_des" cols="60" rows="5" style="background-color: #eee;padding: 10px"></textarea>
+            </div>
+            <div id="product_info" style="display: none;">
+                <label>商品信息:</label>
+                <div class="col-md-9" style="margin: 0;">
+                    <div class="form-group" style="margin-top: 0;">
+                        <div style="display: inline-block">
+                            <label for="subject" class="col-md-5 control-label">商品名称</label>
+                            <input type="text" id="subject" name="subject" class="form-control">
+                        </div>
+                        <div style="display: inline-block">
+                            <label class="col-md-5 control-label">是否新品</label>
+                            <div class="col-md-7" style="margin-top: 5px; display: inline-block">
+                                <label for="isNew_true">是</label>
+                                <input type="radio" id="isNew_true" value="1" name="isNew">
+                                <label for="isNew_false">否</label>
+                                <input type="radio" id="isNew_false" value="0" name="isNew">
+                            </div>
+                        </div>
+                        <div style="display: inline-block">
+                            <label for="price" class="col-md-5 control-label">价格</label>
+                            <input type="text" id="price" name="price" class="form-control">
+                        </div>
+                        <div style="display: inline-block">
+                            <label for="num" class="col-md-5 control-label">数量</label>
+                            <input type="text" id="num" name="num" class="form-control">
+                        </div>
+                        <div style="display: inline-block">
+                            <label for="productid" class="col-md-5 control-label">货号</label>
+                            <input type="text" id="productid" name="productid" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div id="sm_product">-->
+            <!--单多品信息&nbsp;&nbsp;类型: <label for="option5"><input id="option5" type="radio" name="sub_type1" value="1"-->
+            <!--checked/>普通</label>-->
+            <!--<label for="option6"><input id="option6" type="radio" name="sub_type1" value="2"/>AR</label>-->
+            <!--<label for="option7"><input id="option7" type="radio" name="sub_type1" value="3"/>3D</label>&nbsp;-->
+            <!--ID: <input type="text" id="inp_id_1" name="obj_id1"/><button type="button" id="btn_add" value="增加">增加</button>-->
+            <!--</div>-->
+            <div style="text-align: center;">
+                <input type="button" id="submit_form" value="提交">&nbsp;&nbsp;<input type="button" id="cancel_add_tag" value="取消">
+            </div>
+        </form>
+    </div>
+    <div id="adjust_angle" style="z-index: 999;display: none;">
+        <div>
+            <div class="input_nest_title"> 参数1：</div>
+            <button id="input_nest_up_x" style="width: 60px;">+</button>
+            <button id="input_nest_down_x" style="width: 60px;">-</button>
+            <button id="reset_nest_x" style="width: 30px;">重置</button>
+            <span id="x_adjust_value" style="margin-left: 2px;">0</span>
+        </div>
+        <div>
+            <div class="input_nest_title"> 参数2：</div>
+            <button id="input_nest_up_y" style="width: 60px;">+</button>
+            <button id="input_nest_down_y" style="width: 60px;">-</button>
+            <button id="reset_nest_y" style="width: 30px;">重置</button>
+            <span id="y_adjust_value" style="margin-left: 2px;">0</span>
+        </div>
+        <div>
+            <div class="input_nest_title"> 参数3：</div>
+            <button id="input_nest_up_z" style="width: 60px;">+</button>
+            <button id="input_nest_down_z" style="width: 60px;">-</button>
+            <button id="reset_nest_z" style="width: 30px;">重置</button>
+            <span id="z_adjust_value" style="margin-left: 2px;">0</span>
+        </div>
+        <div style="text-align: center;margin-top: 20px;">
+            <input type="button" id="submit_form_aa" value="提交">
+        </div>
+    </div>
+
+    <div id="adjust_compass" style="z-index: 999;display: none;">
+        <div>
+            <div class="input_nest_title"> 旋转：</div>
+            <button id="input_nest_rotate_up" style="width: 60px;">+</button>
+            <button id="input_nest_rotate_down" style="width: 60px;">-</button>
+            <button id="input_nest_rotate_zero" style="width: 60px;">重置</button>
+            <span id="nest_rotate_value" style="margin-left: 2px;">0</span>
+        </div>
+        <div style="text-align: center;margin-top: 20px;">
+            <input type="button" id="submit_form_compass" value="提交">
+            <div>提示：本功能需要开启指南针功能才能使用</div>
+        </div>
+    </div>
+
+    <div id="adjust_angle_translation" style="z-index: 999;display: none;">
+        <div>
+            <div class="input_nest_title"> y：</div>
+            <input id="input_y" type="text" readonly="">&nbsp;
+            <input type="button" id="submit_adjust_y" value="提交">
+        </div>
+        <div>
+            <span id="location_id" style="margin-left: 2px;">0</span>
+        </div>
+    </div>
+
+    <div id="add_360_tag" style="z-index: 999;display: none;">
+        <form id="formd_360" enctype="multipart/form-data">
+            <div>
+                *项目ID: <input id="inp_360_nest_id" name="nest_id" type="text" value="" readonly="">
+            </div>
+            <div style="display: none">
+                <input id="inp_360_base_x" name="base_x" value="1"><input id="inp_360_base_y" name="base_y" value="2">
+                <input id="inp_360_base_z" name="base_z">
+                <input id="inp_pano_id" name="pano_id">
+            </div>
+            <div id="sub_value_360">
+                *360标签名称: <input id="inp_title_360" name="title" type="text" maxlength="15" placeholder="输入标签名称,长度不超过5位">
+            </div>
+            <!--<div id="sm_product">-->
+            <!--单多品信息&nbsp;&nbsp;类型: <label for="option5"><input id="option5" type="radio" name="sub_type1" value="1"-->
+            <!--checked/>普通</label>-->
+            <!--<label for="option6"><input id="option6" type="radio" name="sub_type1" value="2"/>AR</label>-->
+            <!--<label for="option7"><input id="option7" type="radio" name="sub_type1" value="3"/>3D</label>&nbsp;-->
+            <!--ID: <input type="text" id="inp_id_1" name="obj_id1"/><button type="button" id="btn_add" value="增加">增加</button>-->
+            <!--</div>-->
+            <div style="text-align: center;">
+                <input type="button" id="submit_form_360" value="提交">&nbsp;&nbsp;<input type="button" id="cancel_add_tag_360" value="取消">
+            </div>
+        </form>
+    </div>
+    <div id="gui-spinner" style="display: none;">
+        <img id="gui-spinner-icon" src="./loading_74x74.png">
+    </div>
+    <div id="gui-message" class="message-outer darkGlass" style="display: none; background-color: rgba(255, 255, 255, 0);">
+        <h2 class="model-title">建行线上展厅V1</h2>
+
+        <div class="message-inner">
+            <div class="message-content"><a id="button-play" class="hasHover"><i class="icon icon-play"></i></a>
+                <div>浏览3D空间</div>
+            </div>
+        </div>
+        <div class="bottom-logo">
+            <div class="img onlyLogo Local"></div>
+        </div>
+    </div>
+    <div class="gui-error message-outer" style="display: none; background-color: rgba(255, 255, 255, 0);">
+        <div class="message-inner error-inner">
+            <div class="message-content">
+                <img class="error-splash" src="./splash_110x110.gif" style="height: 80px; width: auto">
+                <div class="error-problem-text">
+                    <!--<p class="error-problem-textO"></p>-->
+                    <!--<p class="error-problem-textT"></p>-->
+                </div>
+                <div class="error-solution-text"></div>
+                <div class="error-explanation"></div>
+                <div class="error-actions"></div>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex;justify-content: center;">
+        <div id="initial-help" style="display: none" class="init-pc-help">
+            <div class="initial-help">
+                <img src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+                <p>鼠标点击行走</p>
+            </div>
+            <div class="initial-turn">
+                <img src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+                <p>鼠标拖拽转向</p>
+            </div>
+            <div class="initial-lord">
+                <span></span>
+                <img src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+                <p>3D视角</p>
+                <b>点击任意位置关闭本窗口</b>
+            </div>
+        </div>
+        <div class="nav-help-dialog pc" style="display: none;">
+            <div class="nav-help-elements">
+                <div class="close-all">
+                    <div id="helpTitle" class="title">使用手册</div>
+                </div>
+                <div class="nav-help-content">
+                    <div id="pc-help">
+                        <div id="pc-first">
+                            <div>
+                                <img class="pc-first1" src="./icon_pc_click_72x114.png">
+                                <p class="helpClick-move">鼠标点击行走</p>
+                            </div>
+                            <div>
+                                <img class="pc-first2" src="./icon_pc_drag_72x114.png">
+                                <p class="helpDrag-move">鼠标拖拽转向</p>
+                            </div>
+                            <div>
+                                <img class="pc-first3" src="./icon_pc_zoom.png">
+                                <p class="helpZoom-move">鼠标滚轮缩放</p>
+                            </div>
+                            <div class="line_01"></div>
+                            <div>
+                                <img class="pc-first4" src="./icon_pc_keys.png">
+                                <p class="helpKey-move">方向键行走、转向</p>
+                            </div>
+                        </div>
+                        <div id="pc-second">
+                            <div class="line_02"></div>
+                            <div>
+                                <img class="pc-second1" src="./outside_56x56.png">
+                                <p class="helpLord">3D视角</p>
+                            </div>
+                            <div>
+                                <img class="pc-second2" src="./indoor_56x56.png">
+                                <p class="helpRoam">漫游视角</p>
+                            </div>
+                            <div>
+                                <img class="pc-second3" src="./pull_56x56.png">
+                                <p class="helpChange">场景切换</p>
+                            </div>
+                            <div>
+                                <img class="pc-second4" src="./play_56x56.png">
+                                <p class="helpVisit">自动游览</p>
+                            </div>
+                            <div>
+                                <img class="pc-second5" src="./vr_56x56.png">
+                                <p class="helpVr">虚拟现实</p>
+                            </div>
+                            <div style="display: none">
+                                <img class="pc-second6" src="./icon_morehouse_56x56.png">
+                                <p class="helpMore">房源推荐</p>
+                            </div>
+                            <div>
+                                <img class="pc-second7" src="./icon_measure_56x56.png">
+                                <p class="helpMeasure">尺寸测量</p>
+                                <!--<span>(进入平面测量模式)</span>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mobile-help">
+                        <div id="middle-row">
+                            <div>
+                                <img class="middle-row1" src="./icon_phone_click_96x96.png">
+                                <p class="helpToMove">点击行走</p>
+                            </div>
+                            <div>
+                                <img class="middle-row2" src="./icon_phone_slide_96x96.png">
+                                <p class="helpToAround">滑动转向</p>
+                            </div>
+                            <div>
+                                <img class="middle-row3" src="./icon_phone_zoom_96x96.png">
+                                <p class="helpToZoom">双指缩放</p>
+                            </div>
+                        </div>
+                        <div id="middle-col">
+                            <b></b>
+                            <div>
+                                <img class="middle-col1" src="./outside_56x56.png">
+                                <p class="helpLord">3D视角</p>
+                            </div>
+                            <div>
+                                <img class="middle-col2" src="./indoor_56x56.png">
+                                <p class="helpRoam">漫游视角</p>
+                            </div>
+                            <div>
+                                <img class="middle-col3" src="./pull_56x56.png">
+                                <p class="helpChange">场景切换</p>
+                            </div>
+                            <div>
+                                <img class="middle-col4" src="./play_56x56.png">
+                                <p class="helpVisit">自动游览</p>
+                            </div>
+                            <div>
+                                <img class="middle-col5" src="./vr_56x56.png">
+                                <p class="helpVr">虚拟现实</p>
+                            </div>
+                            <div style="display: none">
+                                <img class="middle-col6" src="./icon_morehouse_56x56.png">
+                                <p class="helpMore">房源推荐</p>
+                            </div>
+                            <div>
+                                <img class="middle-col7" src="./icon_measure_56x56.png">
+                                <p class="helpMeasure">尺寸测量</p>
+                                <!--<span>(进入平面测量模式)</span>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; height: 100%;">
+        <div id="measureHelp" style="display:none">
+            <div class="measureTitle">
+                <p>测量帮助</p>
+            </div>
+            <div class="measureCon">
+                <ul class="Local">
+                    <li>
+                        <span></span>
+                        <p class="measureHelpLine">测量长度，点击两点测量距离</p>
+                    </li>
+                    <li>
+                        <span></span>
+                        <p class="measureHelpArea">测量面积，点击三点以上测量面积</p>
+                    </li>
+                    <li>
+                        <span></span>
+                        <p class="measureHelpClear">清除测量数据</p>
+                    </li>
+                    <li>
+                        <span></span>
+                        <p class="measureHelpExit">退出测量模型</p>
+                    </li>
+                    <li>
+                        <span></span>
+                        <p class="measureHelpAdjust">按住端点拖动，调整端点位置</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="measureStatement">
+                <p></p>
+            </div>
+        </div>
+        <div class="measureClose" style="display:none"></div>
+    </div>
+
+
+    <div class="helpclose pc Local" style="display: none;"></div>
+    <div class="help_back" style="display: none;"></div>
+
+    <div class="large-mobile-img-container" style="display: none;">
+        <div class="imgs-container">
+            <img class="large-mobile-img">
+        </div>
+    </div>
+
+    <div id="quick-blackout" class="quick hidden"></div>
+    <div id="quick-overlay" class="quick hidden">
+        <div class="outer">
+            <div class="info desktop">点击并移动可浏览3D空间</div>
+            <div class="info mobile">点击并移动可浏览3D空间</div>
+        </div>
+    </div>
+    <div id="quick-logo" class="quick-brand" src="image/logo2.png"><img src="./logo2.png"></div>
+
+    <!--[if lte IE 9]>
+<div class="gui-error message-outer darkGlass">
+    <div class='message-inner'>
+        <div class='message-content' style='font-family: Helvetica Neue, sans-serif;'>
+            <div class="error-problem-text">浏览器不支持</div>
+            <div class="error-solution-text">请安装新版本浏览器浏览3D空间</div>
+            <div class="error-actions">或的更多帮助,请访问：<a class="link" target="_blank"
+                                                     href="https://www.3dnest.cn/help">疑难问题解决</a></div>
+        </div>
+    </div>
+</div> <![endif]-->
+
+    <div id="add_orientation">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Begin: life time stats -->
+                <h3>添加定位点</h3>
+                <form action="https://external.333f.com/nest/orientations/" class="portlet-body form" method="post">
+                    <!-- BEGIN FORM-->
+                    <div class="form-horizontal">
+                        <div class="form-body">
+                            <input id="inp_qw_o" name="qw" type="hidden" class="form-control">
+                            <input id="inp_qx_o" name="qx" type="hidden" class="form-control">
+                            <input id="inp_qy_o" name="qy" type="hidden" class="form-control">
+                            <input id="inp_qz_o" name="qz" type="hidden" class="form-control">
+                            <div style="clear: both;"></div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">*项目ID</label>
+                                <div class="col-md-3">
+                                    <input id="inp_nest_id_o" name="nest_id" type="text" class="form-control" value="" readonly="">
+                                </div>
+                                <label class="col-md-2 control-label">*版本号</label>
+                                <div class="col-md-3">
+                                    <input id="inp_rel_code_o" name="rel_code" type="text" class="form-control" value="" readonly="">
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">*场景名称</label>
+                                <div class="col-md-3">
+                                    <input id="inp_title_o" name="title" type="text" class="form-control" placeholder="输入标签名称,不超过4个汉字">
+                                </div>
+                                <label class="col-md-2 control-label">*观察点</label>
+                                <div class="col-md-3">
+                                    <input id="inp_location_id_o" name="location_id" type="text" class="form-control" value="" readonly="">
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">*定位点对接值</label>
+                                <div class="col-md-3">
+                                    <input id="inp_key_o" name="orientation_key" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+
+                        <div class="form-actions fluid">
+                            <div class="col-md-11" style="text-align:center">
+                                <button id="sub_add_o" type="button" class="btn blue">提交</button>&nbsp;
+                                <button id="cancel_add_o" type="button" class="btn default">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+            <!-- End: life time stats -->
+        </div>
+
+    </div>
+
+    <div id="add_scene">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Begin: life time stats -->
+                <div id="msg"></div>
+                <h3>添加场景</h3>
+                <form action="https://external.333f.com/nest/highlights/" class="portlet-body form" method="post">
+                    <!-- BEGIN FORM-->
+                    <div class="form-horizontal">
+                        <div class="form-body">
+                            <input id="inp_qw" name="qw" type="hidden" class="form-control">
+                            <input id="inp_qx" name="qx" type="hidden" class="form-control">
+                            <input id="inp_qy" name="qy" type="hidden" class="form-control">
+                            <input id="inp_qz" name="qz" type="hidden" class="form-control">
+                            <div style="clear: both;"></div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">*项目ID</label>
+                                <div class="col-md-3">
+                                    <input id="inp_nest_id_scene" name="nest_id" type="text" class="form-control" value="" readonly="">
+                                </div>
+                                <label class="col-md-2 control-label">*版本号</label>
+                                <div class="col-md-3">
+                                    <input id="inp_rel_code" name="rel_code" type="text" class="form-control" value="" readonly="">
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">*场景名称</label>
+                                <div class="col-md-3">
+                                    <input id="inp_title_scene" name="title" type="text" class="form-control" placeholder="输入标签名称,不超过4个汉字">
+                                </div>
+                                <label class="col-md-2 control-label">*观察点</label>
+                                <div class="col-md-3">
+                                    <input id="inp_location_id_scene" name="location_id" type="text" class="form-control" value="" readonly="">
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">选择图片</label>
+                                <div class="col-md-2" style="margin-top: 7px;">
+                                    <input type="radio" name="imgnum" value="1" checked="" class="make-switch switch-radio1"><label>图片1</label>
+                                    <img class="img-responsive" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 7px;">
+                                    <input type="radio" name="imgnum" value="2" class="make-switch switch-radio1"><label>图片2</label>
+                                    <img class="img-responsive" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 7px;">
+                                    <input type="radio" name="imgnum" value="3" class="make-switch switch-radio1"><label>图片3</label>
+                                    <img class="img-responsive" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 7px;">
+                                    <input type="radio" name="imgnum" value="4" class="make-switch switch-radio1"><label>图片4</label>
+                                    <img class="img-responsive" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" alt="">
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+
+                        <div class="form-actions fluid">
+                            <div class="col-md-11" style="text-align:center">
+                                <button id="sub_add_scene" type="button" class="btn blue">提交</button>&nbsp;
+                                <button id="cancel_add_scene" type="button" class="btn default">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- END FORM-->
+            </div>
+            <!-- End: life time stats -->
+        </div>
+
+    </div>
+    <div id="editversion-capture" style="display: none;">
+        <!--<a id='edit_add_tag_a' href='javascript:;'>添加标签</a><br><br>-->
+        <!--<a id='edit_add_highlight_a' href='javascript:;'>添加场景</a><BR/><BR/>-->
+        <!--<a id='edit_add_orientation_a' href='javascript:;'>添加定位点</a><BR/><BR/>-->
+    </div>
+    <div id="editversion-note" style="display: none;">右键添加标签或者场景</div>
+    <div id="editversion-angle-note" style="display: none;">可通过修改参数值调整场景角度</div>
+    <div id="info-device-orientation" style="display: none;"></div>
+    <div id="tag-billboards"><div class="tag-container has-hotzone"><div class="tag-body"><p class="tag-label" style="line-height: 1.5; letter-spacing: 1px;"></p><span class="tag-desc" style="line-height: 1.6;"></span></div></div><div class="tag-container has-hotzone"><div class="tag-body"><p class="tag-label" style="line-height: 1.5; letter-spacing: 1px;"></p><span class="tag-desc" style="line-height: 1.6;"></span></div></div><div class="tag-container has-hotzone"><div class="tag-body"><p class="tag-label" style="line-height: 1.5; letter-spacing: 1px;"></p><span class="tag-desc" style="line-height: 1.6;"></span></div></div><div class="tag-container has-hotzone"><div class="tag-body"><p class="tag-label" style="line-height: 1.5; letter-spacing: 1px;"></p><span class="tag-desc" style="line-height: 1.6;"></span></div></div><div class="tag-container has-hotzone"><div class="tag-body"><p class="tag-label" style="line-height: 1.5; letter-spacing: 1px;"></p><span class="tag-desc" style="line-height: 1.6;"></span></div></div><div class="tag-container has-hotzone"><div class="tag-body"><p class="tag-label" style="line-height: 1.5; letter-spacing: 1px;"></p><span class="tag-desc" style="line-height: 1.6;"></span></div></div><div class="tag-container has-hotzone"><div class="tag-body"><p class="tag-label" style="line-height: 1.5; letter-spacing: 1px;"></p><span class="tag-desc" style="line-height: 1.6;"></span></div></div><div class="tag-container has-hotzone" style="display: none;"><div class="tag-body"><p class="tag-label">faketag</p><span class="tag-desc"></span></div></div></div>
+    <div id="debug-panel" style="display: none;">
+        <div id="debug-content"></div>
+    </div>
+
+    <div id="map_container">
+        <div id="maptop"></div>
+        <div id="bigmap">
+            <div id="mapimg"></div>
+        </div>
+        <div id="mapbottom"></div>
+        <div id="cover"></div>
+    </div>
+    <div><img id="map-man" src="./man.png" style="display: none;"></div>
+
+    <div id="sm_container">
+        <div id="smallmap">
+            <div id="smimg"></div>
+        </div>
+        <div id="smcover"></div>
+    </div>
+    <div><img id="sm-man" src="./man.png" style="display: none;width: 10px;height: 10px"></div>
+
+    <div id="amap-container" class="amap-container pc" style="display:none">
+        <div id="mapdiv"></div>
+    </div>
+    <div class="amap-close BigCloseLocal" style="display:none"></div>
+
+    <div id="iframe-parent" style="display:none">
+        <h2 class="iframeTitle"></h2>
+        <!-- <div id="iframeBox" style="overflow: auto;-webkit-overflow-scrolling:touch;">
+        <iframe class="iframe-open iframeWH" frameborder="0" allowfullscreen="true" height="100%" scrolling="no" style="width: 1px; min-width: 100%; *width: 100%;" id='iframepage' onload="iFrameHeight()"></iframe>
+    </div> -->
+        <div id="iframeBox" style="overflow: visible;-webkit-overflow-scrolling:touch;">
+            <iframe class="iframe-open iframeWH" frameborder="no" width="undefined" height="100%" id="iframepage" onload="iFrameHeight()" allowfullscreen="true" style="width: 1px; min-width: 100%; *width: 100%;" scrolling="auto" src="./saved_resource.html"></iframe>
+        </div>
+        <div id="iframe-close" style="display:none" class="BigCloseLocal"></div>
+    </div>
+    <div id="mainmenu" style="display: none; height: 100%;">
+        <div class="bplusx pc" style="display: flex;justify-content: center;flex-direction: column;align-items: center;width: 100%;">
+            <div id="meta-info" class="pc">
+                <h3 class="meta-title" style="text-align: center;">建行线上展厅V1</h3><br>
+                <div id="meta-description">建行线上展厅</div>
+                <div id="presented-by" style="display: none;"></div>
+                <div class="contact-info"></div>
+                <div class="contact-info">
+                    <div id="contact-data" style="display: none"></div>
+                </div>
+                <div class="support" style="display: none;">
+                    <span id="supportTxt" style="float: left; display: none"></span><br>
+                    <div style="display: flex;justify-content: center;">
+                        <img class="qrimg" style="display: none;" src="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0">
+                    </div>
+                </div>
+            </div>
+            <div class="b-close-parent">
+                <div id="menu-info-close" class="b-close BigCloseLocal"></div>
+            </div>
+        </div>
+    </div>
+    <div id="catalogue">
+        <div class="catalog" style="">
+
+            <div class="catalogCutTitle">
+                <div class="catalogCommodity isHover" src="image/icon_goods_38x38_b.png">
+                    <img src="./icon_goods_38x38_b.png">
+                    <p>标签导览</p>
+                </div>
+                <div class="catalogTemplet" src="image/icon_room_38x38_c.png">
+                    <img src="./icon_room_38x38_c.png">
+                    <p>更多空间</p>
+                </div>
+            </div>
+            <div class="commoditySlide">
+                <div class="swiper-container" id="swiper1">
+                    <div class="swiper-wrapper" id="wrapper1"></div>
+                    <div class="swiper-button-prev btn-prev1"></div>
+                    <div class="swiper-button-next btn-next1"></div>
+                </div>
+                <div class="swiper-pagination" id="pagination1"></div>
+                <div class="btn-cat-play CatalogPlay Local cat-pc-play" style="display: none; pointer-events: all; opacity: 1;"></div>
+                <div class="Cat-play-background"></div>
+            </div>
+            <div class="templetSlide">
+                <div class="swiper-container" id="swiper2">
+                    <div class="swiper-wrapper" id="wrapper2"></div>
+                    <!--<div class="swiper-button-prev btn-prev2"></div>-->
+                    <!--<div class="swiper-button-next btn-next2"></div>-->
+                </div>
+                <!--<div class="swiper-pagination" id="pagination2"></div>-->
+            </div>
+        </div>
+        <div class="breathLight" style="">
+            <span class="breathLightToRight Local"></span>
+        </div>
+        <div id="mobileCatalog">
+            <div class="mCatalogCutTitle">
+                <div class="mCatalogCommodity isHover">
+                    <p>标签导览</p>
+                </div>
+                <div class="mCatalogTemplet">
+                    <p>更多空间</p>
+                </div>
+            </div>
+            <div class="mCommoditySlide">
+                <div class="swiper-container mSwiper1">
+                    <div class="swiper-wrapper mwrapper1"></div>
+                </div>
+                <div class="swiper-pagination mPagination1"></div>
+            </div>
+            <div class="mTempletSlide">
+                <div class="swiper-container mSwiper2">
+                    <div class="swiper-wrapper mwrapper2"></div>
+                </div>
+                <div class="swiper-pagination mPagination2"></div>
+            </div>
+            <div class="mCatalogClose">
+                <span class="catalog-close Local"></span>
+            </div>
+            <div class="btn-cat-play mCatalogPlay Local cat-pc-play" style="display: none; pointer-events: all; opacity: 1;"></div>
+            <div class="m-cat-blank" style="display: none">
+                <div class="m-cat-popup">
+                    <p>确定去往新空间吗？</p>
+                    <b><a href="https://external.333f.com/online-CCB/jianhang/index.html?m=148b10fa_XAZ0_94ad&amp;o=0" class="hasHover">确 定</a></b>
+                    <span>取 消</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="passui" style="display: none;">
+        <div class="p-container" style="display: none;">
+            <!--<div class="p-notice">空间主人设置了密码，输入密码才能访问哦</div>-->
+            <div class="p-notice"></div>
+            <input type="password" name="pass" id="passipt" placeholder="">
+            <!--<div id="passbtn">访问模型</div><br/>-->
+            <div id="passbtn"></div><br>
+            <br>
+        </div>
+    </div>
+
+    <div class="compass Local" style="top: 10px; display: none;"></div>
+    <div class="indoordir Local" style="top: 10px; transform: rotateZ(270deg); display: none;"></div>
+    <div class="indoorscale Local" style="top: 10px; display: none;"></div>
+
+    <div class="container-adjust-color" style="display: none;z-index: 999;">
+        <div style="text-align: center;margin-top: 20px;">
+            <button id="input_color_reset" style="width: 100px;">重置当前点</button>
+            <button id="input_color_applyall" style="width: 100px;">应用到全部</button>
+            <input type="button" id="submit_form_colors" style="width: 100px;" value="提交">
+        </div>
+    </div>
+
+    <div id="meok" class="measure-ok" style="display: none;"></div>
+    <div id="measure-back" class="measure-back" style="display: none;"></div>
+
+    <!--标题标签-->
+    <div class="viewport">
+        <div class="viewport-tags js-tags"></div>
+    </div>
+
+    <!-- iframe自定义窗口标签窗口位置 -->
+    <div class="weather">
+        <div class="weather_iframe">
+            <div class="weather_Title"></div>
+            <iframe id="weather_tag" src="./index(1).html" style="z-index: 30; background: rgba(255, 255, 255, 0); display: none;" frameborder="0" tagindex=""></iframe>
+        </div>
+    </div>
+
+    <!--<div class="btn-play2">Play2</div>-->
+    <style type="text/css">
+        .btn-play2 {
+            position: absolute;
+            left: 100px;
+            bottom: 200px;
+            width: 40px;
+            height: 40px;
+            background-color: #007aff;
+        }
+
+        .CatalogPlay {
+            position: fixed;
+            bottom: calc(-9px + 4.5vh);
+            height: 38px;
+            width: 38px;
+            line-height: 28px;
+            z-index: 1000;
+            margin-left: calc(32vw - 72px);
+            background-color: #ff6700;
+            background-image: url("https://template2.3dnest.cn/common/image/icon_yj_play.png");
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+        }
+    </style>
+
+    <link rel="stylesheet" href="./jquery-ui.min.css">
+    <script src="./Tween.js.下载"></script>
+    <script src="./jquery-2.1.1.min.js.下载"></script>
+    <!-- <script src="./lib/jquery.barrager.min.js"></script> -->
+    <!-- <script src="./lib/jweixin-1.2.0.js"></script> -->
+    <script src="./spritespin.min.js.下载"></script>
+    <script src="./jquery-ui.js.下载"></script>
+    <!-- <script src="./lib/vconsole.min.js"></script> -->
+    <script>
+        //若果是ie6，推荐其下载谷歌浏览器访问模型
+
+        // (function (window) {
+        //     function getBrowserInfo () {
+        //         var agent = navigator.userAgent.toLowerCase()
+        //         var regStrff = /firefox\/[\d.]+/gi
+        //         if (agent.indexOf('firefox') > 0) {
+        //             return agent.match(regStrff)
+        //         }
+        //     }
+        //     var browser = getBrowserInfo()
+        //     var verinfo = (browser + '').replace(/[^0-9.]/ig, '')
+        //     var theUA = window.navigator.userAgent.toLowerCase()
+        //     if ((theUA.match(/msie\s\d+/) && theUA.match(/msie\s\d+/)[0]) || (theUA.match(/trident\s?\d+/) && theUA.match(/trident\s?\d+/)[0])) {
+        //         var ieVersion = theUA.match(/msie\s\d+/)[0].match(/\d+/)[0] || theUA.match(/trident\s?\d+/)[0]
+        //         if (ieVersion < 7 || verinfo < '56') {
+        //             var str = '不支持当前浏览器，请点击下方链接下载谷歌浏览器访问:( ';
+        //             var str2 = "推荐使用:<a href='https://www.baidu.com/s?ie=UTF-8&wd=%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8' target='_blank' style='color:blue;'>谷歌</a>";
+        //             document.writeln("<pre style='text-align:center;color:#fff;background-color:#0cc; height:100%;border:0;position:fixed;top:0;left:0;width:100%;z-index:1234'>" +
+        //                 "<h2 style='padding-top:200px;margin:0'><strong>" + str + '<br/></strong></h2><h2>' + str2 + '</h2></pre>')
+        //             document.execCommand('Stop')
+        //         }
+        //     }
+        // }(window))
+
+        // by ncz
+        // window.onload = function () {
+
+        // }
+        // var vConsole = new VConsole();
+    </script>
+
+    <script src="./main.js.下载"></script>
+
+
+
+</body></html>

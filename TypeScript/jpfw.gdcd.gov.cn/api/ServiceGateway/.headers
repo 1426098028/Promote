@@ -1,0 +1,11 @@
+[
+  {
+    "applyTo": "DataService",
+    "headers": [
+      {
+        "name": "access-control-allow-origin",
+        "value": "https://jpfw.gdcd.gov.cn?ksdhbsd"
+      }
+    ]
+  }
+]

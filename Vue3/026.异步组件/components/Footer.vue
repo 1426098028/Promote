@@ -15,10 +15,19 @@
 import { defineComponent, } from 'vue'
 export default defineComponent({
   name: 'FooterName',
-  setup() {
-    return {
-    }
+  setup(props, ctx) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({})
+      }, 1000);
+    })
   },
+  // setup() {
+  //   return {
+
+
+  //   }
+  // },
 })
 </script>
 <style scoped>

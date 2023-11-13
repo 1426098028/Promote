@@ -11,7 +11,6 @@ const ReactiveHandler = {
         return Reflect.deleteProperty(target, property)
     }
 }
-
 function shallowReactive(target) {
     return target && typeof target === 'object' ? new Proxy(target, ReactiveHandler) : target
 }
