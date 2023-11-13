@@ -30,6 +30,9 @@
   </div>
 </template>
 <script>
+
+import request from '@/utils/request'
+
 export default {
   name: "Login",
   data() {
@@ -74,11 +77,17 @@ export default {
   },
   methods: {
     login() {
-      this.$refs.form.validate((isOk) => {
+      this.$refs.form.validate(async (isOk) => {
         if (isOk) {
           console.log('验证通过')
           // 触发vuexlogin方法
-          this.$store.dispatch('user/login', this.loginForm)
+          this.$store.dispatch('user/login', 'eyJ1c2VySWQiOjEsImlhdCI6MTY5OTg3MjczMCwiZXhwIjoxNjk5ODk0MzMwfQ')
+          const res = await request({
+            url: '/sys/login',
+            method: 'post',
+            data: this.loginForm
+          })
+          console.log(res)
         }
       })
     }

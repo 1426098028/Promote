@@ -36,15 +36,12 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    // 处理跨域
     proxy: {
       '/api': {
-        target: 'https://heimahr.itheima.net',
-        changeOrigin: true,
-        pathRewrite: { '^/api': '' }
+        target: 'https://heimahr.itheima.net'
       }
     }
-    // before: require('./mock/mock-server.js') // mock数据
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
