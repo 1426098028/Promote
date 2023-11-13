@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       loginForm: {
-        mobile: '15622081255',
+        mobile: '13800000002',
         password: 'hm#qd@23!',
         isAgree: true
       },
