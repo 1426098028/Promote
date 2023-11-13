@@ -31,11 +31,11 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: port,
-    open: true,
-    overlay: {
-      warnings: false,
-      errors: true
-    },
+    open: false,
+    // overlay: {
+    //   warnings: false,
+    //   errors: true
+    // },
     proxy: {
       '/api': {
         target: 'https://heimahr.itheima.net'

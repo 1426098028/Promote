@@ -39,7 +39,7 @@ export default {
     return {
       loginForm: {
         mobile: '13800000002',
-        password: 'hm#qd@23!',
+        password: 'hm#qd@23!1',
         isAgree: true
       },
       loginRules: {
@@ -81,7 +81,7 @@ export default {
         if (isOk) {
           console.log('验证通过')
           // 触发vuexlogin方法
-          this.$store.dispatch('user/login', 'eyJ1c2VySWQiOjEsImlhdCI6MTY5OTg3MjczMCwiZXhwIjoxNjk5ODk0MzMwfQ')
+          // this.$store.dispatch('user/login', 'eyJ1c2VySWQiOjEsImlhdCI6MTY5OTg3MjczMCwiZXhwIjoxNjk5ODk0MzMwfQ')
           const res = await request({
             url: '/sys/login',
             method: 'post',
