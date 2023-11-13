@@ -35,9 +35,9 @@ export default {
   data() {
     return {
       loginForm: {
-        mobile: '',
-        password: '',
-        isAgree: false
+        mobile: '15622081255',
+        password: 'hm#qd@23!',
+        isAgree: true
       },
       loginRules: {
         mobile: [{
@@ -77,11 +77,11 @@ export default {
       this.$refs.form.validate((isOk) => {
         if (isOk) {
           console.log('验证通过')
+          // 触发vuexlogin方法
+          this.$store.dispatch('user/login', this.loginForm)
         }
       })
     }
-
-
   }
 }
 </script>
