@@ -1,11 +1,12 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { login } from '@/api/user'
 
 const state = { token: getToken() }
 
 const mutations = {
   setToken(state, token) {
-    console.log(state, token)
     state.token = token
+
     setToken(token)
   },
   setRemoveToken(state, token) {
@@ -13,17 +14,13 @@ const mutations = {
     removeToken()
   }
 }
-
 const actions = {
   // 登录
-  login({ commit }, data) {
-    // console.log('login', commit, data)
-
-    commit('setToken', data)
+  async login({ commit }, loginForm) {
+    const token = await login(loginForm)
+    commit('setToken', token)
   },
-
 }
-
 export default {
   namespaced: true,// 开启命名空间
   state,
