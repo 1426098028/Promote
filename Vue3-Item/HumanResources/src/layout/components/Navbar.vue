@@ -8,7 +8,11 @@
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img v-if="avatar" :src="avatar" class="user-avatar">
-          <!-- <span v-else class="username">{{ name?.charAt(0) }}</span> -->
+
+          <!-- 更新vue 和vue模板 @2.7.0 使标签支持可选链写法 -->
+          <!-- npm i vue@2.7.0 vue-template-compiler@2.7.0 -->
+
+          <span v-else class="username">{{ name?.charAt(0) }}</span>
           <!-- 用户名称 -->
           <span class="name">{{ name }}</span>
           <!-- 图标 -->
@@ -120,7 +124,6 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
         position: relative;
         cursor: pointer;
         display: flex;
