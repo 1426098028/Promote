@@ -76,12 +76,11 @@ export default {
   },
   methods: {
     login() {
-      this.$refs.form.validate(async (isOk) => {
+      this.$refs.form.validate((isOk) => {
         if (isOk) {
           console.log('验证通过')
           // 触发vuexlogin方法
-          await this.$store.dispatch('user/login', this.loginForm)
-          this.$router.push('/')
+          this.$store.dispatch('user/login', this.loginForm)
         }
       })
     }

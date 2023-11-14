@@ -1,19 +1,16 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { login, getUserInfo } from '@/api/user'
 import router from "@/router";
-
-console.log(router)
-
 const state = {
   token: getToken(),
   userInfo: {}
 }
-
 const mutations = {
   setToken(state, token) {
     state.token = token
-
     setToken(token)
+    // router.push(router.history.current.query.redirect || '/')
+    router.push('/')
   },
   setRemoveToken(state, token) {
     state.token = null
@@ -32,6 +29,12 @@ const actions = {
   async getUserInfo({ commit }, Info) {
     const result = await getUserInfo()
     commit('setUserInfo', result)
+  },
+  logout({ commit }) {
+    commit('setRemoveToken')
+    commit('setUserInfo', {})
+    // router.push(`/login?redirect=${router.history.current.query.redirect || '/'}`)
+    router.push(`/login`)
   }
 }
 export default {

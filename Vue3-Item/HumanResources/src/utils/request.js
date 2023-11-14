@@ -1,6 +1,5 @@
 import axios from 'axios'
 import store from '@/store/index'
-import { getToken } from '@/utils/auth'
 import { MessageBox, Message } from 'element-ui'
 
 // 创建axios实例
@@ -30,13 +29,16 @@ service.interceptors.response.use(
       console.log('data', data)
       return data
     } else {
-
       Message({ type: 'error', message })
       return Promise.reject(new Error(message))
     }
   },
   async (error) => {
-
+    if (error.response.status === 401) {
+      Message({ type: 'warning', message: 'token超时了' })
+      store.dispatch('user/logout')
+      return Promise.reject(error)
+    }
     Message({ type: 'error', message: error.message })
     return Promise.reject(error)
   }
