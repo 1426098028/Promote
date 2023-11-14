@@ -1,7 +1,13 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { login } from '@/api/user'
+import { login, getUserInfo } from '@/api/user'
+import router from "@/router";
 
-const state = { token: getToken() }
+console.log(router)
+
+const state = {
+  token: getToken(),
+  userInfo: {}
+}
 
 const mutations = {
   setToken(state, token) {
@@ -12,6 +18,9 @@ const mutations = {
   setRemoveToken(state, token) {
     state.token = null
     removeToken()
+  },
+  setUserInfo(state, Info) {
+    state.userInfo = Info
   }
 }
 const actions = {
@@ -20,6 +29,10 @@ const actions = {
     const token = await login(loginForm)
     commit('setToken', token)
   },
+  async getUserInfo({ commit }, Info) {
+    const result = await getUserInfo()
+    commit('setUserInfo', result)
+  }
 }
 export default {
   namespaced: true,// 开启命名空间
