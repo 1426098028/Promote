@@ -4,21 +4,39 @@
       <!-- 角色管理内容 -->
       <div class="role-operate">
         <el-button size="mini" type="primary" @click="showDialog = true">添加角色</el-button>
-
       </div>
       <el-table :data="list">
-        <el-table-column prop="name" align="center" label="角色" />
-        <el-table-column prop="state" align="center" label="启用">
-          <template v-slot="{ row: { state } }">
-            <span> {{ state === 1 ? "已启用" : state === 0 ? "未启用" : "无" }} </span>
+        <el-table-column prop="name" align="center" label="角色">
+          <template v-slot="{ row: { name, isEdit, editRow } }">
+            <el-input v-if="isEdit" v-model="editRow.name" size="mini" />
+            <span v-else>{{ name }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="description" align="center" label="描述" />
+        <el-table-column prop="state" align="center" label="启用">
+          <template v-slot="{ row: { state, isEdit, editRow } }">
+            <el-switch v-if="isEdit" v-model="editRow.state" :active-value="1" :inactive-value="0" />
+            <span v-else> {{ state === 1 ? "已启用" : state === 0 ? "未启用" : "无" }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="description" align="center" label="描述">
+          <template v-slot="{ row: { description, isEdit, editRow } }">
+            <el-input v-if="isEdit" v-model="editRow.description" size="mini" type="textarea" :rows="1" />
+            <span v-else>{{ description }}</span>
+          </template>
+        </el-table-column>
         <el-table-column align="center" label="操作">
-          <template slot-scope="scope">
-            <el-button size="mini" type="text">分配权限</el-button>
-            <el-button size="mini" type="text">编辑</el-button>
-            <el-button size="mini" type="text">删除</el-button>
+          <template v-slot="{ row }">
+            <template v-if="row.isEdit">
+              <el-button type="primary" size="mini" @click="btnEditOK(row)">确定</el-button>
+              <el-button size="mini" @click="row.isEdit = false">取消</el-button>
+            </template>
+            <template v-else>
+              <el-button size="mini" type="text">分配权限</el-button>
+              <el-button size="mini" type="text" @click="btnEditRow(row)" style="margin-right: 16px;">编辑</el-button>
+              <el-popconfirm title="确定删除起行数据吗？" @onConfirm="confirmDel(row)">
+                <el-button slot="reference" size="mini" type="text">删除</el-button>
+              </el-popconfirm>
+            </template>
           </template>
         </el-table-column>
       </el-table>
@@ -50,7 +68,7 @@
   </div>
 </template>
 <script>
-import { getRoleList, addRole } from '@/api/role'
+import { getRoleList, addRole, updateRole, delRole } from '@/api/role'
 export default {
   name: 'Role',
   data() {
@@ -66,7 +84,7 @@ export default {
   methods: {
     async getRoleList() {
       const { rows, total } = await getRoleList(this.pageParams)
-      this.list = rows
+      this.list = rows.map(item => ({ ...item, isEdit: false, editRow: { name: item.name, state: item.state, description: item.description } }))
       this.pageParams.total = total
     },
     async changePage(page) {
@@ -87,6 +105,28 @@ export default {
     btnCancel() {
       this.$refs.roleForm.resetFields()
       this.showDialog = false
+    },
+    btnEditRow(row) {
+      row.isEdit = true
+      row.editRow.name = row.name
+      row.editRow.state = row.state
+      row.editRow.description = row.description
+    },
+    async btnEditOK(row) {
+      const { editRow: { description, name, state }, id } = row
+      if (description && name) {
+        await updateRole({ description, name, state, id })
+        Object.assign(row, { isEdit: false, description, name, state })
+        this.$message.success('更新角色成功')
+      } else {
+        this.$message.warning('角色和描述不能为空')
+      }
+    },
+    async confirmDel(row) {
+      await delRole({ id: row.id })
+      this.$message.success('删除角色成功')
+      if (this.list.length === 1) this.pageParams.page--
+      this.getRoleList()
     },
   }
 }
