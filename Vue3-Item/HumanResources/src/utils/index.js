@@ -120,3 +120,48 @@ export function param2Obj(url) {
  *
  * 列表型数据转化树形
 */
+// {
+//   "id": 1,
+//   "pid": 0,
+//   "name": "传智教育",
+//   "code": "CZJY",
+//   "managerId": 1,
+//   "managerName": "管理员",
+//   "introduce": "总部",
+//   "createTime": "2022-10-26 09:13:37"
+// },
+// {
+//   "id": 2,
+//   "pid": 1,
+//   "name": "总裁办",
+//   "code": "ZCB",
+//   "managerId": 1,
+//   "managerName": "管理员",
+//   "introduce": "公司战略部",
+//   "createTime": "2022-10-26 09:13:37"
+// },
+
+[
+  {
+    "id": 1,
+    "pid": 0,
+    "name": "传智教育",
+    "code": "CZJY",
+    "managerId": 1,
+    "managerName": "管理员",
+    "introduce": "总部",
+    "createTime": "2022-10-26 09:13:37",
+    children: []
+  },
+]
+export function transListToTreeData(list, rootValue) {
+  let Arr = []
+  list.forEach(item => {
+    if (item.pid === rootValue) {
+      Arr.push(item)
+      const children = transListToTreeData(list, item.id) // 找到的节点的子节点
+      item.children = children // 将子节点赋值给当前节点
+    }
+  })
+  return Arr
+}
