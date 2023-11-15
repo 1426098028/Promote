@@ -1,7 +1,7 @@
 <template>
     <el-dialog :visible="showDialog" @close="close">
         <el-form ref="addDept" label-width="auto" :model="formData" :rules="rules">
-            <el-form-item label="部门名称" prop="name">
+            <el-form-item :label="showTitle" prop="name">
                 <el-input v-model="formData.name" placeholder="2-10个字符" size="mini"></el-input>
             </el-form-item>
             <el-form-item label="部门编码" prop="code">
@@ -30,7 +30,7 @@
     </el-dialog>
 </template>
 <script>
-import { getDepartment, getManagerList, addDepartment } from '@/api/department'
+import { getDepartment, getManagerList, addDepartment, getDepartmentDetail, updateDepartment } from '@/api/department'
 
 
 export default {
@@ -59,19 +59,30 @@ export default {
             rules: {
                 name: [{ required: true, message: '部门名称不能为空', trigger: 'blur' }, { min: 2, max: 10, message: '部门名称的长度为2-10个字符', trigger: 'blur' }, {
                     trigger: 'blur', validator: async (rule, value, callback) => {
-                        const res = await getDepartment()
+                        let res = await getDepartment()
+                        if (this.formData.id) {
+                            res = res.filter((item) => item.id !== this.formData.id)
+                        }
                         res.some((item) => item.name === value) ? callback(new Error('部门名称已存在')) : callback()
                     }
                 }], // 部门名称
                 code: [{ required: true, message: '部门编码不能为空', trigger: 'blur' }, { min: 2, max: 10, message: '部门编码的长度为2-10个字符', trigger: 'blur' }, {
                     trigger: 'blur', validator: async (rule, value, callback) => {
-                        const res = await getDepartment()
+                        let res = await getDepartment()
+                        if (this.formData.id) {
+                            res = res.filter((item) => item.id !== this.formData.id)
+                        }
                         res.some((item) => item.code === value) ? callback(new Error('部门编码已存在')) : callback()
                     }
                 }], // 部门编码
                 managerId: [{ required: true, message: '部门负责人不能为空', trigger: 'blur' }], // 部门负责人id
                 introduce: [{ required: true, message: '部门介绍不能为空', trigger: 'blur' }, { min: 1, max: 100, message: '部门介绍的长度为1-100个字符', trigger: 'blur' },], // 部门介绍
             },
+        }
+    },
+    computed: {
+        showTitle() {
+            return this.formData.id ? '编辑部门' : '新增部门'
         }
     },
     created() {
@@ -86,22 +97,34 @@ export default {
 
 
         close() {
+            this.formData = { code: '', introduce: '', managerId: '', name: '', pid: '' }
             this.$refs.addDept.resetFields()
             this.$emit('update:showDialog', false)
         },
         btnOK() {
             this.$refs.addDept.validate(async (isOk) => {
                 if (!isOk) return false
-                await addDepartment({ ...this.formData, pid: this.currentNodeId })
+                let msg = '新增'
+                // 通过formData中id
+                if (this.formData.id) {
+                    // 编辑场景
+                    msg = '更新'
+                    await updateDepartment(this.formData)
+                } else {
+                    // 新增场景
+                    await addDepartment({ ...this.formData, pid: this.currentNodeId })
+                }
+                // 通知父组件更新
                 this.$emit('getDepartments')
+                // 提示消息
+                this.$message.success(`${msg}部门成功`)
                 this.close()
             })
-
-
-
         },
 
-
+        async getDepartmentDetail() {
+            this.formData = await getDepartmentDetail({ id: this.currentNodeId })
+        }
     }
 }
 </script>

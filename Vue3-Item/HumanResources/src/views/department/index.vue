@@ -22,12 +22,13 @@
         </template>
       </el-tree>
     </div>
-    <add-dept @getDepartments='getDepartments' :currentNodeId="currentNodeId" :show-dialog.sync="showDialog" />
+    <add-dept ref="addDept" @getDepartments='getDepartments' :currentNodeId="currentNodeId"
+      :show-dialog.sync="showDialog" />
   </div>
 </template>
 <script>
 
-import { getDepartment } from '@/api/department'
+import { getDepartment, delDepartment } from '@/api/department'
 import { transListToTreeData } from '@/utils'
 import AddDept from './components/add-dept.vue'
 
@@ -56,9 +57,26 @@ export default {
       this.depts = transListToTreeData(res, 0)
     },
     operateDept(type, id) {
+      this.currentNodeId = id
       if (type === 'add') {
         this.showDialog = true
-        this.currentNodeId = id
+        return false
+      }
+      if (type === 'edit') {
+        this.showDialog = true
+        this.$nextTick(() => this.$refs.addDept.getDepartmentDetail())
+        return false
+      }
+      if (type === 'del') {
+        // 删除部门
+
+
+
+        this.$confirm('您确认要删除该部门吗', '删除', { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning', }).then(async () => {
+          await delDepartment({ id })
+          this.$message.success('删除部门成功')
+          this.getDepartments()
+        })
       }
     }
   }
