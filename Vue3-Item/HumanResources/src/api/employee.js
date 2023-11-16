@@ -9,3 +9,5 @@ export const delEmployee = (data) => request({ url: `/sys/user/${data.id}`, meth
 export const addEmployee = (data) => request({ url: '/sys/user', method: 'post', data })
 export const getEmployeeDetail = (data) => request({ url: `/sys/user/${data.id}`, method: 'get', data })
 export const updateEmployee = (data) => request({ url: `/sys/user/${data.id}`, method: 'put', data })
+export const getEnableRoleList = (data) => request({ url: `/sys/role/list/enabled`, method: 'get', data })
+export const assignRole = (data) => request({ url: `/sys/user/assignRoles`, method: 'PUT', data })
