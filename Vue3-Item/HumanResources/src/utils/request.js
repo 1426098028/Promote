@@ -23,10 +23,9 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
   (response) => {
-    console.log('response', response)
+    if (response.data instanceof Blob) return response.data  // 判断是否Blob 返回Blob对象
     const { data, message, success } = response.data // 默认json格式
     if (success) {
-      console.log('data', data)
       return data
     } else {
       Message({ type: 'error', message })
