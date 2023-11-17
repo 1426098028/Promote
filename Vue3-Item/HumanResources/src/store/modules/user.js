@@ -25,7 +25,7 @@ const mutations = {
   }
 }
 const actions = {
-  // 登录
+  // 手机登录
   async login({ commit }, loginForm) {
     const token = await login(loginForm)
     commit('setToken', token)
