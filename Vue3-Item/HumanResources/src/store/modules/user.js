@@ -1,9 +1,10 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { login, getUserInfo } from '@/api/user'
-import router from "@/router";
+import router, { constantRoutes } from "@/router";
 const state = {
   token: getToken(),
-  userInfo: {}
+  userInfo: {},
+  routes: constantRoutes,
 }
 const mutations = {
   setToken(state, token) {
@@ -18,6 +19,9 @@ const mutations = {
   },
   setUserInfo(state, Info) {
     state.userInfo = Info
+  },
+  setRoutes(state, newRoutes) {
+    state.routes = [...constantRoutes, ...newRoutes] // 静态路由 + 动态路由
   }
 }
 const actions = {

@@ -1,4 +1,4 @@
-import router from "./router";
+import router, { asyncRoutes, resetRouter } from "@/router";
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import store from './store'
@@ -17,10 +17,18 @@ router.beforeEach(async (to, from, next) => {
     } else {
       if (!store.getters.userId) {
         await store.dispatch('user/getUserInfo')
+        const { menus } = store.getters.roles
+        const newMenus = [...menus.map(item => `/${item}`), `*`]
+        const newRouter = asyncRoutes.filter(item => newMenus.includes(item.path))
+        await store.commit('user/setRoutes', newRouter)
+        router.addRoutes(newRouter) // 动态添加路由
+        next(to.path)   // 修复动态路由在刷新时404 bug
+      } else {
+        next()
       }
-      next()
     }
   } else {
+    resetRouter()  //重置路由
     if (whiteList.includes(to.path)) {
       next()
     } else {
