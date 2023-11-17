@@ -68,8 +68,8 @@
     <el-dialog :visible.sync="showPermissionDialog" title="分配权限">
       <el-tree ref="permTree" check-strictly node-key="id" :data="permissionData" :props="{ label: 'name' }" show-checkbox
         default-expand-all :default-checked-keys="permIds" />
-      <el-row slot="footer" type="flex" justify="center">
-        <el-col :span="6">
+      <el-row slot="footer" type="flex" justify="end">
+        <el-col :span="24">
           <el-button type="primary" size="mini" @click="btnPermissionOK">确定</el-button>
           <el-button size="mini" @click="showPermissionDialog = false">取消</el-button>
         </el-col>

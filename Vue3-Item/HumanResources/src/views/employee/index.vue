@@ -37,7 +37,7 @@
           <el-table-column align="center" label="操作">
             <template v-slot="{ row }">
               <el-button size="mini" type="text" @click="$router.push('/employee/detail/' + row.id)">查看</el-button>
-              <el-button size="mini" type="text" style="margin-right: 16px;" @click="btnRole(row.id)">角色</el-button>
+              <el-button size="mini" type="text" style="margin-right: 12px;" @click="btnRole(row.id)">角色</el-button>
               <el-popconfirm title="确定删除起行数据吗？" @onConfirm="confirmDel(row)">
                 <el-button slot="reference" size="mini" type="text">删除</el-button>
               </el-popconfirm>
@@ -55,8 +55,8 @@
       <el-checkbox-group v-model="roleIds">
         <el-checkbox v-for="item in roleList" :key="item.id" :label="item.id">{{ item.name }}</el-checkbox>
       </el-checkbox-group>
-      <el-row slot="footer" type="flex" justify="center">
-        <el-col :span="6">
+      <el-row slot="footer" type="flex" justify="end">
+        <el-col :span="12">
           <el-button type="primary" size="mini" @click="btnRoleOK">确定</el-button>
           <el-button size="mini" @click="showRoleDialog = false">取消</el-button>
         </el-col>
