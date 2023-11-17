@@ -36,6 +36,15 @@ Vue.use(ElementUI,)
 
 Vue.config.productionTip = false
 
+// 创建权限功能指令(自定义指令) v-permission ="'内容'"
+Vue.directive('permission', {
+  inserted(el, binding) {
+    console.log('当前绑定的标签', el, 'inserted相关的属性和参数值', binding)
+    const { points } = store.getters.roles  //  是否有权限显示某个功能或者按钮
+    !points.includes(binding.value) && el.remove() // 没有权限删除某个功能或者按钮
+  }
+})
+
 new Vue({
   el: '#app',
   router,
