@@ -13,7 +13,7 @@
 
 
         <message-notification />
-        <el-badge slot="reference" :value="12" class="BadgeItem">
+        <el-badge slot="reference" :value="UnreadTimes" class="BadgeItem">
           <i class="el-icon-bell" style="font-size:26px"></i>
         </el-badge>
       </el-popover>
@@ -71,14 +71,13 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import MessageNotification from '@/components/MessageNotification'
 import Hamburger from '@/components/Hamburger'
 import { updatePassword } from '@/api/user'
 export default {
   components: { Breadcrumb, Hamburger, 'message-notification': MessageNotification },
-
   data() {
     return {
       showDialog: false,
@@ -98,15 +97,14 @@ export default {
       },
     }
   },
-
   computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar',
-      'name'
-    ])
+    ...mapGetters(['sidebar', 'avatar', 'name', 'UnreadTimes'])
+  },
+  created() {
+    this.Message()
   },
   methods: {
+    ...mapActions('MessageNotification', ['Message']),
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },

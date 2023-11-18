@@ -12,3 +12,6 @@ export const updateEmployee = (data) => request({ url: `/sys/user/${data.id}`, m
 export const getEnableRoleList = (data) => request({ url: `/sys/role/list/enabled`, method: 'get', data })
 export const assignRole = (data) => request({ url: `/sys/user/assignRoles`, method: 'PUT', data })
 export const setMessageMuch = (data) => request({ url: `/sys/messageMuch`, method: 'POST', data })
+export const getMessage = (data) => request({ url: `/sys/message`, method: 'get', data })
+export const UpdateMessage = (data) => request({ url: `/sys/message/${data.id}`, method: 'PUT', })
+export const DeleteMessage = (data) => request({ url: `/sys/message/${data.id}`, method: 'DELETE', })

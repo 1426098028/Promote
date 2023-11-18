@@ -66,6 +66,7 @@ export default {
             })
         },
         close() {
+            this.$refs.FormMessage.resetFields()
             this.$emit('update:SendShowDialog', false)
         },
         onTagClose(id) {

@@ -8,6 +8,8 @@ const getters = {
   departmentName: state => state.user.userInfo.departmentName,
   name: state => state.user.userInfo.username,
   roles: state => state.user.userInfo.roles,
-  routes: state => state.user.routes
+  routes: state => state.user.routes,
+  MessageList: state => state.MessageNotification.MessageList,
+  UnreadTimes: state => state.MessageNotification.UnreadTimes,
 }
 export default getters
