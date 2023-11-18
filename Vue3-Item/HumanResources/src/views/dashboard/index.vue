@@ -171,6 +171,10 @@
         </div>
         <!-- 通知公告 -->
         <div class="panel">
+          <div class="panel-title">通知</div>
+          <message-notification />
+        </div>
+        <div class="panel">
           <div class="panel-title">通知公告</div>
           <div class="information-list">
             <div v-for="(item, index) in list" :key="index" class="information-list-item">
@@ -195,6 +199,8 @@
 import CountTo from 'vue-count-to'
 import { mapGetters } from 'vuex'
 import { getHomeData, getMessageList } from '@/api/home'
+import MessageNotification from '@/components/MessageNotification'
+
 // import * as echarts from 'echarts'; // 引入所有的echarts
 
 import * as echarts from 'echarts/core' // 引入核心包
@@ -204,7 +210,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 echarts.use([LineChart, GridComponent, CanvasRenderer]) // 注册需要使用的组件
 export default {
   components: {
-    CountTo
+    CountTo, 'message-notification': MessageNotification
   },
   data() {
     return {
@@ -644,7 +650,7 @@ export default {
       justify-content: space-between;
       gap: 10px;
 
-      margin: 10px;
+      margin: 10px 0 10px 10px;
 
       .panel-title {
         font-size: 16px;

@@ -5,10 +5,21 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <el-popover width="506" placement="bottom" trigger.native="click">
+
+
+        <div style="  font-size: 16px;     color: #383c4e;     font-weight: 500;">通知</div>
+
+
+
+        <message-notification />
+        <el-badge slot="reference" :value="12" class="BadgeItem">
+          <i class="el-icon-bell" style="font-size:26px"></i>
+        </el-badge>
+      </el-popover>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img v-if="avatar" :src="avatar" class="user-avatar">
-
           <!-- 更新vue 和vue模板 @2.7.0 使标签支持可选链写法 -->
           <!-- npm i vue@2.7.0 vue-template-compiler@2.7.0 -->
 
@@ -62,10 +73,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
+import MessageNotification from '@/components/MessageNotification'
 import Hamburger from '@/components/Hamburger'
 import { updatePassword } from '@/api/user'
 export default {
-  components: { Breadcrumb, Hamburger },
+  components: { Breadcrumb, Hamburger, 'message-notification': MessageNotification },
 
   data() {
     return {
@@ -147,9 +159,16 @@ export default {
     float: right;
     height: 100%;
     line-height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 
     &:focus {
       outline: none;
+    }
+
+    .BadgeItem {
+      line-height: 1.15;
     }
 
     .right-menu-item {
