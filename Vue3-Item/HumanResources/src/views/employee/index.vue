@@ -10,16 +10,19 @@
       </div>
       <div class="right">
         <el-row class="opeate-tools" type="flex" justify="end">
+          <el-col>
+            <el-button size="mini" @click="onNotify">群发通知</el-button>
+          </el-col>
           <!-- v-permission 自定义指令 作用是否有权限显示某个功能或者按钮 -->
           <el-button v-permission="'add-employee'" size="mini" type="primary"
             @click="$router.push('/employee/detail')">添加员工</el-button>
-
           <el-button size="mini" @click="showExcelDialog = true">excel导入</el-button>
           <el-button size="mini" @click="exportEmployee">excel导出</el-button>
         </el-row>
         <!-- 表格组件 -->
-        <el-table :data="list">
-          <el-table-column align="center" prop="staffPhoto" label="头像">
+        <el-table ref="refTable" :data="list" stripe @selection-change="onSelection">
+          <el-table-column type="selection" width="30" />
+          <el-table-column align="center" prop="staffPhoto" label="头像" highlight-selection-row>
             <template v-slot="{ row: { staffPhoto, username } }">
               <el-avatar v-if="staffPhoto" :src="staffPhoto"></el-avatar>
               <span class="username" v-else>{{ username?.charAt(0) }} </span>
@@ -65,6 +68,8 @@
         </el-col>
       </el-row>
     </el-dialog>
+
+    <send-noti v-model="userId" :userIds="userIds" :SendShowDialog.sync="SendShowDialog" />
   </div>
 </template>
 
@@ -74,14 +79,16 @@ import { getEmployeeList, exportEmployee, delEmployee, getEnableRoleList, getEmp
 import { transListToTreeData } from '@/utils'
 import FileSaver from 'file-saver'
 import ImportExcel from './components/import-excel.vue'
+import SendNoti from './components/send-noti.vue'
 
 export default {
   name: 'Employee',
-  components: { 'import-excel': ImportExcel },
+  components: { 'import-excel': ImportExcel, 'send-noti': SendNoti },
   data() {
     return {
       showExcelDialog: false,
       showRoleDialog: false,
+      SendShowDialog: false,
       depts: [],
       defaultProps: {
         label: 'name',
@@ -98,11 +105,16 @@ export default {
       },
       total: 0,
       currentUserId: null,
+      userIds: [],
+      userId: null,
     }
   },
   computed: {
     ChangeQueryParams() {
       const { page, departmentId, keyword } = this.queryParams
+
+
+
       return { page, departmentId, keyword }
     }
 
@@ -149,12 +161,28 @@ export default {
       if (this.list.length === 1 && this.queryParams.page > 1) this.queryParams.page--
       this.$message.success('删除员工成功')
     },
+    onSelection(selection) {
+      console.log('onSelection')
+      this.userIds = selection
+    },
+    onNotify() {
+      if (this.userIds.length === 0) return this.$message.success(`请先选择要群发的员工`)
+      this.SendShowDialog = true
+    }
   },
   watch: {
     ChangeQueryParams: {
       handler(newVlu, oldVlu) { this.getEmployeeList() },
       immediate: false,
       deep: true
+    },
+    userId: {
+      handler(newVlu) {
+        if (!this.SendShowDialog && !this.userId) return false
+        this.userIds.map(item => {
+          this.$refs.refTable.toggleRowSelection(item, item.id !== newVlu)
+        })
+      }, deep: true
     }
   }
 }
