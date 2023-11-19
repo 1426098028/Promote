@@ -1,9 +1,9 @@
 <template>
     <el-tabs v-model="Active">
-        <el-tab-pane label="未读消息" name="unread">
+        <el-tab-pane :label="list.unread?.length > 0 ? '未读' + list.unread?.length + '条' : '未读消息'" name="unread">
             <el-empty v-if="list.unread?.length == 0" description="暂无相关通知"></el-empty>
         </el-tab-pane>
-        <el-tab-pane label="已读消息" name="read">
+        <el-tab-pane :label="list.read?.length > 0 ? '已读' + list.read?.length + '条' : '已读消息'" name="read">
             <el-empty v-if="list.read?.length == 0" description="暂无相关通知"></el-empty>
         </el-tab-pane>
 
