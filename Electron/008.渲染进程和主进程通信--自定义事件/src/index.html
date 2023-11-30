@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+
+        }
+
+        ul {
+            width: 100vw;
+            display: flex;
+            background-color: pink;
+            gap: 20px;
+            line-height: 1.7;
+            padding: 5px 10px;
+            /* 支持窗口拖拽 */
+            -webkit-app-region: drag;
+        }
+
+        li {
+            -webkit-app-region: no-drag;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li class="new-Window">新建窗口</li>
+        <li class="open-file">打开文件</li>
+        <li class="save-file">保存文件</li>
+        <li class="full-screen">窗口全屏</li>
+        <li class="min-screen">窗口缩小</li>
+        <!-- 会在内部打开 -->
+        <!-- <li> <a href="https://www.electronjs.org/zh/">关于</a> </li> -->
+        <li> <a class="open-link">关于</a> </li>
+    </ul>
+    Electron
+
+
+    按下 CTRL + W 开启全屏
+    按下 CTRL + R 窗口缩小
+    按下 CTRL + T 窗口最小
+    按下 CTRL + X 关闭程序
+
+    <div class="file"></div>
+</body>
+<script src="./index.js"></script>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="manifest" href="manifest.json" />
+
+</head>
+
+<body>
+    Web Worker
+</body>
+<script>
+    console.log('start')
+
+    // let total = 0
+    // for (let index = 0; index < 999999; index++) {
+    //     total += index
+    // }
+    // console.log(total)
+
+
+
+    // 优化性能
+
+    // 创建一个Worker实例
+    const worker = new Worker('Worker.js')
+    // 监视worker 的变化，获取到变化的值
+    worker.addEventListener('message', (data) => {
+        console.log(data)
+    })
+    console.log('end')
+
+</script>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    service Worker
+</body>
+<script>
+    console.log('start', 'serviceWorker' in navigator)
+    // 一般需要在页面加载完成了才去创建注册serviceWorker ， 目的是避免serviceWorker，抢其他它资源，影响页面的加载速度
+    window.addEventListener('load', async () => {
+        // 兼容老版本浏览器
+        if (!'serviceWorker' in navigator) return false
+        // 创建注册serviceWorker ，会返回一个promise对象
+        const serviceWorker = await navigator.serviceWorker.register('./SW.js').catch((err) => { console.log(err) })
+        console.log(serviceWorker)
+    })
+    console.log('end')
+</script>
+
+</html>

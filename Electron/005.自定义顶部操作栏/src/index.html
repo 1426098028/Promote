@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+
+        }
+
+        ul {
+            width: 100vw;
+            display: flex;
+            background-color: pink;
+            gap: 20px;
+            line-height: 1.7;
+            padding: 5px 10px;
+            /* 支持窗口拖拽 */
+            -webkit-app-region: drag;
+        }
+
+        li {
+            -webkit-app-region: no-drag;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul>
+        <li class="new-Window">新建窗口</li>
+        <!-- 会在内部打开 -->
+        <!-- <li> <a href="https://www.electronjs.org/zh/">关于</a> </li> -->
+        <li> <a class="open-link">关于</a> </li>
+    </ul>
+
+
+
+    Electron
+
+
+
+</body>
+<script src="./index.js"></script>
+
+</html>
