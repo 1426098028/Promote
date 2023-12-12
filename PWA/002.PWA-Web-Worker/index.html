@@ -32,6 +32,8 @@
     worker.addEventListener('message', (data) => {
         console.log(data)
     })
+    // 终止 Worker
+    worker.terminate();
     console.log('end')
 
 </script>

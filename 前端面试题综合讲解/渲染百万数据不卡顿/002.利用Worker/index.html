@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>渲染百万数据不卡顿----002.利用Web Worker---结果卡顿</h1>
+    <ul></ul>
+</body>
+<script>
+
+    window.addEventListener('load', () => {
+        const ul = document.querySelector('ul')
+        const total = 10000000000  // 总数据
+        // 每次添加条数
+        const once = 1000
+        // 需要添加次数
+        const loopCount = Math.ceil(total / once)
+        // 需要添加次数
+        let CountRender = 0
+        loop()
+        function loop() {
+            const worker = new Worker("./Worker.js");
+            worker.addEventListener("message", function ({ data }) {
+                // console.log(data)
+                document.querySelector('ul').innerHTML += data
+                // 在不需要 Worker 实例时，最好使用 terminate 方法终止它，以释放资源。
+                worker.terminate()
+                requestAnimationFrame(loop)
+            })
+        }
+    })
+
+</script>
+
+</html>
