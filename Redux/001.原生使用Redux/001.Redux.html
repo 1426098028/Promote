@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@sophiiexdt2/video/7329553959301991713"
+        data-video-id="7329553959301991713" style="max-width: 605px;min-width: 325px;">
+        <section> <a target="_blank" title="@sophiiexdt2"
+                href="https://www.tiktok.com/@sophiiexdt2?refer=embed">@sophiiexdt2</a>
+            <p></p> <a target="_blank" title="♬ original sound - IG:sophie_xdt_crushxo"
+                href="https://www.tiktok.com/music/original-sound-7329553996891392801?refer=embed">♬ original sound -
+                IG:sophie_xdt_crushxo</a>
+        </section>
+    </blockquote>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+    <button id='decrement'>-</button>
+    <span id='count'>0</span>
+    <button id='increment'>+</button>
+
+
+    <!-- <script src="https://unpkg.com/redux@4.0.5/dist/redux.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.1/redux.js"></script> -->
+    <script src="./Redux.js"></script>
+    <script>
+        const increment = document.getElementById('increment')
+        const count = document.getElementById('count')
+        const decrement = document.getElementById('decrement')
+
+        // 1.定义reducer函数
+        // 作用:根据不同的action,返回不同新的state
+        // state:管理数据状态
+        // action:对象 type 标记当前需要执行的修改的动作
+        function reducer(state = { count: 0 }, action) {
+            // 数据不变：基于原始状态生成新的状态
+            switch (action.type) {
+                case 'INCREMENT':
+                    return { count: state.count + 1 }
+                case 'DECREMENT':
+                    return { count: state.count - 1 }
+                default:
+                    return state
+            }
+        }
+
+        // 2.使用reducer函数生成store实例
+        const store = Redux.createStore(reducer)
+        console.log(store)
+        // 3.通过store实例的subscribe方法订阅数据变化
+        // 该回调函数会在数据发生变化是自动执行
+        store.subscribe(() => {
+            // 5.通过store实例的getState方法获取更新后的状态，并且更新到视图中
+            console.log('数据执行了', store.getState())
+            count.innerHTML = store.getState().count
+        })
+        // 4. 通过store实例的dispatch方法提交action进行修改状态 语法 store.dispatch
+        increment.addEventListener('click', () => {
+            store.dispatch({ type: 'INCREMENT' })
+        })
+        decrement.addEventListener('click', () => {
+            store.dispatch({ type: 'DECREMENT' })
+        })
+    </script>
+</body>
+
+</html>
