@@ -7,7 +7,13 @@ const ipcHandle = () => window.electron.ipcRenderer.send('ping');
 
 import { useStore } from '@/pinia';
 const Store = useStore();
-console.log(Store.creator);
+console.log(Store.creator, Store.User.userName);
+
+import { useUserStore } from '@/pinia/useUserStore';
+const userStore = useUserStore();
+console.log(userStore.userName);
+userStore.userName = '小明'
+
 
 import { loginByJson } from '@/api/login';
 onMounted(async () => {
@@ -23,7 +29,7 @@ onMounted(async () => {
 
 <template>
   <img alt="logo" class="logo" src="@/assets/electron.svg" />
-  <div class="creator">{{ Store.creator }}</div>
+  <div class="creator">{{ Store.creator }} -- {{ userStore.userName }}</div>
   <div class="text">
     Build an Electron app with
     <span class="vue">Vue</span>
