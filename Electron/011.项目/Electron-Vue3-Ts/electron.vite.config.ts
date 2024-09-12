@@ -1,7 +1,12 @@
 import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import vue from '@vitejs/plugin-vue'
-// const path = require('node:path');
+
+// 引入ElementPlus组件
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 export default defineConfig({
   main: {
     plugins: [externalizeDepsPlugin()]
@@ -22,7 +27,11 @@ export default defineConfig({
         '@/api': resolve('src/renderer/src/api'),
       }
     },
-    plugins: [vue()],
+    plugins: [
+      vue(),
+      AutoImport({resolvers: [ElementPlusResolver()]}),
+      Components({resolvers: [ElementPlusResolver()]}),
+    ],
     // 配置跨域代理
     server: {
       proxy: {
