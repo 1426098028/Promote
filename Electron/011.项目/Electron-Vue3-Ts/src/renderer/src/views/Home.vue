@@ -2,11 +2,15 @@
 import Versions from '../components/Versions.vue';
 
 const ipcHandle = () => window.electron.ipcRenderer.send('ping');
+
+import { useStore } from '../pinia';
+const Store = useStore();
+console.log(Store.creator);
 </script>
 
 <template>
   <img alt="logo" class="logo" src="../assets/electron.svg" />
-  <div class="creator">Powered by electron-vite</div>
+  <div class="creator">{{ Store.creator }}</div>
   <div class="text">
     Build an Electron app with
     <span class="vue">Vue</span>
