@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import Versions from '../components/Versions.vue';
+import Versions from '@/components/Versions.vue';
 
 const ipcHandle = () => window.electron.ipcRenderer.send('ping');
 
-import { useStore } from '../pinia';
+import { useStore } from '@/pinia';
 const Store = useStore();
 console.log(Store.creator);
 </script>
 
 <template>
-  <img alt="logo" class="logo" src="../assets/electron.svg" />
+  <img alt="logo" class="logo" src="@/assets/electron.svg" />
   <div class="creator">{{ Store.creator }}</div>
   <div class="text">
     Build an Electron app with
