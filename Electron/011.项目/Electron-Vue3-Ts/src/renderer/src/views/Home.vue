@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 import Versions from '@/components/Versions.vue';
 
 const ipcHandle = () => window.electron.ipcRenderer.send('ping');
@@ -6,6 +8,17 @@ const ipcHandle = () => window.electron.ipcRenderer.send('ping');
 import { useStore } from '@/pinia';
 const Store = useStore();
 console.log(Store.creator);
+
+import { loginByJson } from '@/api/login';
+onMounted(async () => {
+  const login = await loginByJson({
+    "password": "1899ddee9d860a0c452dd91844cb7a1c",//密码（需要使用AES加密）
+    "username": "6a89e60b1231d61d4bf89a08e4fc6229",//用户名（需要使用AES加密）
+    "key": "",//图形验证码中随机UUID
+    "captcha": "2f3j"
+  });
+  console.log(login);
+});
 </script>
 
 <template>
