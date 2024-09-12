@@ -1,3 +1,15 @@
 <template>
   <RouterView></RouterView>
 </template>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+</style>
