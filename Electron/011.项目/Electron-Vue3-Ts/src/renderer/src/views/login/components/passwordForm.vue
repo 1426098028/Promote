@@ -57,7 +57,6 @@ const rules = reactive<FormRules<UserRuleFrom>>({
         { required: true, message: '请输入验证码', trigger: 'blur' },
     ]
 });
-const isLogin = ref<boolean>(false);
 
 
 // 获取验证码
@@ -76,16 +75,24 @@ onBeforeMount(() => {
 });
 
 // 登录
+const isLogin = ref<boolean>(false);
 const onLogin = async (formEl: FormInstance | undefined) => {
+
     if (!formEl) return;
+    isLogin.value = true
     await formEl.validate(async (valid, fields) => {
-        if (!valid) return ElMessage.warning('请填写正确内容');
+        if (!valid) {
+            isLogin.value = false;
+            ElMessage.warning('请填写正确内容');
+            return false;
+        };
         const res = await loginByJson({
             username: Encrypt(ruleForm.username),
             password: Encrypt(ruleForm.password),
             key: ruleForm.key,
             captcha: ruleForm.captcha
         });
+        isLogin.value = false;
         if (res.code != '200') {
             return ElMessage.error(res.msg);
         }
