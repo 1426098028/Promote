@@ -11,8 +11,7 @@
             <div class="box-code">
                 <el-input v-model='ruleForm.captcha' prefix-icon="CircleCheck" clearable
                     placeholder="请输入验证码"></el-input>
-                <el-image class='code'
-                    src='https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'></el-image>
+                <el-image class='code' :src='CaptchaUrl' @click='onCaptcha'></el-image>
             </div>
         </el-form-item>
 
@@ -25,32 +24,29 @@
             </div>
         </div>
         <el-form-item>
-            <el-button type="primary" round style="width:100%" :loading='isLogin'>登录</el-button>
+            <el-button type="primary" round style="width:100%" :loading='isLogin'
+                @click='onLogin(ruleFormRef)'>登录</el-button>
         </el-form-item>
     </el-form>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import type { ComponentSize, FormInstance, FormRules } from 'element-plus';
+import { reactive, ref, onBeforeMount } from 'vue';
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
+import { captchaImage, loginByJson } from '@/api/login';
+import { Encrypt } from '@/utils/aes';
+import { UserRuleFrom } from '@/interface/login';
 
-// 定义账号密码登录接口数据结构
-interface RuleFrom {
-    username: string;
-    password: string;
-    key: string;
-    captcha: string;
-}
 
 const ruleFormRef = ref<FormInstance>();
-const ruleForm = reactive<RuleFrom>({
-    username: '',
-    password: '',
+const ruleForm = reactive<UserRuleFrom>({
+    username: 'admin',
+    password: 'abc123456',
     key: '',
     captcha: ''
 });
 // 表单验证规则
-const rules = reactive<FormRules<RuleFrom>>({
+const rules = reactive<FormRules<UserRuleFrom>>({
     username: [
         { required: true, message: '请输入用户名', trigger: 'blur' },
     ],
@@ -64,6 +60,37 @@ const rules = reactive<FormRules<RuleFrom>>({
 const isLogin = ref<boolean>(false);
 
 
+// 获取验证码
+const CaptchaUrl = ref<string>();
+const onCaptcha = async () => {
+    const key: string = new Date().getTime().toString();
+    ruleForm.key = key;
+    const res = await captchaImage({ key });
+    let blob = new Blob([res], { type: 'application/vnd.ms-excel' });
+    CaptchaUrl.value = URL.createObjectURL(blob);
+    console.log(CaptchaUrl.value);
+};
+// vue 生命周期 注册一个钩子，在组件被挂载之前被调用
+onBeforeMount(() => {
+    onCaptcha();
+});
+
+// 登录
+const onLogin = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return;
+    await formEl.validate(async (valid, fields) => {
+        if (!valid) return ElMessage.warning('请填写正确内容');
+        const res = await loginByJson({
+            username: Encrypt(ruleForm.username),
+            password: Encrypt(ruleForm.password),
+            key: ruleForm.key,
+            captcha: ruleForm.captcha
+        });
+        if (res.code != '200') {
+            return ElMessage.error(res.msg);
+        }
+    });
+};
 </script>
 
 <style scoped>
