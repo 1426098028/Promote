@@ -7,9 +7,13 @@ export interface UserRuleFrom {
     captcha: string;
 }
 
-// 账号密码登录返回数据结构
-export interface UserNameRequest{
-    code:number;
-    data?:string;
-    msg?:string;
+//发送验证码
+export interface PhoneCodeForm {
+    mobile: string;
+}
+
+//手机验证码登录
+export interface PhoneRuleForm {
+    mobile: string;
+    captcha: string;
 }
