@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" @mousedown='onMousedown' @mousemove='onMousemove' @mouseup='onMouseup'>
     <!--左侧-->
     <div class="login_adv">
       <div class="login_adv_title">
@@ -10,7 +10,7 @@
       <div class="login_adv_mask"></div>
 
       <div class="login_adv_imgage">
-        <img src="@/assets/images/data.png" width="100%">
+        <img draggable="false" src="@/assets/images/data.png" width="100%">
       </div>
       <div class="login_adv_bottom">
         © 小鹿线客户管理系统 1.0.11
@@ -22,7 +22,7 @@
 
         <div class="login-header">
           <div class="login-img">
-            <img src="@/assets/images/logo.png" alt="">
+            <img draggable="false" src="@/assets/images/logo.png" alt="">
             <label>小鹿线客户管理系统</label>
           </div>
         </div>
@@ -52,7 +52,27 @@
 <script setup lang='ts'>
 import passwordForm from '@/views/login/components/passwordForm.vue';
 import phoneForm from '@/views/login/components/phoneForm.vue';
+import { ref } from 'vue';
 
+const isKeyDown = ref<boolean>(false);
+const dinatesX = ref<number>(0);
+const dinatesY = ref<numder>(0);
+
+const onMousedown = ({ x, y }): void => {
+  isKeyDown.value = true;
+  dinatesX.value = x;
+  dinatesY.value = y;
+};
+const onMousemove = ({ screenX, screenY }) => {
+  if (!isKeyDown.value) return false;
+  const X = screenX - dinatesX.value;
+  const Y = screenY - dinatesY.value;
+  const data = { appX: X, appY: Y, };
+  electron.ipcRenderer.invoke('custom-adsorption', data);
+};
+const onMouseup = (eve) => {
+  isKeyDown.value = false;
+}
 
 </script>
 <style scoped>

@@ -1,0 +1,225 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        .content {
+            width: 100%;
+            /* height: 3000%; */
+            border: 1px solid rgb(235, 193, 193);
+        }
+
+        .content>div {
+            /* float: left; */
+            display: inline-block;
+            border: 1px solid red;
+            /* padding: 10px; */
+        }
+
+        .content>div>img {
+            width: 200px;
+            vertical-align: top;
+
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="content">
+
+    </div>
+
+</body>
+<script>
+    // const onGetImg = async () => {
+    //     const res = await fetch('https://picsum.photos/v2/list?page=1&limit=10')
+    //     return res.json()
+    // }
+    let localStorageImg = `https://pic.616pic.com/ys_img/00/20/87/VYrcYCSDck.jpg`
+    const onGetImg = Array.from({ length: 100 }, (item, index) => `https://picsum.photos/200/${Math.floor(Math.random() * (700 - 100 + 1)) + 100}`)
+    const content = document.querySelector('.content')
+    const PushImg = () => {
+        const res = onGetImg
+        let Html = ``
+        for (let index = 0; index < res.length; index++) {
+            const element = res[index];
+            Html += `<div><img src="${localStorageImg}" loading="lazy" data-src="${element}" alt=""></div>`
+        }
+        content.innerHTML = Html
+    }
+    PushImg()
+    const onImageInfo = (src) => {
+        return new Promise((resolve, reject) => {
+            const CreateImg = new Image()
+            CreateImg.crossOrigin = 'Anonymous'
+            CreateImg.src = src
+            CreateImg.onload = () => { resolve(CreateImg) };
+            CreateImg.onerror = (err) => { console.log('err', err) }
+        })
+    }
+    window.onload = () => {
+
+        // 获取主容器宽
+        const contentWidth = Math.floor(content.offsetWidth)
+
+        // 获取单个图片宽
+        const imgs = content.children
+        const imgWidth = imgs[0].offsetWidth
+
+        // 计算一行可以排列多少张
+        const nums = Math.floor(content.offsetWidth / imgWidth)
+        console.log(contentWidth, imgWidth, nums)
+
+        // 收集每排高度
+        const ArrHeight = []
+        // for (let index = 0; index < imgs.length; index++) {
+        //     if (index < nums) {
+        //         ArrHeight.push(imgs[index].offsetHeight)
+        //     } else {
+        //         const minH = Math.min(...ArrHeight)
+        //         let Obj = { minH: minH, minI: ArrHeight.indexOf(minH) }
+        //         imgs[index].style.position = 'absolute'
+        //         imgs[index].style.transform = `translate3d(${imgs[Obj.minI].offsetLeft}px, ${Obj.minH}px, 0)`;
+        //         imgs[index].style.transition = `transform ${(Math.random() * 0.4 + 0.1).toFixed(2)}s`;
+        //         ArrHeight[Obj.minI] = ArrHeight[Obj.minI] + imgs[index].offsetHeight
+        //     }
+        // }
+
+
+
+
+
+        let index = 0
+
+        const Observer = new IntersectionObserver(async (entries, observer) => {
+            // entries.forEach(async (entry, index) => {
+            //     if (entry.isIntersecting) {
+            //         const img = entry.target.children[0];
+            //         await onImageInfo(img.src)
+            //         img.src = img.dataset.src;
+            //         observer.unobserve(img);
+            //         // console.log(entry)
+
+
+            //         if (index < nums) {
+            //             imgs[index].style.transform = `translate3d(0px, 0px, 0px)`;
+            //             ArrHeight.push(imgs[index].offsetHeight)
+            //         } else {
+            //             console.log(ArrHeight)
+            //             const minH = Math.min(...ArrHeight)
+            //             let Obj = { minH: minH, minI: ArrHeight.indexOf(minH) }
+            //             // console.log(Obj, imgs[Obj.minI].offsetLeft)
+            //             // console.log(Obj, imgs[Obj.minI].offsetWidth)
+            //             // console.log(imgs[Obj.minI])
+
+
+
+            //             // const X = imgs[Obj.minI].offsetLeft > imgs[Obj.minI].offsetWidth ? imgs[Obj.minI].offsetLeft - imgs[Obj.minI].offsetWidth : imgs[Obj.minI].offsetLeft + imgs[Obj.minI].offsetWidth
+
+
+
+
+            //             imgs[index].style.transform = `translate3d(${imgs[Obj.minI].offsetLeft}px, ${Obj.minH}px, 0)`;
+
+            //             // ArrHeight[Obj.minI] = ArrHeight[Obj.minI] + imgs[index].offsetHeight
+            //         }
+
+
+            //         imgs[index].style.transition = `transform ${(Math.random() * 0.4 + 0.1).toFixed(2)}s`;
+            //     }
+            // });
+
+
+
+            for (const entry of entries) {
+
+                if (entry.isIntersecting) {
+
+                    const img = entry.target.children[0];
+                    img.src = img.dataset.src;
+                    const { width, height } = await onImageInfo(img.dataset.src)
+
+                    observer.unobserve(img);
+                    if (index < nums) {
+                        console.log(imgs[index])
+                        imgs[index].style.transform = `translate3d(0px, 0px, 0px)`;
+                        ArrHeight.push(-height)
+                    } else {
+                        // console.log(ArrHeight)
+                        const minH = Math.min(...ArrHeight)
+                        let Obj = { minH: minH, minI: ArrHeight.indexOf(minH) }
+                        // console.log(Obj, imgs[Obj.minI].offsetLeft)
+                        // console.log(Obj, imgs[Obj.minI].offsetWidth)
+                        console.log(Obj.minH + imgs[index].offsetHeight + (Obj.minH / 2))
+
+                        imgs[index].style.transform = `translate3d(0px, 0px, 0)`;
+
+                        ArrHeight[Obj.minI] = ArrHeight[Obj.minI] + imgs[index].offsetHeight
+                    }
+
+
+                    imgs[index].style.transition = `transform ${(Math.random() * 0.4 + 0.1).toFixed(2)}s`;
+                    index++
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+        }, { root: null, threshold: 0.1, rootMargin: '0px 0px 100px 0px' });
+        Array.from(imgs).forEach(img => { Observer.observe(img); });
+        console.log(ArrHeight)
+        const MaxH = Math.max(...ArrHeight)
+        content.style.height = `${MaxH}px`
+    }
+
+
+
+
+
+
+    // const lazyLoadImages = () => {
+    //     const images = document.querySelectorAll('img[data-src]');
+    //     const imgObserver = new IntersectionObserver((entries, observer) => {
+    //         entries.forEach(entry => {
+    //             if (entry.isIntersecting) {
+    //                 const img = entry.target;
+    //                 img.src = img.dataset.src;
+    //                 observer.unobserve(img);
+    //             }
+    //         });
+    //     }, { root: null, threshold: 0.1, rootMargin: '0px 0px 100px 0px' });
+    //     images.forEach(img => { imgObserver.observe(img); });
+    // };
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

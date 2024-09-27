@@ -1,0 +1,131 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            vertical-align: middle;
+            position: absolute;
+        }
+
+        .content {
+            width: 100vw;
+            position: relative;
+        }
+
+        .Loading {
+            padding: 30px;
+            text-align: center;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="content"> </div>
+    <div class='Loading'>加载中</div>
+
+    <script>
+        const content = document.querySelector('.content')
+        const groupMembers = 4; // 希望几列
+        const Arr = new Array(20).fill(0); // 请求的数据
+        const ImgWidth = Math.floor(content.clientWidth / groupMembers)
+
+        console.log(ImgWidth)
+        // 生成虚拟标签，获取图片信息
+        const CreateImg = document.createElement('img')
+        const onImageInfo = async (src) => {
+            CreateImg.src = src
+            return new Promise((resolve, reject) => {
+                CreateImg.onload = () => {
+                    const width = CreateImg.width;
+                    const height = CreateImg.height;
+                    resolve({ width, height, img: src, ImgHtml: CreateImg })
+                };
+            })
+        }
+
+        let topPosition = [];
+        let ImageInfo = [];
+        let isLoading = true
+        const onGetImg = async () => {
+            let ImageInfoLength = ImageInfo.length;
+            const fragment = document.createDocumentFragment();
+            console.log('开始加载', ImageInfoLength)
+            for (index = ImageInfoLength; index < ImageInfoLength + Arr.length; index++) {
+                const randomNumber = Math.floor(Math.random() * (700 - 100 + 1)) + 100;
+                const res = await onImageInfo(`https://picsum.photos/${ImgWidth}/${randomNumber}`)
+                ImageInfo.push(res?.height)
+                if (topPosition.length < groupMembers && Math.floor(index / groupMembers + 1) == 1) {
+                    topPosition[index] = 0;
+                } else {
+                    let abovePicIdx = index - groupMembers;
+                    topPosition[index] = topPosition[abovePicIdx] + ImageInfo[abovePicIdx];
+                }
+                if (index + 1 === (ImageInfoLength + Arr.length)) {
+                    const ImageInfoMaxHeight = Math.max(...ImageInfo.slice(index - groupMembers, (ImageInfoLength + Arr.length)));
+                    const TopPositionMaxHeight = Math.max(...topPosition.slice(index - groupMembers, (ImageInfoLength + Arr.length)));
+                    console.log('修复附件高度塌陷', ImageInfoMaxHeight, TopPositionMaxHeight)
+                    const maxValue = ImageInfoMaxHeight + TopPositionMaxHeight;
+                    console.log("最高是:", maxValue);
+                    content.style.height = `${maxValue}px`
+                }
+                res.ImgHtml.dataset.index = index + 1
+                res.ImgHtml.dataset.length = ImageInfo[index]
+                res.ImgHtml.dataset.src = res.img
+                res.ImgHtml.src = ''
+                res.ImgHtml.style.width = `${res.width}px`
+                res.ImgHtml.style.left = `${(index % groupMembers) * res.width}px`
+                res.ImgHtml.style.top = `${topPosition[index]}px`
+                fragment.appendChild(res.ImgHtml.cloneNode(true))
+            }
+            content.appendChild(fragment);
+            isLoading = true
+        }
+        const option = { root: null, thresholds: 0.1, rootMargin: '0px' }
+        const ObCallback = async ([entries], observer) => {
+            if (isLoading && entries.isIntersecting) {
+                isLoading = false
+                await onGetImg()
+                await lazyLoadImages()
+            }
+        }
+        const ob = new IntersectionObserver(ObCallback, option);
+        const Loading = document.querySelector(".Loading");
+        ob.observe(Loading);
+
+
+
+        const lazyLoadImages = () => {
+            const images = document.querySelectorAll('img[data-src]');
+            const imgObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        observer.unobserve(img);
+                    }
+                });
+            }, { root: null, threshold: 0.1, rootMargin: '0px 0px 100px 0px' });
+            images.forEach(img => { imgObserver.observe(img); });
+        };
+
+
+
+
+    </script>
+
+
+</body>
+
+
+</html>

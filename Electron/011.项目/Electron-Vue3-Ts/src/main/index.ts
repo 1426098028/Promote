@@ -10,6 +10,9 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
+    // titleBarStyle: 'hidden', // 隐藏标题栏
+    frame: false, // 无边框
+    resizable: false, // 决定窗口是否可被用户手动调整大小
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -33,6 +36,12 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  // 实现窗口拖拽移动
+  ipcMain.handle('custom-adsorption', (event, { appX, appY }) => {
+    // console.log(event, res);
+    mainWindow.setPosition(appX, appY);
+  });
 }
 
 // This method will be called when Electron has finished

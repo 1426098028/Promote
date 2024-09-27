@@ -1,0 +1,107 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        .content {
+            width: 100%;
+            /* height: 3000%; */
+            border: 1px solid rgb(235, 193, 193);
+        }
+
+        .content>div {
+            float: left;
+            border: 1px solid red;
+            padding: 10px;
+        }
+
+        .content>div>img {
+            width: 130px;
+            vertical-align: middle;
+
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="content">
+
+    </div>
+
+</body>
+<script>
+    // const onGetImg = async () => {
+    //     const res = await fetch('https://picsum.photos/v2/list?page=1&limit=10')
+    //     return res.json()
+    // }
+    const onGetImg = Array.from({ length: 100 }, (item, index) => `https://picsum.photos/200/${Math.floor(Math.random() * (700 - 100 + 1)) + 100}`)
+    const content = document.querySelector('.content')
+    const PushImg = () => {
+        const res = onGetImg
+        let Html = ``
+        for (let index = 0; index < res.length; index++) {
+            const element = res[index];
+            Html += `<div><img src="${element}" alt=""></div>`
+        }
+        content.innerHTML = Html
+    }
+    PushImg()
+
+    window.onload = () => {
+
+        // 获取主容器宽
+        const contentWidth = Math.floor(content.offsetWidth)
+
+        // 获取单个图片宽
+        const imgs = content.children
+        const imgWidth = imgs[0].offsetWidth
+
+        // 计算一行可以排列多少张
+        const nums = Math.floor(content.offsetWidth / imgWidth)
+        console.log(contentWidth, imgWidth, nums)
+
+        // 收集每排高度
+        const ArrHeight = []
+        for (let index = 0; index < imgs.length; index++) {
+            if (index < nums) {
+                ArrHeight.push(imgs[index].offsetHeight)
+            } else {
+                const minH = Math.min(...ArrHeight)
+                let Obj = { minH: minH, minI: ArrHeight.indexOf(minH) }
+                imgs[index].style.position = 'absolute'
+                imgs[index].style.transform = `translate3d(${imgs[Obj.minI].offsetLeft}px, ${Obj.minH}px, 0)`;
+                imgs[index].style.transition = `transform ${(Math.random() * 0.4 + 0.1).toFixed(2)}s`;
+                ArrHeight[Obj.minI] = ArrHeight[Obj.minI] + imgs[index].offsetHeight
+            }
+        }
+        const MaxH = Math.max(...ArrHeight)
+        content.style.height = `${MaxH}px`
+
+        console.log('ArrHeight', ArrHeight, MaxH)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
