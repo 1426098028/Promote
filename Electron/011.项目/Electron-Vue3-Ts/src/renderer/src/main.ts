@@ -7,6 +7,11 @@ import { pinia } from '@/pinia';
 // 导入全部图标
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 
+
+// 引入国际化
+import i18n from '@/locales'
+
+
 const app = createApp(App);
 
 // 导入全部图标
@@ -17,4 +22,5 @@ import 'element-plus/theme-chalk/index.css'
 
 app.use(router);
 app.use(pinia);
+app.use(i18n);
 app.mount('#app');

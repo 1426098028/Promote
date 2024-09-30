@@ -1,9 +1,28 @@
 <template>
   <div class="login" @mousedown='onMousedown' @mousemove='onMousemove' @mouseup='onMouseup'>
     <!--按钮-->
-    <!--按钮-->
     <div class="login-config">
       <div class="login-config-btn">
+        <!--国际化-->
+        <el-dropdown trigger="click" @command="configLang">
+          <el-button circle>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+              role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+              <path
+                d="M478.33 433.6l-90-218a22 22 0 0 0-40.67 0l-90 218a22 22 0 1 0 40.67 16.79L316.66 406h102.67l18.33 44.39A22 22 0 0 0 458 464a22 22 0 0 0 20.32-30.4zM334.83 362L368 281.65L401.17 362z"
+                fill="currentColor"></path>
+              <path
+                d="M267.84 342.92a22 22 0 0 0-4.89-30.7c-.2-.15-15-11.13-36.49-34.73c39.65-53.68 62.11-114.75 71.27-143.49H330a22 22 0 0 0 0-44H214V70a22 22 0 0 0-44 0v20H54a22 22 0 0 0 0 44h197.25c-9.52 26.95-27.05 69.5-53.79 108.36c-31.41-41.68-43.08-68.65-43.17-68.87a22 22 0 0 0-40.58 17c.58 1.38 14.55 34.23 52.86 83.93c.92 1.19 1.83 2.35 2.74 3.51c-39.24 44.35-77.74 71.86-93.85 80.74a22 22 0 1 0 21.07 38.63c2.16-1.18 48.6-26.89 101.63-85.59c22.52 24.08 38 35.44 38.93 36.1a22 22 0 0 0 30.75-4.9z"
+                fill="currentColor"></path>
+            </svg>
+          </el-button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item v-for="item in config.LANG" :key="item.value" :command="item">{{ item.name
+                }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
         <!--换肤-->
         <el-button circle @click="configDark">
           <el-icon v-if="dark == 'dark'">
@@ -13,18 +32,21 @@
             <Moon />
           </el-icon>
         </el-button>
-
         <!--关闭软件-->
-        <el-button icon="close" circle type="default" @click="closeWin"></el-button>
+        <el-button circle @click="closeWin">
+          <el-icon>
+            <close />
+          </el-icon>
+        </el-button>
       </div>
     </div>
 
     <!--左侧-->
     <div class="login_adv">
       <div class="login_adv_title">
-        <h2>小鹿线</h2>
-        <h4>客户关系管理系统</h4>
-        <p>让业务在线更高效，加速企业数字化升级。</p>
+        <h2>{{ $t('login.name') }}</h2>
+        <h4>{{ $t('login.slogan') }}</h4>
+        <p>{{ $t('login.describe') }}</p>
       </div>
       <div class="login_adv_mask"></div>
 
@@ -42,19 +64,19 @@
         <div class="login-header">
           <div class="login-img">
             <img draggable="false" src="@/assets/images/logo.png" alt="">
-            <label>小鹿线客户管理系统</label>
+            <label>{{ $t('login.AppName') }} </label>
           </div>
         </div>
         <el-tabs>
-          <el-tab-pane label="账号登录" lazy style="height: 300px;">
+          <el-tab-pane :label="$t('login.accountLogin')" lazy style="height: 300px;">
             <passwordForm></passwordForm>
           </el-tab-pane>
-          <el-tab-pane label="手机号登录" lazy style="height: 300px;">
+          <el-tab-pane :label="$t('login.mobileLogin')" lazy style="height: 300px;">
             <phoneForm></phoneForm>
           </el-tab-pane>
         </el-tabs>
         <template v-if='true'>
-          <el-divider>其他登录方式</el-divider>
+          <el-divider>{{ $t('login.signInOther') }}</el-divider>
           <div class="login-oauth">
             <!--微信按钮-->
             <el-button type="success" circle size="large">
@@ -71,8 +93,9 @@
 <script setup lang='ts'>
 import passwordForm from '@/views/login/components/passwordForm.vue';
 import phoneForm from '@/views/login/components/phoneForm.vue';
-import { ref } from 'vue';
+import { ref, reactive, getCurrentInstance } from 'vue';
 
+const { proxy } = getCurrentInstance();
 const isKeyDown = ref<boolean>(false);
 const dinatesX = ref<number>(0);
 const dinatesY = ref<numder>(0);
@@ -91,7 +114,7 @@ const onMousemove = ({ screenX, screenY }) => {
 };
 const onMouseup = (eve) => {
   isKeyDown.value = false;
-}
+};
 
 // 关闭登录窗口
 const closeWin = (): void => {
@@ -108,6 +131,18 @@ const configDark = (): void => {
     localStorage.setItem('dark', element.className);
   }
 };
+
+const config = reactive({
+  LANG: [
+    { name: "中文", value: 'zh-cn' },
+    { name: '英文', value: 'en' }
+  ]
+});
+const configLang = (item: { name: string, value: string; }) => {
+  proxy.$i18n.locale = item.value;
+  localStorage.setItem('lang', item.value);
+}
+
 </script>
 <style scoped>
 .login {
@@ -221,19 +256,23 @@ const configDark = (): void => {
   display: flex;
   justify-content: space-around;
 }
+
 .login-config {
   position: absolute;
   right: 0px;
   top: 0px;
   z-index: 999;
-  width: 100%;
+  padding: 8px;
 }
 
 .login-config-btn {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  margin: 10px 10px 0 0;
-  float: right;
+  gap: 10px;
+  
+    .is-circle {
+      margin: 0;
+    }
 }
 </style>

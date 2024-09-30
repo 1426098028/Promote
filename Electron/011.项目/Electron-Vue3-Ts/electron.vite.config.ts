@@ -26,6 +26,7 @@ export default defineConfig({
         '@/utils': resolve('src/renderer/src/utils'),
         '@/api': resolve('src/renderer/src/api'),
         '@/interface': resolve('src/renderer/src/interface'),
+        '@/locales': resolve('src/renderer/src/locales'),
       }
     },
     plugins: [

@@ -1,7 +1,7 @@
 <template>
     <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="0" size="large">
         <el-form-item prop="mobile">
-            <el-input v-model='ruleForm.mobile' prefix-icon="iphone" clearable placeholder="请输入手机号">
+            <el-input v-model='ruleForm.mobile' prefix-icon="iphone" clearable :placeholder="$t('login.mobileError')">
                 <template #prepend>+86</template>
             </el-input>
         </el-form-item>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { ref, reactive, getCurrentInstance } from 'vue';
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus';
 import { sendRegisterOrLoginCaptcha, loginByMobile } from '@/api/login';
 import { Encrypt } from '@/utils/aes';
@@ -38,6 +38,8 @@ interface PhoneRuleForm {
     captcha: string;
 }
 
+
+const { proxy } = getCurrentInstance();
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<PhoneRuleForm>({
     mobile: '16675900502',
@@ -46,7 +48,7 @@ const ruleForm = reactive<PhoneRuleForm>({
 
 const validatePass = (rule: any, value: string, callback: any) => {
     if (value === '') {
-        callback(new Error('请填写手机号'));
+        callback(new Error(proxy?.$t('login.mobileError')));
     } else if (!/^1[3456789]\d{9}$/.test(value)) {
         callback(new Error('请填写正确手机号'));
     } else {
