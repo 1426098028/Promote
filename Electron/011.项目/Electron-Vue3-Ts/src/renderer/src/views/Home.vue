@@ -87,7 +87,7 @@ const onMousemove = ({ screenX, screenY }) => {
   const X = screenX - dinatesX.value;
   const Y = screenY - dinatesY.value;
   const data = { appX: X, appY: Y, };
-  electron.ipcRenderer.invoke('custom-adsorption', data);
+  window.electron.ipcRenderer.invoke('custom-adsorption', data);
 };
 const onMouseup = (eve) => {
   isKeyDown.value = false;
@@ -95,7 +95,7 @@ const onMouseup = (eve) => {
 
 // 关闭登录窗口
 const closeWin = (): void => {
-  electron.ipcRenderer.invoke('close-login');
+  window.electron.ipcRenderer.invoke('close-login');
 };
 
 const dark = ref<string | null>(localStorage.getItem('dark'));
