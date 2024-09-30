@@ -42,6 +42,12 @@ function createWindow(): void {
     // console.log(event, res);
     mainWindow.setPosition(appX, appY);
   });
+
+  // 关闭登录窗口
+  ipcMain.handle('close-login', () => {
+    console.log('关闭登录窗口');
+    mainWindow.close();
+  });
 }
 
 // This method will be called when Electron has finished

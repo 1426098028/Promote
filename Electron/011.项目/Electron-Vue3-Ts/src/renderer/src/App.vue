@@ -1,15 +1,17 @@
 <template>
   <RouterView></RouterView>
 </template>
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<script  setup lang='ts'>
+import { ref, onBeforeMount } from 'vue';
 
-a {
-  text-decoration: none;
-  color: #333;
-}
-</style>
+
+const configDark = (): void => {
+  const dark = ref<string | null>(localStorage.getItem('dark'));
+  const element = document.querySelector('html') as HTMLElbment | null;
+  if (element) {
+    element.className = (dark.value == 'dark') ? 'dark' : '';
+  }
+};
+onBeforeMount(configDark);
+</script>
+<style lang='scss'></style>

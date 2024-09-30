@@ -1,5 +1,24 @@
 <template>
   <div class="login" @mousedown='onMousedown' @mousemove='onMousemove' @mouseup='onMouseup'>
+    <!--按钮-->
+    <!--按钮-->
+    <div class="login-config">
+      <div class="login-config-btn">
+        <!--换肤-->
+        <el-button circle @click="configDark">
+          <el-icon v-if="dark == 'dark'">
+            <Sunny />
+          </el-icon>
+          <el-icon v-else>
+            <Moon />
+          </el-icon>
+        </el-button>
+
+        <!--关闭软件-->
+        <el-button icon="close" circle type="default" @click="closeWin"></el-button>
+      </div>
+    </div>
+
     <!--左侧-->
     <div class="login_adv">
       <div class="login_adv_title">
@@ -74,6 +93,21 @@ const onMouseup = (eve) => {
   isKeyDown.value = false;
 }
 
+// 关闭登录窗口
+const closeWin = (): void => {
+  electron.ipcRenderer.invoke('close-login');
+};
+
+const dark = ref<string | null>(localStorage.getItem('dark'));
+
+const configDark = (): void => {
+  const element = document.querySelector('html') as HTMLElbment | null;
+  if (element) {
+    element.className = (element.className == 'dark') ? '' : 'dark';
+    dark.value = element.className;
+    localStorage.setItem('dark', element.className);
+  }
+};
 </script>
 <style scoped>
 .login {
@@ -186,5 +220,20 @@ const onMouseup = (eve) => {
 .login-oauth {
   display: flex;
   justify-content: space-around;
+}
+.login-config {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 999;
+  width: 100%;
+}
+
+.login-config-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 10px 0 0;
+  float: right;
 }
 </style>

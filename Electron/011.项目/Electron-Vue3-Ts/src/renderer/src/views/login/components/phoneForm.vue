@@ -58,7 +58,7 @@ const rules = reactive<FormRules<PhoneRuleForm>>({
         { validator: validatePass, trigger: 'blur' },
     ],
     captcha: [
-        { required: true, message: '请输入密码', trigger: 'blur' },
+        { required: true, message: '请输入验证码', trigger: 'blur' },
     ]
 });
 
