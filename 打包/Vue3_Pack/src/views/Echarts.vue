@@ -3,36 +3,50 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
-import * as echarts from 'echarts';
-
+import { ref, onMounted, nextTick } from 'vue';
+// import * as echarts from 'echarts';
 const echartsEle = ref<HTMLDivElement | null>(null); // 确保类型为 HTMLDivElement
-
-onMounted(() => {
+onMounted(async () => {
+  await nextTick();
   if (echartsEle.value) {
     // 基于准备好的 dom，初始化 echarts 实例
-    const myChart = echarts.init(echartsEle.value, null, {
-      width: 600,
-      height: 400,
-    });
+    const myChart = echarts.init(echartsEle.value,);
 
     // 绘制图表
     myChart.setOption({
       title: {
-        text: 'ECharts 示例',
+        text: 'Referer of a Website',
+        subtext: 'Fake Data',
+        left: 'center'
       },
-      tooltip: {},
-      xAxis: {
-        data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+      tooltip: {
+        trigger: 'item'
       },
-      yAxis: {},
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
       series: [
         {
-          name: '销量',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20],
-        },
-      ],
+          name: 'Access From',
+          type: 'pie',
+          radius: '50%',
+          data: [
+            { value: 1048, name: 'Search Engine' },
+            { value: 735, name: 'Direct' },
+            { value: 580, name: 'Email' },
+            { value: 484, name: 'Union Ads' },
+            { value: 300, name: 'Video Ads' }
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
     });
   }
 });

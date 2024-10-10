@@ -12,6 +12,13 @@
     }
   ],
   "compilerOptions": {
-    "module": "NodeNext"
-  }
+    "module": "NodeNext",
+    "skipLibCheck": true, // 跳过库检查
+    "esModuleInterop": true, // 允许默认导入非ES模块
+  },
+  "include": [
+    // "src/**/*", // 包含 src 目录下的所有文件
+    "src/echarts.d.ts", // 确保包含声明文件
+    "src/js-cookie.d.ts" // 确保包含声明文件
+  ]
 }
