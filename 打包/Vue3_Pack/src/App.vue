@@ -10,6 +10,7 @@
         <RouterLink to="/about">About</RouterLink>
         <RouterLink to="/Element-Plus">Element-Plus</RouterLink>
         <RouterLink to="/Echarts">Echarts</RouterLink>
+        <RouterLink to="/Picture">图片</RouterLink>
       </nav>
     </div>
   </header>

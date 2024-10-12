@@ -4,6 +4,7 @@ import { Tabs, TabsProps } from 'antd';
 import TreePage from '../TreePage';
 const NestedSubtables = lazy(() => import('../NestedSubtables'));
 const GlobalConfiguration = lazy(() => import('../GlobalConfiguration'));
+const Picture = lazy(() => import('../Picture'));
 const L7 = lazy(() => import('../L7'));
 const G = lazy(() => import('../G'));
 const G6 = lazy(() => import('../G6'));
@@ -29,6 +30,11 @@ const TabsPage: React.FC = (): ReactNode => {
             key: 'GlobalConfiguration',
             label: 'ConfigProvider 全局化配置',
             children: <Suspense fallback={<div>加载中...</div>}><GlobalConfiguration /></Suspense>,
+        },
+        {
+            key: 'Picture',
+            label: '图片',
+            children: <Suspense fallback={<div>加载中...</div>}><Picture /></Suspense>,
         },
         {
             key: 'L7',
