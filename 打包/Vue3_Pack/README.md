@@ -7,7 +7,7 @@
 ## 开启 gzip 或者 br 压缩,推荐使用br 压缩 (已实现)
 ## 适配需要兼容的目标浏览器版本,而且不是过度兼容,有利用减少代码的生成 (已实现)
 ## 打包时进行代码拆分 (已实现)
-
+## 图片压缩 (已实现)
 
 
 ## 使用 PWA 插件 将应用转化为渐进式 Web 应用（PWA），并利用浏览器缓存 (有思路，太复杂了)
@@ -86,11 +86,11 @@ npm install vite-plugin-cdn-import --save-dev
 ```
 ### 配置 vite.config.ts 
 ```javascript
-import cdn from 'vite-plugin-cdn-import'
+import importToCDN from 'vite-plugin-cdn-import'
 export default {
     plugins: [
          // 插件其它配置
-        cdn({
+        importToCDN({
             enableInDevMode: true, // 开发模式也开启 cdn
             modules: [
             //   {
@@ -101,10 +101,19 @@ export default {
             //    css:'指定从 CDN 地址上加载多个样式表',
             //    prodUrl:'覆盖全局的 prodUrl',
             //   },
+
+                    // 全局 引入 CDN 模块
                   {
                     name: 'echarts',
                     var: 'echarts',
                     path: `https://cdn.jsdelivr.net/npm/echarts/+esm`
+                  }
+                  // 如果这里配置了 局部 resolve > alias 相应的配置部需要配置
+                  // 局部 引入 CDN 模块   目前支持在打包模式下使用 ， 开发模式启动时直接报错目前还没有找到处理方式
+                  {
+                    name: 'js-cookie',
+                    alias: 'js-cookie',
+                    path: `https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js`
                   }
             ],
         }),
@@ -218,3 +227,54 @@ export default defineConfig({
 });
 ```
 
+
+## 图片压缩
+
+#### 安装
+```bash
+# https://github.com/vbenjs/vite-plugin-imagemin/blob/main/README.zh_CN.md
+npm install vite-plugin-imagemin --save-dev
+```
+### 配置 vite.config.ts 
+```javascript
+import viteImagemin from 'vite-plugin-imagemin'
+export default {
+    plugins: [
+      // 插件其它配置
+      
+      // 配置图片压缩
+      viteImagemin({
+        // 对 svg 进行压缩
+        svgo: {
+          plugins: [
+            { name: 'removeViewBox', },
+            { name: 'removeEmptyAttrs', active: false, },
+          ],
+        },
+        // 对 GIF 进行压缩
+        gifsicle: {
+          interlaced: true,
+          optimizationLevel: 7
+        },
+        // 对 JPEG 进行压缩
+        mozjpeg: {
+          quality: 200
+        },
+        // 对 PNG 进行压缩
+        optipng: {
+          interlaced: true,
+          optimizationLevel: 7
+        },
+        // 对 PNG 进行压缩
+        pngquant: {
+          quality: [0.65, 0.8],
+          speed: 4,
+        },
+        // 对 GIF 进行压缩
+        webp: {
+          size: 10
+        },
+      }),
+    ],
+}
+```

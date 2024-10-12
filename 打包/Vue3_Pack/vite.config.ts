@@ -13,8 +13,15 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { visualizer } from "rollup-plugin-visualizer";
 
 // https://github.com/MMF-FE/vite-plugin-cdn-import/blob/master/README.zh-CN.md
+// 开启 CDN 配置
 import importToCDN from 'vite-plugin-cdn-import';
+
+// 开启 图片压缩 未测试
+// https://github.com/vbenjs/vite-plugin-imagemin/blob/main/README.zh_CN.md
+import viteImagemin from 'vite-plugin-imagemin'
+
 // 开启 Br 压缩模式
+// https://github.com/vbenjs/vite-plugin-compression/blob/main/README.zh_CN.md
 import viteCompression from 'vite-plugin-compression';
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -35,6 +42,39 @@ export default defineConfig({
           path: `https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js`
         },
       ]
+    }),
+    // 开启 图片压缩 https://github.com/vbenjs/vite-plugin-imagemin/blob/main/README.zh_CN.md
+    viteImagemin({
+      // 对 svg 进行压缩
+      svgo: {
+        plugins: [
+          { name: 'removeViewBox', },
+          { name: 'removeEmptyAttrs', active: false, },
+        ],
+      },
+      // 对 GIF 进行压缩
+      gifsicle: {
+        interlaced: true,
+        optimizationLevel: 7
+      },
+      // 对 JPEG 进行压缩
+      mozjpeg: {
+        quality: 200
+      },
+      // 对 PNG 进行压缩
+      optipng: {
+        interlaced: true,
+        optimizationLevel: 7
+      },
+      // 对 PNG 进行压缩
+      pngquant: {
+        quality: [0.65, 0.8],
+        speed: 4,
+      },
+      // 对 GIF 进行压缩
+      webp: {
+        size: 10
+      },
     }),
     viteCompression({
       algorithm: 'brotliCompress', // 使用 br 压缩

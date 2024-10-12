@@ -1,14 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { Suspense, ReactNode, lazy } from 'react';
 import { Tabs, TabsProps } from 'antd';
 
 import TreePage from '../TreePage';
-import NestedSubtables from '../NestedSubtables';
-import GlobalConfiguration from '../GlobalConfiguration';
-import L7 from '../L7';
-import G from '../G';
-import G6 from '../G6';
-import Lodash from '../Lodash';
-import JsCookie from '../JsCookie';
+const NestedSubtables = lazy(() => import('../NestedSubtables'));
+const GlobalConfiguration = lazy(() => import('../GlobalConfiguration'));
+const L7 = lazy(() => import('../L7'));
+const G = lazy(() => import('../G'));
+const G6 = lazy(() => import('../G6'));
+const Lodash = lazy(() => import('../Lodash'));
+const JsCookie = lazy(() => import('../JsCookie'));
 
 const TabsPage: React.FC = (): ReactNode => {
     const onChange = (key: string) => {
@@ -23,37 +23,37 @@ const TabsPage: React.FC = (): ReactNode => {
         {
             key: 'NestedSubtables',
             label: 'Table 表格',
-            children: <NestedSubtables />,
+            children: <Suspense fallback={<div>加载中...</div>}><NestedSubtables /></Suspense>,
         },
         {
             key: 'GlobalConfiguration',
             label: 'ConfigProvider 全局化配置',
-            children: <GlobalConfiguration />,
+            children: <Suspense fallback={<div>加载中...</div>}><GlobalConfiguration /></Suspense>,
         },
         {
             key: 'L7',
             label: 'L7',
-            children: <L7 />,
+            children: <Suspense fallback={<div>加载中...</div>}><L7 /></Suspense>,
         },
         {
             key: 'G',
             label: 'G',
-            children: <G />,
+            children: <Suspense fallback={<div>加载中...</div>}><G /></Suspense>,
         },
         {
             key: 'G6',
             label: 'G6',
-            children: <G6 />,
+            children: <Suspense fallback={<div>加载中...</div>}><G6 /></Suspense>,
         },
         {
             key: 'Lodash',
             label: 'Lodash',
-            children: <Lodash />,
+            children: <Suspense fallback={<div>加载中...</div>}><Lodash /></Suspense>,
         },
         {
             key: 'JsCookie',
             label: 'JsCookie',
-            children: <JsCookie />,
+            children: <Suspense fallback={<div>加载中...</div>}><JsCookie /></Suspense>,
         },
     ];
     return (

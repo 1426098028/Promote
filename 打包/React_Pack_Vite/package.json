@@ -6,16 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:server": "npm rum build && cd ./dist && http-server -c-1",
+    "build:server": "vite build && cd ./dist && http-server -c-1",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@antv/g": "^6.0.14",
-    "@antv/g-canvas": "^2.0.15",
-    "@antv/g-svg": "^2.0.12",
-    "@antv/g-webgl": "^2.0.19",
-    "@antv/g6": "^5.0.25",
     "@antv/l7": "^2.22.1",
     "@antv/l7-draw": "^3.1.5",
     "@antv/l7-maps": "^2.22.1",
@@ -37,6 +32,9 @@
     "rollup-plugin-visualizer": "^5.12.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.7.0",
-    "vite": "^5.4.8"
+    "vite": "^5.4.8",
+    "vite-plugin-cdn-import": "^1.0.1",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-externals": "^0.6.2"
   }
 }
