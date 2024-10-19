@@ -6,6 +6,9 @@
       <router-link to="/Element">Element</router-link> |
       <router-link to="/ECharts">ECharts</router-link> |
       <router-link to="/Picture">Picture</router-link> |
+      <router-link to="/JsCookie">JsCookie</router-link> |
+      <router-link to="/Jquery">Jquery</router-link> |
+      <router-link to="/Nanoid">NanoidView</router-link> |
     </nav>
     <router-view />
   </div>

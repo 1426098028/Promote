@@ -1,3 +1,3 @@
-> 1%
-last 2 versions
-not dead
+  > 1%                # 支持全球市场份额超过 1% 的浏览器
+  last 2 versions    # 支持每个浏览器的最新两个版本
+  not dead           # 排除不再维护的浏览器（如过时或已被淘汰的浏览器）
