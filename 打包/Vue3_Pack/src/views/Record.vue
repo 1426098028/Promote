@@ -2,7 +2,7 @@
   <el-tabs v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="录屏" name="RecordScreen">
       <video v-if='ScreenDownloadInfo.href' :src="ScreenDownloadInfo.href" controls></video>
-      <el-button :disabled="!StartRecord" type="primary" @click='onRecordScreen'> 录屏</el-button>
+      <el-button :disabled="!StartRecord" type="primary" @click='onRecordScreen'>录屏</el-button>
       <el-button :disabled="StartRecord" type="primary" @click='onEndRecordScreen'> 结束</el-button>
       <el-button v-show='ScreenDownloadInfo.href' type="primary" @click='onDownload'>下载</el-button>
     </el-tab-pane>
@@ -16,7 +16,7 @@
 </template>
 <script lang='ts' setup>
 import { ref, reactive } from 'vue';
-let activeName = ref('RecordScreen');
+let activeName = ref('Recording');
 let StartRecord = ref(true);
 let mediaRecorder;
 let audioChunks = [];
@@ -66,6 +66,14 @@ const Record = async () => {
         href: audioUrl,
         download: audioChunks[0].type,
       };
+
+      stream.getAudioTracks().forEach(track => track.stop()); // 停止音频轨道
+      stream.getTracks().forEach(track => {
+        track.enabled = false; // 禁用轨道
+        track.stop(); // 停止轨道
+        stream.removeTrack(track); // 从流中移除轨道
+      }); // 停止麦克风
+
     };
     // 开始录屏
     mediaRecorder.start();
@@ -115,6 +123,15 @@ const Sound = async () => {
         href: audioUrl,
         download: audioChunks[0].type,
       };
+
+      stream.getAudioTracks().forEach(track => track.stop()); // 停止音频轨道
+
+      stream.getTracks().forEach(track => {
+        track.enabled = false; // 禁用轨道
+        track.stop(); // 停止轨道
+        stream.removeTrack(track); // 从流中移除轨道
+      }); // 停止麦克风
+
     };
     // 开始录音
     mediaRecorder.start();
