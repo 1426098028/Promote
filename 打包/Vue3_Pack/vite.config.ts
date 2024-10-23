@@ -22,26 +22,32 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 // 开启 Br 压缩模式
 // https://github.com/vbenjs/vite-plugin-compression/blob/main/README.zh_CN.md
 import viteCompression from 'vite-plugin-compression';
+
+
+// 开启 HTTPS  
+import basicSsl from '@vitejs/plugin-basic-ssl'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
     vueDevTools(),
+    basicSsl(),
     AutoImport({ resolvers: [ElementPlusResolver()] }),
     Components({ resolvers: [ElementPlusResolver()] }),
     visualizer(), // npm rum build 会在根目录下生成一个stats.html(默认配置)文件
-    importToCDN({
-      enableInDevMode: true, // 开发模式也开启cdn
-      modules: [
-        {
-          name: 'echarts',
-          var: 'echarts', // 全局分配给模块的变量
-          // alias: ['echarts'], // 局部分配给模块的变量
-          path: `https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js`
-        },
-      ]
-    }),
+    // importToCDN({
+    //   enableInDevMode: true, // 开发模式也开启cdn
+    //   modules: [
+    //     {
+    //       name: 'echarts',
+    //       var: 'echarts', // 全局分配给模块的变量
+    //       // alias: ['echarts'], // 局部分配给模块的变量
+    //       path: `https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js`
+    //     },
+    //   ]
+    // }),
     // 开启 图片压缩 https://github.com/FatehAK/vite-plugin-image-optimizer?tab=readme-ov-file
     ViteImageOptimizer({
       // 定义要处理的图片文件类型的正则表达式
@@ -133,10 +139,15 @@ export default defineConfig({
       deleteOriginFile: true, // 是否删除原始文件
     }),
   ],
+  server: {
+    // 开启 HTTPS  
+    https: true,
+    host: '0.0.0.0',
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'js-cookie': `https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/+esm`
+      // 'js-cookie': `https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/+esm`
     }
   },
   build: {

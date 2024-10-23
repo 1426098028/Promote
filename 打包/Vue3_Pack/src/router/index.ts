@@ -37,6 +37,11 @@ const router = createRouter({
       path: '/Picture',
       name: 'Picture',
       component: () => import('../views/Picture.vue')
+    },
+    {
+      path: '/Record',
+      name: 'Record',
+      component: () => import('../views/Record.vue')
     }
   ]
 })
