@@ -56,6 +56,11 @@ sudo systemctl start ProjectStart.service
 
 ```
 
+## 重新启动服务
+```bash
+sudo systemctl restart ProjectStart.service
+```
+
 ## 查看服务情况
 ```bash
 journalctl -u ProjectStart.service
