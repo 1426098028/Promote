@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唤起美团APP</title>
+</head>
+
+<body>
+    <!-- 通过链接方式唤起APP -->
+    <a href="imeituan://">打开美团</a>
+    <!-- 通过绑定事件方式唤起APP -->
+    <button onclick="location.href='imeituan://'">打开美团</button>
+    <button id="openMeituan">打开美团</button>
+    <script>
+        document.getElementById('openMeituan').addEventListener('click', function () {
+            window.location = 'imeituan://';
+        });
+    </script>
+</body>
+
+</html>
