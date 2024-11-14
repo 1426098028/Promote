@@ -11,7 +11,7 @@ sudo vim /etc/systemd/system/ProjectStart.service
 ### 开始辅助测试
 ## 设置文件权限
 ```bash
-sudo chmod -R 777 /home/ubuntu/YLMProject/
+sudo find /home/ubuntu/YLMProject/ -path "*/.git" -prune -o -exec sudo chmod 777 {} + ;
 ```
 
 ## 去除 Windows 换行符
@@ -38,7 +38,7 @@ Type=simple
 # 获取 nvm 安装路径
 Environment="NVM_DIR=/home/ubuntu/.nvm"
 # 启动 nvm 后，启动.sh文件
-ExecStartPre=/bin/bash -c 'source /home/ubuntu/.nvm/nvm.sh && sudo chmod -R 777 /home/ubuntu/YLMProject/'
+ExecStartPre=/bin/bash -c 'source /home/ubuntu/.nvm/nvm.sh && sudo find /home/ubuntu/YLMProject/ -path "*/.git" -prune -o -exec sudo chmod 777 {} + ;'
 # 执行所有 .sh 文件
 
 # 无执行记录
