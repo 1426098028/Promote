@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            text-align: center;
+            width: 100px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="connect">连接</div>
+    <div id="send">发送</div>
+    <div id="close">关闭</div>
+</body>
+<script type="module">
+    import Socket from './WebSocket.js'
+
+    const socket = new Socket({
+        Url: 'ws://localhost:8080',
+        HeartBeatTime: 1,
+        ReconnectTime: 10,
+        ReconnectFrequency: 10,
+    })
+    console.log(socket)
+    // 连接中
+    socket.onConnect((data) => {
+        console.log('连接中')
+    })
+    // 重连中
+    socket.onReconnect(({ detail }) => {
+        console.log(detail.msg)
+    })
+    // 连接成功
+    socket.onOpen((data) => {
+        console.log('连接成功', data)
+    })
+    // 接收服务器发送的消息
+    socket.onMessage(({ detail }) => {
+        console.log('接收服务器发送的消息', detail)
+    })
+    // 连接关闭
+    socket.onClose((data) => {
+        console.log('连接关闭', data)
+    })
+    // 连接失败
+    socket.onError((data) => {
+        console.log('连接失败', data)
+    })
+
+
+
+
+
+    document.getElementById('connect').addEventListener('click', function onConnect() {
+        socket.connectSocket()
+    });
+
+    document.getElementById('send').addEventListener('click', function onSend() {
+        socket.onSend(`发送${new Date()}`)
+    });
+
+    document.getElementById('close').addEventListener('click', function onClose() {
+        // 连接关闭
+        socket.onDisconnect()
+    });
+
+</script>
+
+</html>
