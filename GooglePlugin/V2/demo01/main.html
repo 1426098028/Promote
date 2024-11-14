@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 500px;
+            height: 200rpx;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex;align-items: center;justify-content: space-evenly;">
+        <a id="openback">打开后台页</a>
+        <a id="getbacktitle">获取后台页面标题</a>
+        <h6 id="setbacktitle()">设置后台页面标题</h6>
+        <h6 id="callbackJs()">调用后台页Js</h6>
+    </div>
+</body>
+<script src="jquery.min.js"></script>
+<script>
+
+
+
+
+
+    $('#openback').click(() => {
+        window.open(chrome.extension.getURL('back.html'))
+        console.log(chrome)
+
+        alert(111)
+    })
+    $('#getbacktitle').click(() => {
+        window.open(chrome.extension.getURL('back.html'))
+        console.log(chrome)
+
+        alert(111)
+    })
+
+
+
+    function getbacktitle(e) {
+
+    }
+    function setbacktitle(e) {
+
+    }
+    function callbackJs(e) {
+
+    }
+
+
+
+
+</script>
+
+</html>

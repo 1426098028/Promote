@@ -1,0 +1,19 @@
+{
+    "name": "插件学习",
+    "description": "插件学习",
+    "version": "1.1",
+    "manifest_version": 2,
+    "icons": {
+        "16": "/Img/1.jpg",
+        "48": "/Img/1.jpg",
+        "128": "/Img/1.jpg"
+    },
+    "browser_action": {
+        "default_icon": "/Img/1.jpg",
+        "default_title": "插件入门",
+        "default_popup": "main.html"
+    },
+    "background": {
+        "page": "back.html"
+    }
+}
