@@ -2,6 +2,14 @@
 const beforeEach = (to, from) => {
     console.log('全局前置守卫');
     // 返回 false 以取消当次跳转
+
+    if (to.path === '/login') {
+        return;
+    }
+    if (!localStorage.getItem("TOKEN")) {
+        return '/login';
+    }
+
     return true;
 };
 // 全局解析守卫

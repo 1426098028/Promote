@@ -36,7 +36,8 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import { captchaImage, loginByJson } from '@/api/login';
 import { Encrypt } from '@/utils/aes';
 import { UserRuleFrom } from '@/interface/login';
-
+import { useRouter } from 'vue-router';
+const Router = useRouter()
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<UserRuleFrom>({
@@ -93,9 +94,9 @@ const onLogin = async (formEl: FormInstance | undefined) => {
             captcha: ruleForm.captcha
         });
         isLogin.value = false;
-        if (res.code != '200') {
-            return ElMessage.error(res.msg);
-        }
+        if (res.code != '200') return ElMessage.error(res.msg);
+        Router.push('/');
+        localStorage.setItem("TOKEN", res.data || '');
     });
 };
 </script>
