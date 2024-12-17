@@ -1,12 +1,11 @@
-import axios from 'axios';
-// 创建一个实例 ,并且定义默认值
-const instance = axios.create({
-    baseURL: '/api',
-    timeout: 5000,
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+
+const request = axios.create({
+    baseURL: '/api'
 });
 
 // 添加请求拦截器
-instance.interceptors.request.use(function (config) {
+request.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     return config;
 }, function (error) {
@@ -14,15 +13,43 @@ instance.interceptors.request.use(function (config) {
     return Promise.reject(error);
 });
 
+
 // 添加响应拦截器
-instance.interceptors.response.use(function (response) {
+request.interceptors.response.use(function (response) {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
-    return response.data;
+    return response;
 }, function (error) {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
     return Promise.reject(error);
 });
-export { instance };
-export default instance;
+
+const http = {
+    get<T>(url: string, params?: any, config?: {}): Promise<T> {
+        return new Promise((resolve, reject) => {
+            request
+                .get<T>(url, { params, ...config })
+                .then((res: AxiosResponse<T>) => {
+                    resolve(res.data);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    },
+    post<T>(url: string, data?: any, config?: {}): Promise<T> {
+        return new Promise((resolve, reject) => {
+            request
+                .post<T>(url, data, config)
+                .then((res: AxiosResponse<T>) => {
+                    resolve(res.data);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    },
+};
+
+export default http;
