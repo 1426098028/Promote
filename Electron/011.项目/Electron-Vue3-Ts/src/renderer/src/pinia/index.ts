@@ -4,11 +4,15 @@ import piniaPluginPersist from 'pinia-plugin-persist';
 // 创建单独的用户Store模块
 import { useUserStore } from '@/pinia/useUserStore';
 
+// 创建单独的菜单Store模块
+import { useMenuStore } from '@/pinia/useMenuStore';
+
 const useStore = defineStore('storeid', {
     state: () => {
         return {
             creator: `Powered by electron-vite`,
-            User: useUserStore() // 用户
+            User: useUserStore(), // 用户
+            Menu: useMenuStore() // 菜单
         };
     },
     getters: {},
@@ -21,7 +25,7 @@ const useStore = defineStore('storeid', {
         strategies: [ // 开启数据缓存
             {
                 storage: localStorage, // 缓存的方式 默认是 session
-                paths: ['creator', 'User'], // 希望进行数据持久化的字段，只需要传递字段即可
+                paths: ['creator', 'User', 'Menu'], // 希望进行数据持久化的字段，只需要传递字段即可
             }
         ],
     }

@@ -1,6 +1,10 @@
 import http from '@/utils/request';
 import { UserRuleFrom, PhoneCodeForm, PhoneRuleForm } from '@/interface/login';
-
+/**
+ * 
+ * 登录相关接口
+ * 
+*/
 interface ILoginRequest {
     code: string;
     msg: string;

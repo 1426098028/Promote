@@ -36,6 +36,8 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import { captchaImage, loginByJson } from '@/api/login';
 import { Encrypt } from '@/utils/aes';
 import { UserRuleFrom } from '@/interface/login';
+import { useUserStore } from '@/pinia/useUserStore';
+import { useMenuStore } from '@/pinia/useMenuStore';
 import { useRouter } from 'vue-router';
 const Router = useRouter()
 
@@ -95,8 +97,17 @@ const onLogin = async (formEl: FormInstance | undefined) => {
         });
         isLogin.value = false;
         if (res.code != '200') return ElMessage.error(res.msg);
-        Router.push('/');
+        // 1 . 持久化存储 Token
         localStorage.setItem("TOKEN", res.data || '');
+
+        // 2.获取用户信息
+        await useUserStore().getUserInfo();
+
+        // 3.获取路由
+        await useMenuStore().getMenu();
+
+        // 4.跳转到后台管理系统首页
+        Router.push('/');
     });
 };
 </script>
