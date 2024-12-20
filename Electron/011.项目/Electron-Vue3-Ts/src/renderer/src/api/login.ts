@@ -1,16 +1,5 @@
 import http from '@/utils/request';
-import { UserRuleFrom, PhoneCodeForm, PhoneRuleForm } from '@/interface/login';
-/**
- * 
- * 登录相关接口
- * 
-*/
-interface ILoginRequest {
-    code: string;
-    msg: string;
-    data?: string | null;
-}
-
+import { UserRuleFrom, PhoneCodeForm, PhoneRuleForm, ILoginRequest } from '@/interface/login';
 
 // 账号密码登录
 export const loginByJson = (data: UserRuleFrom): Promise<ILoginRequest> => {

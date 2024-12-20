@@ -1,3 +1,13 @@
+/**
+ * 
+ * 登录相关接口
+ * 
+*/
+export interface ILoginRequest {
+    code: string;
+    msg: string;
+    data?: string | null;
+}
 
 // 定义账号密码登录接口数据结构
 export interface UserRuleFrom {

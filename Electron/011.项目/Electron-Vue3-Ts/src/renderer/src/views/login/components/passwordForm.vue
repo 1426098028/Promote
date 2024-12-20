@@ -1,5 +1,6 @@
 <template>
-    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="0" size="large">
+    <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" @keyup.enter='onLogin(ruleFormRef)' label-width="0"
+        size="large">
         <el-form-item prop="username">
             <el-input v-model='ruleForm.username' prefix-icon="user" clearable placeholder="请输入用户名"></el-input>
         </el-form-item>
@@ -36,10 +37,7 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus';
 import { captchaImage, loginByJson } from '@/api/login';
 import { Encrypt } from '@/utils/aes';
 import { UserRuleFrom } from '@/interface/login';
-import { useUserStore } from '@/pinia/useUserStore';
-import { useMenuStore } from '@/pinia/useMenuStore';
-import { useRouter } from 'vue-router';
-const Router = useRouter()
+import useLogin from '@/hooks/useLogin';
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<UserRuleFrom>({
@@ -96,18 +94,7 @@ const onLogin = async (formEl: FormInstance | undefined) => {
             captcha: ruleForm.captcha
         });
         isLogin.value = false;
-        if (res.code != '200') return ElMessage.error(res.msg);
-        // 1 . 持久化存储 Token
-        localStorage.setItem("TOKEN", res.data || '');
-
-        // 2.获取用户信息
-        await useUserStore().getUserInfo();
-
-        // 3.获取路由
-        await useMenuStore().getMenu();
-
-        // 4.跳转到后台管理系统首页
-        Router.push('/');
+        useLogin(res)
     });
 };
 </script>

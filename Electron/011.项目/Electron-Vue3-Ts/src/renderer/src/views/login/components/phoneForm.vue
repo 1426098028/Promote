@@ -29,8 +29,11 @@
 <script setup lang="ts">
 import { ref, reactive, getCurrentInstance } from 'vue';
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus';
+import { ElMessage } from 'element-plus';
 import { sendRegisterOrLoginCaptcha, loginByMobile } from '@/api/login';
 import { Encrypt } from '@/utils/aes';
+import useLogin from '@/hooks/useLogin';
+
 
 // 定义手机验证码登录接口数据结构
 interface PhoneRuleForm {
@@ -94,7 +97,8 @@ const onLogin = async (formEl: FormInstance | undefined) => {
         isLogin.value = true;
         const res = await loginByMobile({ mobile: Encrypt(ruleForm.mobile), captcha: Encrypt(ruleForm.captcha) });
         isLogin.value = false;
-        if (!(res.code == 200)) return ElMessage.error(res.msg);
+
+        useLogin(res)
     });
 };
 
