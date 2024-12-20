@@ -19,6 +19,7 @@ export default defineConfig({
       alias: {
         '@renderer': resolve('src/renderer/src'),
         '@/assets': resolve('src/renderer/src/assets'),
+        '@/layout': resolve('src/renderer/src/layout'),
         '@/components': resolve('src/renderer/src/components'),
         '@/pinia': resolve('src/renderer/src/pinia'),
         '@/router': resolve('src/renderer/src/router'),

@@ -38,7 +38,7 @@
     </div>
     <!--右侧组件-->
     <div class="aminui-body">
-      右侧内容
+      <router-view></router-view>
     </div>
   </section>
 </template>
@@ -189,4 +189,3 @@ const tabMenu = (item) => {
   border-right: 0px;
 }
 </style>
-
