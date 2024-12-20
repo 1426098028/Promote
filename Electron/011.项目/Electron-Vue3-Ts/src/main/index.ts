@@ -48,6 +48,19 @@ function createWindow(): void {
     console.log('关闭登录窗口');
     mainWindow.close();
   });
+
+  // 登录成功后调整窗口大小(进入后台管理系统)
+  ipcMain.handle('resize-window', () => {
+    console.log('调整窗口大小');
+    // 调整窗口大小
+    mainWindow.setSize(1200, 720);
+    // 调整窗口最小值
+    mainWindow.setMinimumSize(1000, 500);
+    // 调整窗口居中
+    mainWindow.center();
+    // 支持窗口大小可以修改
+    mainWindow.setResizable(true);
+  });
 }
 
 // This method will be called when Electron has finished
