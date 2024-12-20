@@ -1,9 +1,10 @@
-import { createRouter, createMemoryHistory } from 'vue-router';
+import { createRouter, createMemoryHistory, createWebHashHistory } from 'vue-router';
 import { beforeEach, beforeResolve, afterEach } from '@/router/guard';
 import { AppRoutes } from '@/router/routes';
 
 const router = createRouter({
-    history: createMemoryHistory(),
+    // history: createMemoryHistory(),
+    history: createWebHashHistory(),
     routes: AppRoutes
 });
 

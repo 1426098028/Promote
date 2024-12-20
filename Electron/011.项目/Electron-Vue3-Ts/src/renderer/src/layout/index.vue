@@ -29,7 +29,7 @@
       </div>
       <div class="adminui-side-scroll">
         <el-scrollbar>
-          <NavMenu :nextMenu='nextMenu' />
+          <NavMenu :nextMenu="nextMenu" :ActiveRouter="Route.path"></NavMenu>
         </el-scrollbar>
       </div>
       <div class="adminui-side-bottom">
@@ -47,16 +47,18 @@ import { onBeforeMount, ref } from 'vue';
 import { useMenuStore } from '@/pinia/useMenuStore';
 import { Parent } from '@/interface/user';
 import NavMenu from './components/NavMenu.vue';
+import { useRoute } from 'vue-router';
 
 const menu = ref<Parent[]>([]);
 const pmenu = ref<Parent>({});
 const nextMenu = ref<Parent[] | undefined>([]);
-
+const Route = useRoute();
+const currentRoute = (Route.meta.breadcrumb as Parent[])[0];
 onBeforeMount(() => {
-  window.electron.ipcRenderer.invoke('resize-window');
+  // window.electron.ipcRenderer.invoke('resize-window');
   menu.value = useMenuStore().menu;
-  pmenu.value = menu.value[0];
-  nextMenu.value = pmenu.value.children;
+  pmenu.value = currentRoute;
+  nextMenu.value = currentRoute.children;
 });
 const tabMenu = (item) => {
   pmenu.value = item;
