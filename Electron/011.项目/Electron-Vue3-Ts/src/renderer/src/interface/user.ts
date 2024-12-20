@@ -73,16 +73,16 @@ export interface Child {
 }
 
 export interface Parent {
-    id: string;
-    name: string;
-    hidden: boolean;
-    redirect: string;
-    component: string;
-    alwaysShow: boolean;
-    query: string;
-    path: string;
-    meta: Meta;
-    children: Child[];
+    id?: string;
+    name?: string;
+    hidden?: boolean;
+    redirect?: string;
+    component?: string;
+    alwaysShow?: boolean;
+    query?: string;
+    path?: string;
+    meta?: Meta;
+    children?: Child[];
 }
 
 export interface IMenuData {

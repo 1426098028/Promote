@@ -10,17 +10,13 @@
       <div class="adminui-side-split-scroll">
         <el-scrollbar>
           <ul>
-            <li class="active">
+            <li v-for='item in menu' :key='item.id' :class="item.path === pmenu?.path ? 'active' : ''"
+              @click='tabMenu(item)'>
               <el-icon>
-                <ChatRound />
+                <component :is='item.name == "小鹿线" ? "house" : item.meta?.icon.replace("el-icon-", "")'>
+                </component>
               </el-icon>
-              <p>首页</p>
-            </li>
-            <li>
-              <el-icon>
-                <ChatRound />
-              </el-icon>
-              <p>新媒体</p>
+              <p>{{ item.name }}</p>
             </li>
           </ul>
         </el-scrollbar>
@@ -33,44 +29,7 @@
       </div>
       <div class="adminui-side-scroll">
         <el-scrollbar>
-          <el-menu>
-            <el-menu-item index="1">
-              <el-icon>
-                <ChatRound />
-              </el-icon>
-              <span>仪表盘</span>
-            </el-menu-item>
-            <el-menu-item index="2">
-              <el-icon>
-                <ChatRound />
-              </el-icon>
-              <span>仪表盘</span>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <el-icon>
-                <ChatRound />
-              </el-icon>
-              <span>仪表盘</span>
-            </el-menu-item>
-            <el-menu-item index="4">
-              <el-icon>
-                <ChatRound />
-              </el-icon>
-              <span>仪表盘</span>
-            </el-menu-item>
-            <el-menu-item index="5">
-              <el-icon>
-                <ChatRound />
-              </el-icon>
-              <span>仪表盘</span>
-            </el-menu-item>
-            <el-menu-item index="6">
-              <el-icon>
-                <ChatRound />
-              </el-icon>
-              <span>仪表盘</span>
-            </el-menu-item>
-          </el-menu>
+          <NavMenu :nextMenu='nextMenu' />
         </el-scrollbar>
       </div>
       <div class="adminui-side-bottom">
@@ -84,10 +43,26 @@
   </section>
 </template>
 <script setup lang="ts">
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
+import { useMenuStore } from '@/pinia/useMenuStore';
+import { Parent } from '@/interface/user';
+import NavMenu from './components/NavMenu.vue';
+
+const menu = ref<Parent[]>([]);
+const pmenu = ref<Parent>({});
+const nextMenu = ref<Parent[] | undefined>([]);
+
 onBeforeMount(() => {
   window.electron.ipcRenderer.invoke('resize-window');
+  menu.value = useMenuStore().menu;
+  pmenu.value = menu.value[0];
+  nextMenu.value = pmenu.value.children;
 });
+const tabMenu = (item) => {
+  pmenu.value = item;
+  nextMenu.value = item.children;
+}
+
 </script>
 <style scoped lang="scss">
 .aminui-wrapper {
