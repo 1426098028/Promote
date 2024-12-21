@@ -41,35 +41,38 @@
       <TopBar>
         <UserBar />
       </TopBar>
+      <TagBar />
       <router-view></router-view>
     </div>
   </section>
 </template>
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, watch } from 'vue';
 import { useMenuStore } from '@/pinia/useMenuStore';
 import { Parent } from '@/interface/user';
 import NavMenu from './components/NavMenu.vue';
 import TopBar from './components/TopBar.vue';
 import UserBar from './components/UserBar.vue';
+import TagBar from './components/TagBar.vue';
 import { useRoute } from 'vue-router';
 
 const menu = ref<Parent[]>([]);
 const pmenu = ref<Parent>({});
 const nextMenu = ref<Parent[] | undefined>([]);
 const Route = useRoute();
-const currentRoute = (Route.meta.breadcrumb as Parent[])[0];
 onBeforeMount(() => {
   window.electron.ipcRenderer.invoke('resize-window');
   menu.value = useMenuStore().menu;
-  pmenu.value = currentRoute;
-  nextMenu.value = currentRoute.children;
 });
 const tabMenu = (item) => {
   pmenu.value = item;
   nextMenu.value = item.children;
-}
-
+};
+watch(Route, () => {
+  const currentRoute = (Route.meta.breadcrumb as Parent[])[0];
+  pmenu.value = currentRoute;
+  nextMenu.value = currentRoute.children;
+}, { immediate: true });
 </script>
 <style scoped lang="scss">
 .aminui-wrapper {
