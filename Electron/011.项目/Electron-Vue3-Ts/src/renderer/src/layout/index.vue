@@ -38,6 +38,9 @@
     </div>
     <!--右侧组件-->
     <div class="aminui-body">
+      <TopBar>
+        <UserBar />
+      </TopBar>
       <router-view></router-view>
     </div>
   </section>
@@ -47,6 +50,8 @@ import { onBeforeMount, ref } from 'vue';
 import { useMenuStore } from '@/pinia/useMenuStore';
 import { Parent } from '@/interface/user';
 import NavMenu from './components/NavMenu.vue';
+import TopBar from './components/TopBar.vue';
+import UserBar from './components/UserBar.vue';
 import { useRoute } from 'vue-router';
 
 const menu = ref<Parent[]>([]);
@@ -55,7 +60,7 @@ const nextMenu = ref<Parent[] | undefined>([]);
 const Route = useRoute();
 const currentRoute = (Route.meta.breadcrumb as Parent[])[0];
 onBeforeMount(() => {
-  // window.electron.ipcRenderer.invoke('resize-window');
+  window.electron.ipcRenderer.invoke('resize-window');
   menu.value = useMenuStore().menu;
   pmenu.value = currentRoute;
   nextMenu.value = currentRoute.children;
@@ -149,7 +154,7 @@ const tabMenu = (item) => {
       -webkit-app-region: drag;
       border-bottom: 1px solid #ebeef5;
       height: 49px;
-      line-height: 50px;
+      line-height: 49px;
     }
 
     .adminui-side-top h2 {
