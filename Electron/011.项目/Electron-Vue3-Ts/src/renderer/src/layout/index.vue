@@ -10,7 +10,7 @@
       <div class="adminui-side-split-scroll">
         <el-scrollbar>
           <ul>
-            <li v-for='item in menu' :key='item.id' :class="item.path === pmenu?.path ? 'active' : ''"
+            <li v-for='item in ParentMenu' :key='item.id' :class="item.path == CurrentAndNextMenu.path ? 'active' : ''"
               @click='tabMenu(item)'>
               <el-icon>
                 <component :is='item.name == "小鹿线" ? "house" : item.meta?.icon.replace("el-icon-", "")'>
@@ -29,7 +29,7 @@
       </div>
       <div class="adminui-side-scroll">
         <el-scrollbar>
-          <NavMenu :nextMenu="nextMenu" :ActiveRouter="Route.path"></NavMenu>
+          <NavMenu :nextMenu="CurrentAndNextMenu.children"></NavMenu>
         </el-scrollbar>
       </div>
       <div class="adminui-side-bottom">
@@ -50,35 +50,36 @@
 import { onBeforeMount, ref, watch } from 'vue';
 import { useMenuStore } from '@/pinia/useMenuStore';
 import { Parent } from '@/interface/user';
-import NavMenu from './components/NavMenu.vue';
-import TopBar from './components/TopBar.vue';
-import UserBar from './components/UserBar.vue';
-import TagBar from './components/TagBar.vue';
-import { useRoute } from 'vue-router';
-
-const menu = ref<Parent[]>([]);
-const pmenu = ref<Parent>({});
-const nextMenu = ref<Parent[] | undefined>([]);
+import NavMenu from '@/layout/components/NavMenu.vue';
+import TopBar from '@/layout/components/TopBar.vue';
+import UserBar from '@/layout/components/UserBar.vue';
+import TagBar from '@/layout/components/TagBar.vue';
+import { useRoute, useRouter } from 'vue-router';
+const ParentMenu = ref<Parent[]>([]);
+const CurrentAndNextMenu = ref<Parent[] | undefined>([]);
+const Router = useRouter();
 const Route = useRoute();
 onBeforeMount(() => {
   window.electron.ipcRenderer.invoke('resize-window');
-  menu.value = useMenuStore().menu;
 });
-const tabMenu = (item) => {
-  pmenu.value = item;
-  nextMenu.value = item.children;
+const UpdateRouter = () => {
+  const RouterMenu = Router.getRoutes();
+  RouterMenu.forEach(items => {
+    items.name == 'layout' && (ParentMenu.value = items.children);
+    items.path == Router.currentRoute.value.meta.ParentPath && (CurrentAndNextMenu.value = items);
+  });
 };
-watch(Route, () => {
-  const currentRoute = (Route.meta.breadcrumb as Parent[])[0];
-  pmenu.value = currentRoute;
-  nextMenu.value = currentRoute.children;
-}, { immediate: true });
+
+const tabMenu = (item) => {
+  CurrentAndNextMenu.value = item;
+};
+watch(Route, UpdateRouter, { immediate: true });
 </script>
 <style scoped lang="scss">
 .aminui-wrapper {
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 100vmax;
+  height: 100vh;
   overflow: hidden;
 
   .aminui-side-split {

@@ -2,7 +2,7 @@
     <div v-if='!nextMenu || nextMenu.length <= 0'>
         没有子级菜单
     </div>
-    <el-menu router :default-active='ActiveRouter' v-else>
+    <el-menu router :default-active='$route.path' v-else>
         <el-menu-item v-for='item in nextMenu' :key='item.id' :index='item.path'>
             <el-icon>
                 <component :is='item.meta?.icon.replace("el-icon-", "") || "user"' />
@@ -17,17 +17,12 @@
 
 <script setup lang="ts">
 import { PropType } from 'vue';
-import { Parent } from '@interface/user';
+import { Parent } from '@/interface/user';
 defineProps({
     nextMenu: {
         type: Object as PropType<Parent[]>,
         required: true,
         default: () => []
-    },
-    ActiveRouter: {
-        type: String,
-        required: true,
-        default: ''
     }
 });
 </script>

@@ -3,7 +3,7 @@
         <div class="left-panel">
             <el-breadcrumb separator-icon="ArrowRight">
                 <transition-group name="breadcrumb">
-                    <template v-for="item in BreadList" :key="item.path">
+                    <template v-for="item in $route.matched" :key="item.path">
                         <el-breadcrumb-item v-if="item.path != '/'" :key="item.path">
                             <el-icon>
                                 <component :is="item.meta?.icon.replace('el-icon-', '')" />
@@ -22,28 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-import { Parent } from '@/interface/user';
-
-const router = useRoute();
-const BreadList = ref<Parent[]>();
-
-
-onBeforeMount(() => {
-
-    getBreadcrumb();
-
-});
-
-const getBreadcrumb = () => {
-    BreadList.value = (router.meta.breadcrumb) as Parent[];
-};
-
-watch(router, getBreadcrumb)
-
-
-
 </script>
 
 <style scoped lang="scss">

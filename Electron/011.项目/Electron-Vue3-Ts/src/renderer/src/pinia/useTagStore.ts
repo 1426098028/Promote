@@ -13,9 +13,9 @@ const useTagStore = defineStore('TagId', {
     },
     actions: {
         pushViewTags(route: ITagRoute) {
+            const { affix } = route;
             let target: number = this.viewTags.find(item => item.path === route.path);
-            !target && this.viewTags.push(route);
-            console.log(this.viewTags);
+            !target && this.viewTags[affix ? 'unshift' : 'push'](route);
         },
         removeViewTags(route: ITagRoute) {
             this.viewTags.forEach((item: ITagRoute, index: number) => {
@@ -32,7 +32,7 @@ const useTagStore = defineStore('TagId', {
         strategies: [ // 开启数据缓存
             {
                 storage: localStorage, // 缓存的方式 默认是 session
-                paths: [], // 希望进行数据持久化的字段，只需要传递字段即可
+                paths: ["viewTags"], // 希望进行数据持久化的字段，只需要传递字段即可
             }
         ],
     }

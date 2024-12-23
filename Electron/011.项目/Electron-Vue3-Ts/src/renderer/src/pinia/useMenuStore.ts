@@ -16,7 +16,6 @@ const useMenuStore = defineStore('MenuId', {
             const { rolePerm } = useUserStore();
             const { data } = await getUserMenu(rolePerm);
             this.menu = data;
-            console.log('获取路由', data);
         }
     },
     // persist 属性并非 pinia 自带的，是使用了 pinia-plugin-persist 插件，插件添加上的

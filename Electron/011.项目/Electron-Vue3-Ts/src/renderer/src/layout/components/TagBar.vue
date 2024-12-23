@@ -18,6 +18,7 @@
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
+import { router } from '@/router';
 import { useTagStore } from '@/pinia/useTagStore';
 import { ITagRoute } from '@/interface/tag';
 
@@ -30,7 +31,9 @@ const closeTag = (currentRoutes: ITagRoute) => {
     TagStore.removeViewTags(currentRoutes);
     if (!isActive(currentRoutes)) return;
     const LeftView: ITagRoute = viewTags.value[nowTagIndex - 1];
-    Route.push(LeftView ? LeftView.path : '/');
+    console.log('LeftView', LeftView, LeftView.path, Route);
+    // console.log('closeTag', LeftView);
+    router.push(LeftView ? LeftView.path : '/');
 };
 watch(Route, () => {
     const { name, path, meta: { affix } } = Route;
