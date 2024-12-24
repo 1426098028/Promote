@@ -23,17 +23,20 @@
       </div>
     </div>
     <!--2级菜单-->
-    <div class="aminui-side">
+    <div :class="menuIsCollapse ? 'aminui-side' : 'aminui-side IsCollapse'">
       <div class="adminui-side-top">
-        <h2>首页</h2>
+        <h2 :class="menuIsCollapse ? '' : 'IsCollapseTop'">{{ CurrentAndNextMenu.name }}</h2>
       </div>
       <div class="adminui-side-scroll">
         <el-scrollbar>
-          <NavMenu :nextMenu="CurrentAndNextMenu.children"></NavMenu>
+          <NavMenu :nextMenu="CurrentAndNextMenu.children" :IsCollapse="!menuIsCollapse"></NavMenu>
         </el-scrollbar>
       </div>
-      <div class="adminui-side-bottom">
-        <el-icon><el-icon-expand /></el-icon>
+      <div class="adminui-side-bottom" @click='toggle_menuIsCollapse'>
+        <el-icon>
+          <el-icon-expand v-if="menuIsCollapse" />
+          <Fold v-else />
+        </el-icon>
       </div>
     </div>
     <!--右侧组件-->
@@ -57,6 +60,7 @@ import TagBar from '@/layout/components/TagBar.vue';
 import { useRoute, useRouter } from 'vue-router';
 const ParentMenu = ref<Parent[]>([]);
 const CurrentAndNextMenu = ref<Parent[] | undefined>([]);
+const menuIsCollapse = ref<boolean>(true);
 const Router = useRouter();
 const Route = useRoute();
 onBeforeMount(() => {
@@ -72,6 +76,9 @@ const UpdateRouter = () => {
 
 const tabMenu = (item) => {
   CurrentAndNextMenu.value = item;
+};
+const toggle_menuIsCollapse = (): void => {
+  menuIsCollapse.value = !menuIsCollapse.value;
 };
 watch(Route, UpdateRouter, { immediate: true });
 </script>
@@ -93,56 +100,59 @@ watch(Route, UpdateRouter, { immediate: true });
     .aminui-side-split-top {
       height: 49px;
       -webkit-app-region: drag;
+
+      a {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo {
+        height: 30px;
+        vertical-align: bottom;
+      }
     }
 
-    .aminui-side-split-top a {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
-    .aminui-side-split-top .logo {
-      height: 30px;
-      vertical-align: bottom;
-    }
+
 
     .adminui-side-split-scroll {
       overflow: auto;
       overflow-x: hidden;
       height: 100%;
       flex: 1;
-    }
 
-    li {
-      cursor: pointer;
-      width: 65px;
-      height: 65px;
-      color: #fff;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+      .active {
+        background: #409EFF;
+      }
 
-    li i {
-      font-size: 18px;
-    }
+      li {
+        cursor: pointer;
+        width: 65px;
+        height: 65px;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
-    li p {
-      margin-top: 5px;
-      font-size: 12px;
-    }
+        i {
+          font-size: 18px;
+        }
 
-    li:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
+        p {
+          margin-top: 5px;
+          font-size: 12px;
+        }
 
-    li.active {
-      background: #409EFF;
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
     }
   }
 
@@ -153,18 +163,26 @@ watch(Route, UpdateRouter, { immediate: true });
     background: #fff;
     box-shadow: 2px 0 8px 0 rgba(29, 35, 41, .05);
     border-right: 1px solid #e6e6e6;
+    transition: width 0.3s;
 
     .adminui-side-top {
       -webkit-app-region: drag;
       border-bottom: 1px solid #ebeef5;
       height: 49px;
       line-height: 49px;
-    }
 
-    .adminui-side-top h2 {
-      padding: 0 20px;
-      font-size: 17px;
-      color: #3c4a54;
+      h2 {
+        padding: 0 20px;
+        font-size: 17px;
+        color: #3c4a54;
+      }
+
+      .IsCollapseTop {
+        text-align: center;
+        transform: scale(0.8);
+        padding: 0;
+        margin: 0;
+      }
     }
 
     .adminui-side-scroll {
@@ -180,17 +198,20 @@ watch(Route, UpdateRouter, { immediate: true });
       display: flex;
       align-items: center;
       justify-content: center;
-    }
 
-    .adminui-side-bottom i {
-      font-size: 16px;
-    }
+      i {
+        font-size: 16px;
+      }
 
-    .adminui-side-bottom:hover {
-      color: var(--el-color-primary);
+      &:hover {
+        color: var(--el-color-primary);
+      }
     }
   }
 
+  .IsCollapse {
+    width: 65px;
+  }
   .aminui-body {
     flex: 1;
   }

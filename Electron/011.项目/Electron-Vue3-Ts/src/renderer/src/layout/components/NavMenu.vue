@@ -2,7 +2,7 @@
     <div v-if='!nextMenu || nextMenu.length <= 0'>
         没有子级菜单
     </div>
-    <el-menu router :default-active='$route.path' v-else>
+    <el-menu router :default-active='$route.path' :collapse="IsCollapse" v-else>
         <el-menu-item v-for='item in nextMenu' :key='item.id' :index='item.path'>
             <el-icon>
                 <component :is='item.meta?.icon.replace("el-icon-", "") || "user"' />
@@ -23,6 +23,10 @@ defineProps({
         type: Object as PropType<Parent[]>,
         required: true,
         default: () => []
-    }
+    },
+    IsCollapse: {
+        type: Boolean,
+        default: false
+    },
 });
 </script>
