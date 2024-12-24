@@ -61,6 +61,16 @@ function createWindow(): void {
     // 支持窗口大小可以修改
     mainWindow.setResizable(true);
   });
+  // 退出登录成功后调整窗口大小(进入后台管理系统)
+  ipcMain.handle('out-login', () => {
+    console.log('调整窗口大小');
+    // 调整窗口大小
+    mainWindow.setSize(900, 670);
+    // 调整窗口居中
+    mainWindow.center();
+    // 支持窗口大小可以修改
+    mainWindow.setResizable(false);
+  });
 }
 
 // This method will be called when Electron has finished

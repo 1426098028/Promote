@@ -3,14 +3,14 @@
         <!--退出登录-->
         <el-dropdown class="panel-item">
             <div class="user-avatar">
-                <el-avatar :size="30" src="" />
+                <el-avatar :size="30" :src="userInfo.avatar" />
                 <el-icon>
                     <ArrowDown />
                 </el-icon>
             </div>
             <template #dropdown>
                 <el-dropdown-menu>
-                    <el-dropdown-item>退出登录</el-dropdown-item>
+                    <el-dropdown-item @click='outLogin'>退出登录</el-dropdown-item>
                 </el-dropdown-menu>
             </template>
         </el-dropdown>
@@ -52,7 +52,42 @@
 
     </div>
 </template>
-<script lang='ts' setup></script>
+<script lang='ts' setup>
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/pinia/useUserStore';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { useRouter } from 'vue-router';
+const userStore = useUserStore();
+const { userInfo } = storeToRefs(userStore);
+const Router = useRouter();
+
+const outLogin = () => {
+    ElMessageBox.confirm(
+        '确定退出吗. 继续?',
+        '提示',
+        {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+        }
+    )
+        .then(() => {
+            window.electron.ipcRenderer.invoke('out-login');
+            localStorage.setItem("TOKEN", '');
+            ElMessage({
+                type: 'success',
+                message: '退出成功',
+            });
+            Router.replace({ path: '/login' });
+        })
+        .catch(() => {
+            ElMessage({
+                type: 'info',
+                message: '取消成功',
+            });
+        });
+};
+</script>
 <style scoped lang="scss">
 .user-bar {
     display: flex;

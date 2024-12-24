@@ -90,3 +90,19 @@ export interface IMenuData {
     msg: string;
     data: Parent[];
 }
+
+
+//用户信息
+export interface IUserInfo {
+    id: string;
+    username: string;
+    realName: string;
+    userType: number;
+    email: string;
+    phone: string;
+    gender: number;
+    avatar: string;
+    enabled: number;
+    delFlag: number;
+    remark: string | null;
+}

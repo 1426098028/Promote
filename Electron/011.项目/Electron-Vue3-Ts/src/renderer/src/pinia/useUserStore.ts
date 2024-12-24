@@ -1,13 +1,14 @@
 import { createPinia, defineStore } from 'pinia';
 import { getInfo } from '@/api/user';
-import { Role } from '@/interface/user';
+import { Role, IUserInfo } from '@/interface/user';
 
 
 const useUserStore = defineStore('UserId', {
-    state: (): { roles: Role[], rolePerm: string; } => {
+    state: (): { roles: Role[], rolePerm: string; userInfo: Partial<IUserInfo>; } => {
         return {
             roles: [],
-            rolePerm: ''
+            rolePerm: '',
+            userInfo: {}
         };
     },
     getters: {
@@ -19,6 +20,7 @@ const useUserStore = defineStore('UserId', {
             const { userInfo, permissions, units, roles } = res.data;
             this.roles = roles;
             this.rolePerm = roles[0].rolePerm;
+            this.userInfo = userInfo;
             console.log('获取用户信息', userInfo, permissions, units, roles);
         }
     },
@@ -29,7 +31,7 @@ const useUserStore = defineStore('UserId', {
         strategies: [ // 开启数据缓存
             {
                 storage: localStorage, // 缓存的方式 默认是 session
-                paths: ['rolePerm',], // 希望进行数据持久化的字段，只需要传递字段即可
+                paths: ['rolePerm', "userInfo"], // 希望进行数据持久化的字段，只需要传递字段即可
             }
         ],
     }
