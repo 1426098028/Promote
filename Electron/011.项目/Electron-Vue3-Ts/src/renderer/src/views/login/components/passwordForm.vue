@@ -18,7 +18,7 @@
 
         <div class="remember">
             <div>
-                <el-checkbox label="记住密码"></el-checkbox>
+                <el-checkbox label="记住密码" v-model='IsPassWord' @change='onMemoPassWord'></el-checkbox>
             </div>
             <div>
                 <router-link to="">忘记密码?</router-link>
@@ -38,6 +38,7 @@ import { captchaImage, loginByJson } from '@/api/login';
 import { Encrypt } from '@/utils/aes';
 import { UserRuleFrom } from '@/interface/login';
 import useLogin from '@/hooks/useLogin';
+import useMemoPassWord from '@/hooks/useMemoPassWord';
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<UserRuleFrom>({
@@ -58,7 +59,8 @@ const rules = reactive<FormRules<UserRuleFrom>>({
         { required: true, message: '请输入验证码', trigger: 'blur' },
     ]
 });
-
+//  记住密码
+const { IsPassWord, onMemoPassWord, getUserPwd } = useMemoPassWord(ruleForm);
 
 // 获取验证码
 const CaptchaUrl = ref<string>();
@@ -72,15 +74,20 @@ const onCaptcha = async () => {
 };
 // vue 生命周期 注册一个钩子，在组件被挂载之前被调用
 onBeforeMount(() => {
+    console.log('IsPassWord', IsPassWord);
+    if (IsPassWord.value) {
+        const { username, password, } = getUserPwd();
+        ruleForm.username = username;
+        ruleForm.password = password;
+    }
     onCaptcha();
 });
 
 // 登录
 const isLogin = ref<boolean>(false);
 const onLogin = async (formEl: FormInstance | undefined) => {
-
     if (!formEl) return;
-    isLogin.value = true
+    isLogin.value = true;
     await formEl.validate(async (valid, fields) => {
         if (!valid) {
             isLogin.value = false;
@@ -94,7 +101,8 @@ const onLogin = async (formEl: FormInstance | undefined) => {
             captcha: ruleForm.captcha
         });
         isLogin.value = false;
-        useLogin(res)
+        useLogin(res);
+        onMemoPassWord(IsPassWord.value)
     });
 };
 </script>
