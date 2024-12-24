@@ -43,10 +43,28 @@ function createWindow(): void {
     mainWindow.setPosition(appX, appY);
   });
 
+  // 窗口最小化
+  ipcMain.handle('min-win', () => {
+    console.log('窗口最小化');
+    mainWindow.minimize();
+  });
+
+  // 窗口最大化
+  ipcMain.handle('max-win', () => {
+    console.log('窗口最大化');
+    mainWindow.setFullScreen(!mainWindow.isFullScreen());
+  });
+
   // 关闭登录窗口
   ipcMain.handle('close-login', () => {
     console.log('关闭登录窗口');
     mainWindow.close();
+  });
+
+  // 关闭应用
+  ipcMain.handle('win-close', () => {
+    console.log('关闭应用');
+    app.exit();
   });
 
   // 登录成功后调整窗口大小(进入后台管理系统)

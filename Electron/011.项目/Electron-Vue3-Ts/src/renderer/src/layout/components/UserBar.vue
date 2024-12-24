@@ -30,21 +30,21 @@
         </div>
 
         <!--缩小-->
-        <div class="panel-item">
+        <div class="panel-item" @click="minWin">
             <el-icon>
                 <Minus />
             </el-icon>
         </div>
 
         <!--放大-->
-        <div class="panel-item">
+        <div class="panel-item" @click="maxWin">
             <el-icon>
                 <FullScreen />
             </el-icon>
         </div>
 
         <!--关闭-->
-        <div class="panel-item">
+        <div class="panel-item" @click='onClosureApp'>
             <el-icon>
                 <Close />
             </el-icon>
@@ -79,6 +79,38 @@ const outLogin = () => {
                 message: '退出成功',
             });
             Router.replace({ path: '/login' });
+        })
+        .catch(() => {
+            ElMessage({
+                type: 'info',
+                message: '取消成功',
+            });
+        });
+};
+
+
+// 窗口最小化
+const minWin = () => {
+    window.electron.ipcRenderer.invoke('min-win');
+};
+// 窗口最大化
+const maxWin = () => {
+    window.electron.ipcRenderer.invoke('max-win');
+};
+
+// 关闭应用
+const onClosureApp = () => {
+    ElMessageBox.confirm(
+        '确定关闭应用吗. 继续?',
+        '提示',
+        {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+        }
+    )
+        .then(() => {
+            window.electron.ipcRenderer.invoke('win-close');
         })
         .catch(() => {
             ElMessage({
