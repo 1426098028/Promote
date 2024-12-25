@@ -20,7 +20,13 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 import 'element-plus/theme-chalk/index.css'
 
+
+// 引入全局混入;
+import useDicts from '@/mixins/DictsPlugin';
+
 app.use(router);
 app.use(pinia);
 app.use(i18n);
+// 注册全局混入;
+app.use(useDicts);
 app.mount('#app');

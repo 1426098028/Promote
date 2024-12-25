@@ -17,8 +17,8 @@
                         <el-col :span="9">
                             <el-form-item label="状态">
                                 <el-select v-model="roleForm.enabled" placeholder="请选择启动状态">
-                                    <el-option label="启用" value="1" />
-                                    <el-option label="禁用" value="0" />
+                                    <el-option v-for='item in dicts[`system_global_status`]' :key='item.id'
+                                        :label="item.k" :value="item.v" />
                                 </el-select>
                             </el-form-item>
                         </el-col>
@@ -58,7 +58,7 @@
     </el-tabs>
 </template>
 <script lang='ts' setup>
-import { onBeforeMount, reactive, ref } from 'vue';
+import { onBeforeMount, reactive, ref, getCurrentInstance } from 'vue';
 import type { TableColumnCtx } from 'element-plus';
 import { rolePage, Role, Irole } from '@/api/role';
 import tool from '@/utils/tool';
@@ -73,6 +73,8 @@ let roleForm = reactive<Irole>({
     size: 10,
 });
 onBeforeMount(() => {
+    const { proxy } = getCurrentInstance();
+    proxy?.getDicts(['system_global_status', 'system_global_gender'])
     getRolePage();
 });
 const getRolePage = async () => {

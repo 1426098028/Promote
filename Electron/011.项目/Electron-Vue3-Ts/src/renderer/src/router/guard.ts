@@ -4,7 +4,7 @@ import { router } from '@/router';
 import { CreateUserRouter } from '@/router/CreateUserRouter';
 // 全局前置守卫
 const beforeEach = async (to, from, next) => {
-    console.log('全局前置守卫', to, from);
+    console.log('全局前置守卫');
     // 返回 false 以取消当次跳转
     if (!localStorage.getItem("TOKEN")) return to.path === '/login' ? next() : next({ path: '/login' });
 
