@@ -1,8 +1,12 @@
 <template>
-  <RouterView></RouterView>
+  <el-config-provider :locale="locale">
+    <RouterView></RouterView>
+  </el-config-provider>
+
 </template>
 <script  setup lang='ts'>
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, computed, getCurrentInstance } from 'vue';
+import { VueI18n } from 'vue-i18n';
 
 
 const configDark = (): void => {
@@ -13,5 +17,12 @@ const configDark = (): void => {
   }
 };
 onBeforeMount(configDark);
+
+// 配置全局国际化
+const { proxy } = getCurrentInstance();
+const locale = computed(() => {
+  const { locale, messages } = (proxy.$i18n) as VueI18n;
+  return messages[locale].el;
+});
 </script>
 <style lang='scss'></style>

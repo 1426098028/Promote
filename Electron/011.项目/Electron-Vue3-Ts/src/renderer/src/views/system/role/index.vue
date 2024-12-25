@@ -52,6 +52,8 @@
                         </template>
                     </el-table-column>
                 </el-table>
+                <pagination :CurrentPage='roleForm.current' :CurrentSize='roleForm.size' :Total='Total'
+                    @update:onSizeChange='onSizeChange' @update:onCurrentChange='onCurrentChange' />
             </el-card>
         </el-tab-pane>
         <el-tab-pane label="回收站">回收站</el-tab-pane>
@@ -65,6 +67,7 @@ import tool from '@/utils/tool';
 
 
 const tableData = ref<Role[]>([]);
+let Total = ref(10);
 let roleForm = reactive<Irole>({
     roleName: '',
     rolePerm: '',
@@ -74,12 +77,14 @@ let roleForm = reactive<Irole>({
 });
 onBeforeMount(() => {
     const { proxy } = getCurrentInstance();
-    proxy?.getDicts(['system_global_status', 'system_global_gender'])
+    proxy?.getDicts(['system_global_status', 'system_global_gender']);
     getRolePage();
 });
 const getRolePage = async () => {
     const res = await rolePage(roleForm);
-    const { records } = res.data;
+    const { records, total } = res.data;
+    console.log(total);
+    Total.value = total; 
     tableData.value = records;
 };
 //重置
@@ -90,9 +95,15 @@ const roleReset = () => {
 };
 const formatter = (row: Role, column: TableColumnCtx<Role>, cellValue) => {
     return tool.dateFormat(cellValue);
-}
-
-
+};
+const onSizeChange = (Size) => {
+    roleForm.size = Size;
+    getRolePage();
+};
+const onCurrentChange = (page) => {
+    roleForm.current = page;
+    getRolePage();
+};
 </script>
 <style scoped lang='scss'>
 .card {
@@ -106,4 +117,5 @@ const formatter = (row: Role, column: TableColumnCtx<Role>, cellValue) => {
 .el-table {
     font-size: 12px;
 }
+
 </style>

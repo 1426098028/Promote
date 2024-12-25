@@ -20,6 +20,10 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 import 'element-plus/theme-chalk/index.css'
 
+//全局组件-分页
+import pagination from '@/components/pagination/index.vue';
+app.component('pagination', pagination)
+
 
 // 引入全局混入;
 import useDicts from '@/mixins/DictsPlugin';
