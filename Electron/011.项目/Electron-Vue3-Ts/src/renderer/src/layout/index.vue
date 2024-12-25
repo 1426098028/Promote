@@ -45,7 +45,9 @@
         <UserBar />
       </TopBar>
       <TagBar />
-      <router-view></router-view>
+      <el-main class='Main'>
+        <router-view></router-view>
+      </el-main>
     </div>
   </section>
 </template>
@@ -212,8 +214,16 @@ watch(Route, UpdateRouter, { immediate: true });
   .IsCollapse {
     width: 65px;
   }
+
   .aminui-body {
+    display: flex;
+    flex-direction: column;
     flex: 1;
+
+    .Main {
+      flex: 1;
+      overflow: auto;
+    }
   }
 }
 

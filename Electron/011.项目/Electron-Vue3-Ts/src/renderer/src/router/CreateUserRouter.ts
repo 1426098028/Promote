@@ -21,10 +21,10 @@ const FormatRouterMenu = (RouterMenu, Parent = false, FileModulesMap, ParentPath
         const { path, children, component } = items;
         const IsPath = FileModulesMap[component] || FileModulesMap[path];
         const breadcrumb = children;
-        // return IsPath ?
-        //     { ...items, Parent, meta: { ...items.meta, breadcrumb, ParentPath }, component: FileModulesMap[component], children: children ? FormatRouterMenu(children, false, FileModulesMap, path) : null }
-        //     : [];
-        return { ...items, Parent, meta: { ...items.meta, breadcrumb, ParentPath }, component: FileModulesMap[component], children: children ? FormatRouterMenu(children, false, FileModulesMap, path) : null };
+        return IsPath ?
+            { ...items, Parent, meta: { ...items.meta, breadcrumb, ParentPath }, component: FileModulesMap[component], children: children ? FormatRouterMenu(children, false, FileModulesMap, path) : null }
+            : [];
+        // return { ...items, Parent, meta: { ...items.meta, breadcrumb, ParentPath }, component: FileModulesMap[component], children: children ? FormatRouterMenu(children, false, FileModulesMap, path) : null };
     });
 };
 // 根据 FileModulesMap[key] 返回对应的value值
