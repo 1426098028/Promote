@@ -66,7 +66,7 @@ const menuIsCollapse = ref<boolean>(true);
 const Router = useRouter();
 const Route = useRoute();
 onBeforeMount(() => {
-  window.electron.ipcRenderer.invoke('resize-window');
+  // window.electron.ipcRenderer.invoke('resize-window');
 });
 const UpdateRouter = () => {
   const RouterMenu = Router.getRoutes();
