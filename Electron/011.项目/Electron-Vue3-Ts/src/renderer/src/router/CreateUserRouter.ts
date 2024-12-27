@@ -12,6 +12,7 @@ let ParentRouterMenu = {
 const CreateUserRouter = async (Menu) => {
     const FileModulesMap = await FormatComponent();
     const RouterMenu = await Menu || useMenuStore().menu;
+    console.log('全部菜单', RouterMenu)
     const NewRouterMenu = await FormatRouterMenu(RouterMenu, true, FileModulesMap,);
     await AddRoute(NewRouterMenu);
     return NewRouterMenu;

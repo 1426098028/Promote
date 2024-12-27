@@ -46,7 +46,8 @@
 
 <script lang="ts" setup>
 import { onBeforeMount, reactive, ref, getCurrentInstance, watch } from 'vue';
-import { menuTree, IRoleMenuItem, roleAdd, roleDetail, roleUpdate } from '@/api/role';
+import { roleAdd, roleDetail, roleUpdate } from '@/api/role';
+import { useNormalizeMenuList } from '@/hooks/useNormalizeMenuList';
 
 
 const Props = defineProps({
@@ -78,21 +79,24 @@ const Permission = reactive({
     CheckStrictly: true,
 });
 const TreeRef = ref(null);
-
+const { getMenuTree, MenuArr } = useNormalizeMenuList();
+console.log(MenuArr);
 onBeforeMount(async () => {
     const { proxy } = getCurrentInstance();
     proxy?.getDicts(['system_global_status']);
+});
+onBeforeMount(async () => {
     //获取权限菜单数据
-    const { data } = await menuTree();
-    Permission.treeList = data;
-
-    if (Props.roleUpdateId) {
-        let { data: { role, permissions } } = await roleDetail(Props.roleUpdateId);
-        console.log(role, permissions);
-        let { roleName, rolePerm, enabled, descript, id } = role;
-        roleForm = Object.assign(roleForm, { roleName, rolePerm, enabled, descript, id, permissionIds: [...permissions] });
-        TreeRef.value.setCheckedKeys(permissions);
-    }
+    getMenuTree();
+    Permission.treeList = MenuArr;
+});
+onBeforeMount(async () => {
+    if (!Props.roleUpdateId) return false;
+    let { data: { role, permissions } } = await roleDetail(Props.roleUpdateId);
+    console.log(role, permissions);
+    let { roleName, rolePerm, enabled, descript, id } = role;
+    roleForm = Object.assign(roleForm, { roleName, rolePerm, enabled, descript, id, permissionIds: [...permissions] });
+    TreeRef.value.setCheckedKeys(permissions);
 });
 
 // 展开/折叠

@@ -21,7 +21,6 @@ const useUserStore = defineStore('UserId', {
             this.roles = roles;
             this.rolePerm = roles[0].rolePerm;
             this.userInfo = userInfo;
-            console.log('获取用户信息', userInfo, permissions, units, roles);
         }
     },
     // persist 属性并非 pinia 自带的，是使用了 pinia-plugin-persist 插件，插件添加上的

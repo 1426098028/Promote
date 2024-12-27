@@ -73,9 +73,9 @@ interface IRoleMenu {
     data: IRoleMenuItem[];
 }
 
-// 菜单权限树
-export const menuTree = (): Promise<IRoleMenu> => {
-    return http.get<IRoleMenu>('/system/menu/tree');
+// 菜单权限分页
+export const menuTree = (data): Promise<IRoleMenu> => {
+    return http.get<IRoleMenu>('/system/menu/page', data);
 };
 
 
