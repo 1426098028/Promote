@@ -80,7 +80,8 @@ const outLogin = () => {
             });
             Router.replace({ path: '/login' });
         })
-        .catch(() => {
+        .catch((err) => {
+            console.log(err)
             ElMessage({
                 type: 'info',
                 message: '取消成功',
