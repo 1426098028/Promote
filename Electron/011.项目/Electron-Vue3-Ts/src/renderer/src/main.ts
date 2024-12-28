@@ -28,6 +28,10 @@ app.component('pagination', pagination)
 // 引入全局混入;
 import useDicts from '@/mixins/DictsPlugin';
 
+// 引入全局自定义指令(授权权限);
+import { AuthDirectives } from '@/directives/Authorize';
+// 注册自定义指令
+app.directive(AuthDirectives.name, AuthDirectives);
 app.use(router);
 app.use(pinia);
 app.use(i18n);

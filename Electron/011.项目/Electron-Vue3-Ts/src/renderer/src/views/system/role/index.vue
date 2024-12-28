@@ -46,11 +46,12 @@
                     <el-table-column align="center" prop="createTime" label="创建时间" :formatter='formatter' />
                     <el-table-column align="center" label="操作" fixed="right">
                         <template #default="{ row }">
-                            <el-link icon="edit" type="primary" :underline="false"
+                            <el-link icon="edit" type="primary" :underline="false" v-Auths='"system:role:get"'
                                 @click="onAddAndEdit(row)">编辑</el-link>
                             <el-link icon="delete" type="danger" :underline="false" style="margin: 0 8px"
-                                @click='onDelete(row)'>删除</el-link>
-                            <router-link class="el-link el-link--error" type="success" to="/">分配用户</router-link>
+                                v-Auths='"system:role:delete"' @click='onDelete(row)'>删除</el-link>
+                            <router-link class="el-link el-link--error" type="success"
+                                to="/system/user">分配用户</router-link>
                         </template>
                     </el-table-column>
                 </el-table>

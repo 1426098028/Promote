@@ -8,7 +8,8 @@ const useUserStore = defineStore('UserId', {
         return {
             roles: [],
             rolePerm: '',
-            userInfo: {}
+            userInfo: {},
+            permissions: []
         };
     },
     getters: {
@@ -21,6 +22,7 @@ const useUserStore = defineStore('UserId', {
             this.roles = roles;
             this.rolePerm = roles[0].rolePerm;
             this.userInfo = userInfo;
+            this.permissions = permissions;
         }
     },
     // persist 属性并非 pinia 自带的，是使用了 pinia-plugin-persist 插件，插件添加上的
@@ -30,7 +32,7 @@ const useUserStore = defineStore('UserId', {
         strategies: [ // 开启数据缓存
             {
                 storage: localStorage, // 缓存的方式 默认是 session
-                paths: ['rolePerm', "userInfo"], // 希望进行数据持久化的字段，只需要传递字段即可
+                paths: ['rolePerm', "userInfo", "permissions"], // 希望进行数据持久化的字段，只需要传递字段即可
             }
         ],
     }

@@ -30,6 +30,7 @@ export default defineConfig({
         '@/locales': resolve('src/renderer/src/locales'),
         '@/hooks': resolve('src/renderer/src/hooks'),
         '@/mixins': resolve('src/renderer/src/mixins'),
+        '@/directives': resolve('src/renderer/src/directives'),
       }
     },
     plugins: [

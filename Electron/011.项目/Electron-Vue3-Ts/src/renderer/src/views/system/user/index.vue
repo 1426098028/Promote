@@ -86,11 +86,11 @@
                     <el-table-column align="center" label="操作" width="300" fixed="right">
                         <template #default="{ row }">
                             <el-link icon="edit" type="primary" :underline="false" style="margin: 0 8px"
-                                @click="onAddAndEdit(row)">编辑</el-link>
+                                v-Auths='"system:user:get"' @click="onAddAndEdit(row)">编辑</el-link>
                             <el-link icon="delete" type="danger" :underline="false" style="margin: 0 8px"
-                                @click='onDelete(row)'>删除</el-link>
+                                v-Auths='"system:user:delete"' @click='onDelete(row)'>删除</el-link>
                             <el-link icon="Refresh" type="success" :underline="false" style="margin: 0 8px"
-                                @click='onReset(row)'>重置密码</el-link>
+                                v-Auths='"system:user:reset"' @click='onReset(row)'>重置密码</el-link>
                             <router-link class="el-link el-link--error" type="success" to="/">分配角色</router-link>
                         </template>
                     </el-table-column>

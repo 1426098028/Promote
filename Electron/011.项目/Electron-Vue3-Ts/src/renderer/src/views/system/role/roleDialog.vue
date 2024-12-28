@@ -37,7 +37,8 @@
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button type="primary" @click="onSure">确定</el-button>
+                <el-button v-Auths='["system:role:add", "system:role:update"]' type="primary"
+                    @click="onSure">确定</el-button>
                 <el-button @click="onCancel">取消</el-button>
             </div>
         </template>
