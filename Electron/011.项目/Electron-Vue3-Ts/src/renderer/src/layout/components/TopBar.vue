@@ -1,5 +1,6 @@
 <template>
-    <div class="topbar">
+    <div class="topbar" @mousedown.stop.capture.prevent='onMousedown' @mousemove.stop.capture.prevent='onMousemove'
+        @mouseup.stop.capture.prevent='onMouseup'>
         <div class="left-panel">
             <el-breadcrumb separator-icon="ArrowRight">
                 <transition-group name="breadcrumb">
@@ -22,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import useWindowDrag from '@/hooks/useWindowDrag';
+const { onMousedown, onMousemove, onMouseup } = useWindowDrag();
 </script>
 
 <style scoped lang="scss">
@@ -39,7 +42,7 @@
 
     .center-panel {
         flex: 1;
-        -webkit-app-region: drag;
+        
     }
 
     .right-panel {

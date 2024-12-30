@@ -1,6 +1,5 @@
 <template>
-  <div class="login" @mousedown.stop.capture.prevent='onMousedown' @mousemove.stop.capture.prevent='onMousemove'
-    @mouseup.stop.capture.prevent='onMouseup'>
+  <div class="login" @mousedown='onMousedown' @mousemove='onMousemove' @mouseup='onMouseup'>
     <!--按钮-->
     <div class="login-config">
       <div class="login-config-btn">
@@ -95,30 +94,28 @@
 <script setup lang='ts'>
 import passwordForm from '@/views/login/components/passwordForm.vue';
 import phoneForm from '@/views/login/components/phoneForm.vue';
-import useWindowDrag from '@/hooks/useWindowDrag';
 import { ref, reactive, getCurrentInstance } from 'vue';
 
 const { proxy } = getCurrentInstance();
-const { onMousedown, onMousemove, onMouseup } = useWindowDrag();
-// const isKeyDown = ref<boolean>(false);
-// const dinatesX = ref<number>(0);
-// const dinatesY = ref<numder>(0);
+const isKeyDown = ref<boolean>(false);
+const dinatesX = ref<number>(0);
+const dinatesY = ref<numder>(0);
 
-// const onMousedown = ({ x, y }): void => {
-//   isKeyDown.value = true;
-//   dinatesX.value = x;
-//   dinatesY.value = y;
-// };
-// const onMousemove = ({ screenX, screenY }) => {
-//   if (!isKeyDown.value) return false;
-//   const X = screenX - dinatesX.value;
-//   const Y = screenY - dinatesY.value;
-//   const data = { appX: X, appY: Y, };
-//   window.electron.ipcRenderer.invoke('custom-adsorption', data);
-// };
-// const onMouseup = (eve) => {
-//   isKeyDown.value = false;
-// };
+const onMousedown = ({ x, y }): void => {
+  isKeyDown.value = true;
+  dinatesX.value = x;
+  dinatesY.value = y;
+};
+const onMousemove = ({ screenX, screenY }) => {
+  if (!isKeyDown.value) return false;
+  const X = screenX - dinatesX.value;
+  const Y = screenY - dinatesY.value;
+  const data = { appX: X, appY: Y, };
+  window.electron.ipcRenderer.invoke('custom-adsorption', data);
+};
+const onMouseup = (eve) => {
+  isKeyDown.value = false;
+};
 
 // 关闭登录窗口
 const closeWin = (): void => {

@@ -2,7 +2,8 @@
   <section class="aminui-wrapper">
     <!--1级菜单-->
     <div class="aminui-side-split">
-      <div class="aminui-side-split-top">
+      <div class="aminui-side-split-top" @mousedown.stop.capture.prevent='onMousedown'
+        @mousemove.stop.capture.prevent='onMousemove' @mouseup.stop.capture.prevent='onMouseup'>
         <router-link to="/">
           <img class="logo" src="../assets/images/logo-r.png">
         </router-link>
@@ -24,7 +25,8 @@
     </div>
     <!--2级菜单-->
     <div :class="menuIsCollapse ? 'aminui-side' : 'aminui-side IsCollapse'">
-      <div class="adminui-side-top">
+      <div class="adminui-side-top" @mousedown.stop.capture.prevent='onMousedown'
+        @mousemove.stop.capture.prevent='onMousemove' @mouseup.stop.capture.prevent='onMouseup'>
         <h2 :class="menuIsCollapse ? '' : 'IsCollapseTop'">{{ CurrentAndNextMenu.name }}</h2>
       </div>
       <div class="adminui-side-scroll">
@@ -59,10 +61,12 @@ import NavMenu from '@/layout/components/NavMenu.vue';
 import TopBar from '@/layout/components/TopBar.vue';
 import UserBar from '@/layout/components/UserBar.vue';
 import TagBar from '@/layout/components/TagBar.vue';
+import useWindowDrag from '@/hooks/useWindowDrag';
 import { useRoute, useRouter } from 'vue-router';
 const ParentMenu = ref<Parent[]>([]);
 const CurrentAndNextMenu = ref<Parent[] | undefined>([]);
 const menuIsCollapse = ref<boolean>(true);
+const { onMousedown, onMousemove, onMouseup } = useWindowDrag();
 const Router = useRouter();
 const Route = useRoute();
 onBeforeMount(() => {
@@ -101,7 +105,7 @@ watch(Route, UpdateRouter, { immediate: true });
 
     .aminui-side-split-top {
       height: 49px;
-      -webkit-app-region: drag;
+      
 
       a {
         display: inline-block;
@@ -168,7 +172,6 @@ watch(Route, UpdateRouter, { immediate: true });
     transition: width 0.3s;
 
     .adminui-side-top {
-      -webkit-app-region: drag;
       border-bottom: 1px solid #ebeef5;
       height: 49px;
       line-height: 49px;
