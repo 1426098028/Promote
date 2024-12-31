@@ -70,7 +70,7 @@ const { onMousedown, onMousemove, onMouseup } = useWindowDrag();
 const Router = useRouter();
 const Route = useRoute();
 onBeforeMount(() => {
-  window.electron.ipcRenderer.invoke('resize-window');
+  window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'resize-window' });
 });
 const UpdateRouter = () => {
   const RouterMenu = Router.getRoutes();

@@ -11,8 +11,10 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
   mainFrame.create()
+  eventRouter.addApi('app', app);
   eventRouter.addApi('mainFrame', mainFrame);
   eventRouter.addRouters(Router);
+  // 渲染进行 向 主进程 通信
   ipcMain.handle('renderer-to-main', (event, data) => {
     eventRouter.TriggerRoute(data);
   });

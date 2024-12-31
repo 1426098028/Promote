@@ -5,7 +5,7 @@ import icon from '../../../resources/icon.png?asset';
 class MainFrame {
     #width = 1000;
     #height = 800;
-    #frame = null
+    #frame = null;
 
     create() {
         this.#frame = new BrowserWindow({
@@ -36,59 +36,57 @@ class MainFrame {
         } else {
             this.#frame.loadFile(join(__dirname, '../../renderer/index.html'));
         }
-
-        // 实现窗口拖拽移动
-        ipcMain.handle('custom-adsorption', (event, { appX, appY }) => {
-            this.#frame.setPosition(appX, appY);
-        });
-
-        // 窗口最小化
-        ipcMain.handle('min-win', () => {
-            console.log('窗口最小化');
-            this.#frame.minimize();
-        });
-
-        // 窗口最大化
-        ipcMain.handle('max-win', () => {
-            console.log('窗口最大化');
-            this.#frame.setFullScreen(!this.#frame.isFullScreen());
-        });
-
-
-
-        // 关闭应用
-        ipcMain.handle('win-close', () => {
-            console.log('关闭应用');
-            app.exit();
-        });
-
-        // 登录成功后调整窗口大小(进入后台管理系统)
-        ipcMain.handle('resize-window', () => {
-            console.log('调整窗口大小');
-            // 调整窗口大小
-            this.#frame.setSize(1600, 720);
-            // 调整窗口最小值
-            this.#frame.setMinimumSize(1000, 500);
-            // 调整窗口居中
-            this.#frame.center();
-            // 支持窗口大小可以修改
-            this.#frame.setResizable(true);
-        });
-        // 退出登录成功后调整窗口大小(进入后台管理系统)
-        ipcMain.handle('out-login', () => {
-            console.log('调整窗口大小');
-            // 调整窗口大小
-            this.#frame.setSize(900, 670);
-            // 调整窗口居中
-            this.#frame.center();
-            // 支持窗口大小可以修改
-            this.#frame.setResizable(false);
-        });
     }
+    // 实现窗口拖拽移动
+    setPosition(appX, appY) {
+        console.log('实现窗口拖拽移动');
+        this.#frame.setPosition(appX, appY);
+    }
+
+    // 窗口最大化
+    setFullScreen() {
+        console.log('窗口最大化');
+        this.#frame.setFullScreen(!this.#frame.isFullScreen());
+    }
+    // 窗口最小化
+    minimize() {
+        console.log('窗口最小化');
+        this.#frame.minimize();
+    }
+
+    // 登录成功后调整窗口大小(进入后台管理系统)
+    LoginSuccess() {
+        console.log('登录成功后调整窗口大小(进入后台管理系统)');
+        // 调整窗口大小
+        this.#frame.setSize(1600, 720);
+        // 调整窗口最小值;
+        this.#frame.setMinimumSize(this.#width, this.#height);
+        // 调整窗口居中
+        this.#frame.center();
+        // 支持窗口大小可以修改
+        this.#frame.setResizable(true);
+    }
+    // 退出登录成功后调整窗口大小(进入后台管理系统)
+    OutLogin() {
+        console.log('退出登录成功后调整窗口大小(进入后台管理系统)');
+        // 调整窗口大小;
+        this.#frame.setSize(this.#width, this.#height);
+        // 调整窗口居中
+        this.#frame.center();
+        // 支持窗口大小可以修改
+        this.#frame.setResizable(false);
+    }
+
     // 关闭登录窗口
     close() {
         console.log('关闭登录窗口');
         this.#frame.close();
     }
+    // 关闭应用
+    exit() {
+        console.log('关闭应用');
+        app.exit();
+    }
+
 }
 export default MainFrame;

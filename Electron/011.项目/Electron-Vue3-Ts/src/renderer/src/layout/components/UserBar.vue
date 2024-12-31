@@ -78,7 +78,7 @@ const outLogin = () => {
                 message: '退出成功',
             });
             Router.replace({ path: '/login' });
-            window.electron.ipcRenderer.invoke('out-login');
+            window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'out-login' });
         })
         .catch((err) => {
             console.log(err)
@@ -92,11 +92,11 @@ const outLogin = () => {
 
 // 窗口最小化
 const minWin = () => {
-    window.electron.ipcRenderer.invoke('min-win');
+    window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'min-win' });
 };
 // 窗口最大化
 const maxWin = () => {
-    window.electron.ipcRenderer.invoke('max-win');
+    window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'max-win' });
 };
 
 // 关闭应用
@@ -111,7 +111,7 @@ const onClosureApp = () => {
         }
     )
         .then(() => {
-            window.electron.ipcRenderer.invoke('win-close');
+            window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'win-close' });
         })
         .catch(() => {
             ElMessage({
