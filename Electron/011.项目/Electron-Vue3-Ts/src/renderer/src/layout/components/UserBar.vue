@@ -72,13 +72,13 @@ const outLogin = () => {
         }
     )
         .then(() => {
-            window.electron.ipcRenderer.invoke('out-login');
             localStorage.setItem("TOKEN", '');
             ElMessage({
                 type: 'success',
                 message: '退出成功',
             });
             Router.replace({ path: '/login' });
+            window.electron.ipcRenderer.invoke('out-login');
         })
         .catch((err) => {
             console.log(err)
