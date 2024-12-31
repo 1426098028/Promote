@@ -100,29 +100,10 @@ import { ref, reactive, getCurrentInstance } from 'vue';
 
 const { proxy } = getCurrentInstance();
 const { onMousedown, onMousemove, onMouseup } = useWindowDrag();
-// const isKeyDown = ref<boolean>(false);
-// const dinatesX = ref<number>(0);
-// const dinatesY = ref<numder>(0);
-
-// const onMousedown = ({ x, y }): void => {
-//   isKeyDown.value = true;
-//   dinatesX.value = x;
-//   dinatesY.value = y;
-// };
-// const onMousemove = ({ screenX, screenY }) => {
-//   if (!isKeyDown.value) return false;
-//   const X = screenX - dinatesX.value;
-//   const Y = screenY - dinatesY.value;
-//   const data = { appX: X, appY: Y, };
-//   window.electron.ipcRenderer.invoke('custom-adsorption', data);
-// };
-// const onMouseup = (eve) => {
-//   isKeyDown.value = false;
-// };
 
 // 关闭登录窗口
 const closeWin = (): void => {
-  window.electron.ipcRenderer.invoke('close-login');
+  window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'close-login' });
 };
 
 const dark = ref<string | null>(localStorage.getItem('dark'));

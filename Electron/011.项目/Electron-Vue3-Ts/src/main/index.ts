@@ -1,14 +1,21 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { electronApp, optimizer, } from '@electron-toolkit/utils';
 import MainFrame from './frame/MainFrame';
+import Router from './router';
+import EventRouter from './router/EventRouter';
 const mainFrame = new MainFrame();
+const eventRouter = new EventRouter();
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.electron')
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-  ipcMain.on('ping', () => console.log('pong'))
   mainFrame.create()
+  eventRouter.addApi('mainFrame', mainFrame);
+  eventRouter.addRouters(Router);
+  ipcMain.handle('renderer-to-main', (event, data) => {
+    eventRouter.TriggerRoute(data);
+  });
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) mainFrame.create() 
   })
