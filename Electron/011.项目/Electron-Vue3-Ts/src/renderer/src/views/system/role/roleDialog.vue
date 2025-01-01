@@ -1,6 +1,6 @@
 <template>
-    <el-dialog :model-value="IsVisible" :title='roleUpdateId ? "修改角色" : "新增角色"' :close-on-click-modal='false'
-        @close="onCancel">
+    <el-dialog append-to-body :model-value="IsVisible" :title='roleUpdateId ? "修改角色" : "新增角色"'
+        :close-on-click-modal='false' @close="onCancel">
         <el-form :model='roleForm'>
             <el-form-item label="角色名称" required>
                 <el-input v-model='roleForm.roleName' placeholder='请输入角色名称' />

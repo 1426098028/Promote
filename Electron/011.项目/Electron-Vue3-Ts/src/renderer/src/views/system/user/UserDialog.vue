@@ -1,6 +1,6 @@
 <template>
-    <el-dialog :model-value="IsVisible" :title='userUpdateId ? "修改用户" : "新增用户"' :close-on-click-modal='false'
-        @close="onCancel">
+    <el-dialog append-to-body :model-value="IsVisible" :title='userUpdateId ? "修改用户" : "新增用户"'
+        :close-on-click-modal='false' @close="onCancel">
         <el-form :model='UserForm' label-width="80px">
             <el-row :gutter="15">
                 <el-col :span="12">

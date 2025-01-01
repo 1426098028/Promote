@@ -14,7 +14,6 @@ const useWindowDrag = () => {
         const X = screenX - dinatesX.value;
         const Y = screenY - dinatesY.value;
         const data = { appX: X, appY: Y, };
-        console.log(data, isKeyDown.value);
         window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'custom-adsorption', data });
     };
     const onMouseup = (eve): void => {
