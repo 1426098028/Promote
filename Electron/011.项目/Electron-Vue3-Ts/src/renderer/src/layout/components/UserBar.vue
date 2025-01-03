@@ -23,7 +23,7 @@
         </div>
 
         <!--下载-->
-        <div class="panel-item">
+        <div class="panel-item" @click='onDownload'>
             <el-icon>
                 <Download />
             </el-icon>
@@ -81,7 +81,7 @@ const outLogin = () => {
             window.electron.ipcRenderer.invoke('renderer-to-main', { TypeName: 'out-login' });
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
             ElMessage({
                 type: 'info',
                 message: '取消成功',
@@ -89,6 +89,15 @@ const outLogin = () => {
         });
 };
 
+
+// 下载
+const onDownload = () => {
+    console.log("下载");
+    window.electron.ipcRenderer.invoke('renderer-to-main', {
+        TypeName: 'Task-Download-Win',
+        data: { path: '/Task/Download', }
+    });
+};
 
 // 窗口最小化
 const minWin = () => {

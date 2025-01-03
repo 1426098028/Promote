@@ -148,7 +148,7 @@ export type ISubjectExportFromResponse = {
     data: string | null;
 };
 export const SubjectExport = (data: ISubjectExportFrom): Promise<ISubjectExportFromResponse> => {
-    return http.post<ISubjectExportFromResponse>(`/crm/teach/subject/export`, data);
+    return http.get<ISubjectExportFromResponse>(`/crm/teach/subject/export`, data);
 };
 
 

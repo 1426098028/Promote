@@ -109,7 +109,6 @@
 import { onBeforeMount, reactive, ref, getCurrentInstance } from 'vue';
 import type { TableColumnCtx } from 'element-plus';
 import { IUserPageFrom, UserPage, IUserPageResponse, IUserPageDataRecords, UserDelete, UserReset } from '@/api/System/User';
-import tool from '@/utils/tool';
 import userDialog from './userDialog.vue';
 
 const tableData = ref<IUserPageDataRecords[]>([]);

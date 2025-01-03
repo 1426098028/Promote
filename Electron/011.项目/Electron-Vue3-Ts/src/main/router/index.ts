@@ -1,7 +1,63 @@
 import EventRoute from './EventRoute';
+const https = require('https');
+const fs = require('fs');
 const router = [];
 // 添加多个操作
 
+
+
+// 创建下载任务窗口
+router.push(
+    new EventRoute('Task-Download-Win', (Api, { data }) => {
+        console.log('创建下载任务窗口', Api, data);
+        Api.downloadFrame.create(data);
+    })
+);
+
+// 下载任务弹窗
+router.push(
+    new EventRoute('Download-Task-Dialog', (Api, { data }) => {
+        const { downloadUrl, FileName } = data;
+        console.log('下载任务弹窗', downloadUrl, FileName);
+        const options = {
+            rejectUnauthorized: false, // 跳过证书验证
+        };
+        https.get(downloadUrl, options, async (res) => {
+            const { canceled, filePath } = await Api.dialog.showSaveDialog({
+                title: '请选择保存的位置...',
+                defaultPath: FileName
+            });
+            if (!canceled) {
+                const file = fs.createWriteStream(filePath);
+                res.pipe(file);
+                file.on('finish', () => {
+                    file.close();
+                    Api.dialog.showMessageBox({
+                        title: '提示信息',
+                        message: '下载完成',
+                        type: 'info'
+                    });
+                });
+                file.on('error', (err) => {
+                    Api.dialog.showMessageBox({
+                        title: '提示信息',
+                        message: err,
+                        type: 'error'
+                    });
+                });
+
+            }
+        });
+    })
+);
+
+// 关闭下载任务窗口
+router.push(
+    new EventRoute('Task-Download-Win-Close', (Api, { data }) => {
+        console.log('关闭下载任务窗口', Api, data);
+        Api.downloadFrame.destroy();
+    })
+);
 
 
 // 窗口最大化

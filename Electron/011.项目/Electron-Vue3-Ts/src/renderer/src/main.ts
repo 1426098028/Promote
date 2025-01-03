@@ -25,6 +25,17 @@ import pagination from '@/components/pagination/index.vue';
 app.component('pagination', pagination)
 
 
+import "prismjs";
+import "prismjs/themes/prism.css"; // 默认主题，也可以换成 prism-dark.css 等其他主题
+import "prismjs/components/prism-javascript"; // 根据需要加载的语言
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-markup";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers";
+
+
+
+
 // 引入全局混入;
 import useDicts from '@/mixins/DictsPlugin';
 

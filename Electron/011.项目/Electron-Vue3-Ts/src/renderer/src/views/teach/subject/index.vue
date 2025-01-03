@@ -28,7 +28,7 @@
             </el-card>
             <el-card type="expand">
                 <el-button class='toolbar' icon="plus" type="primary" @click='onAddAndEdit'>新增科目</el-button>
-                <el-button class='toolbar' icon="Printer">导出</el-button>
+                <el-button class='toolbar' icon="Printer" @click='onSubjectExport'>导出</el-button>
                 <el-table :data="tableData" border>
                     <el-table-column align="center" type="expand" label="等级管理" fixed width="100">
                         <template #default="{ row }">
@@ -66,8 +66,7 @@
 <script lang='ts' setup>
 import { onBeforeMount, reactive, ref, getCurrentInstance } from 'vue';
 import type { TableColumnCtx } from 'element-plus';
-import { ISubjectPageFrom, SubjectPage, ISubjectPageResponse, ISubjectPageDataRecords, SubjectDelete } from '@/api/Teach/Subject';
-import tool from '@/utils/tool';
+import { ISubjectPageFrom, SubjectPage, ISubjectPageResponse, ISubjectPageDataRecords, SubjectDelete, SubjectExport } from '@/api/Teach/Subject';
 import subjectDialog from './SubjectDialog.vue';
 import SonIndex from './Son/SonIndex.vue';
 
@@ -140,6 +139,10 @@ const onDelete = ({ id }) => {
                 message: '取消成功',
             });
         });
+};
+const onSubjectExport = async () => {
+    let res = await SubjectExport({ subjectName: SubjectForm.subjectName, enabled: SubjectForm.enabled, });
+    ElMessage({ type: res.code == '200' ? 'success' : 'info', message: res.data });
 };
 const onReset = ({ id }) => {
 };

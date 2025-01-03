@@ -40,7 +40,6 @@
 import { onBeforeMount, reactive, ref, getCurrentInstance, watch } from 'vue';
 import type { TableColumnCtx } from 'element-plus';
 import { IGradePageFrom, GradeAll, IGradePageResponse, IGradePageDataRecords, GradeDelete } from '@/api/Teach/Grade';
-import tool from '@/utils/tool';
 import gradeDialog from './GradeDialog.vue';
 import protocolDialog from './ProtocolDialog.vue';
 
