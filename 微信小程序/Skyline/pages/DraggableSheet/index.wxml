@@ -1,0 +1,21 @@
+<draggable-sheet class="sheet" initial-child-size='{{0.5}}' max-child-size='{{1}}' snap='{{true}}' snap-sizes="{{[0.5]}}">
+  <scroll-view class="scroll" scroll-y="{{true}}" type="custom" associative-container="draggable-sheet" bounces="{{true}}" show-scrollbar="{{false}}">
+    <sticky-section>
+      <sticky-header>
+        <view class="bar">
+          <view class="indicator" />
+        </view>
+      </sticky-header>
+      <list-view>
+        <view wx:for="{{DraggableSheetItem}}" style="height:{{setheight(index)}}rpx;border:1rpx solid red;">
+          {{item}} DraggableSheet
+        </view>
+      </list-view>
+    </sticky-section>
+  </scroll-view>
+</draggable-sheet>
+<wxs module="setheight">
+  module.exports = function (index) {
+    return Math.floor(Math.random() * (100 - 50) + 50) * (index > 0 ? index : 1)
+  }
+</wxs>

@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/NavigationBar/index",
+    "pages/GridBuilder/index",
+    "pages/ListView/index",
+    "pages/StickySectionAndStickyHeader/index",
+    "pages/PanGestureHandler/index",
+    "pages/GridView/index",
+    "pages/DraggableSheet/index",
+    "pages/ListBuilder/index"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/NavigationBar/index",
+        "text": "自定义导航栏"
+      },
+      {
+        "pagePath": "pages/ListView/index",
+        "text": "ListView"
+      }
+    ]
+  },
+  "style": "v2",
+  "renderer": "skyline",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "tagNameStyleIsolation": "legacy",
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

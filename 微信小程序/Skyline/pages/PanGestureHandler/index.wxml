@@ -1,0 +1,11 @@
+<pan-gesture-handler worklet:ongesture="onGesture" worklet:should-response-on-move="onShouldResponseOnMove" worklet:ongestureend="onGestureEnd">
+
+  <view class="Item">
+    PanGestureHandler
+  </view>
+
+  <view class="Status">
+    当前手势状态: {{gestureStatus}}
+  </view>
+
+</pan-gesture-handler>

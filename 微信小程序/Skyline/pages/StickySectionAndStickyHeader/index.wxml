@@ -1,0 +1,20 @@
+<scroll-view scroll-y style="width: 100%; height: 100%;" type="custom">
+  <sticky-header>
+    <view style="width: 100%; height: 100rpx;">方式一: sticky-header</view>
+  </sticky-header>
+  <sticky-section>
+    <sticky-header>
+      <view style="width: 100%; height: 100rpx;">方式二: sticky-section >>> sticky-header</view>
+    </sticky-header>
+    <list-view>
+      <view wx:for="{{ListItem}}" style="height:{{setheight(index)}}rpx;border:1rpx solid red;">
+        {{item}} ListView
+      </view>
+    </list-view>
+  </sticky-section>
+</scroll-view>
+<wxs module="setheight">
+  module.exports = function (index) {
+    return Math.floor(Math.random() * (100 - 50) + 50) * (index > 0 ? index : 1)
+  }
+</wxs>

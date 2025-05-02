@@ -1,0 +1,11 @@
+<view style="  box-sizing: border-box;background: black;">
+  <view style="background: rgb(109, 93, 93);height: {{StatusBar}}px;"></view>
+  <view style=" padding: 0 {{InnerBorder}}px;  display: flex;align-items: center; background: rgb(175, 69, 69);height: {{NavigationBar}}px;">
+    <view style=" width: {{CapsuleWidth}}px; background: rgb(173, 151, 151);height: {{CapsuleHeight}}px;">
+    </view>
+    <view style="flex: 1; background: rgb(230, 221, 221);height: {{CapsuleHeight}}px;">
+    </view>
+    <view style=" width: {{CapsuleWidth}}px; background: rgb(173, 151, 151);height: {{CapsuleHeight}}px;">
+    </view>
+  </view>
+</view>

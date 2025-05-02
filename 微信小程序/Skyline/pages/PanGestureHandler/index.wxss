@@ -1,0 +1,28 @@
+.Gesture {
+  width: 50vw;
+  height: 50vh;
+  background-color: peachpuff;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Item {
+  width: 25vw;
+  height: 25vh;
+  background-color: red;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 16px;
+}
+
+.Status {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
